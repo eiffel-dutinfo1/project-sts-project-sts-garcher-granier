@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1590</x>
+      <y>460</y>
+      <w>310</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>AutreClasse
+--
+-attribut1:entier
+
+--
+
+
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>930</x>
+      <y>470</y>
+      <w>310</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>Classe1
+--
+-attribut:chaine
+
+
+--
+
++methode(param: entier):entier</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1230</x>
+      <y>580</y>
+      <w>380</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=*
+m2=0..1
+r1=gauche
+r2=droit</panel_attributes>
+    <additional_attributes>10.0;20.0;360.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1090</x>
+      <y>760</y>
+      <w>30</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>910</x>
+      <y>980</y>
+      <w>310</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>ClasseHeritée
+--
+
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
