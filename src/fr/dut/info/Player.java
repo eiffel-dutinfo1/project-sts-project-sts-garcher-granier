@@ -6,11 +6,10 @@ public class Player {
 	private int gold;
 	private final Deck deck;
 	
-	public Player(int maxhp, int gold) {
+	public Player(int maxhp, int gold, Deck deck) {
 		this.maxhp = maxhp;
 		this.hp = maxhp;
 		this.gold = gold;
+		this.deck = deck; 
 	}
-	
-	
 }
