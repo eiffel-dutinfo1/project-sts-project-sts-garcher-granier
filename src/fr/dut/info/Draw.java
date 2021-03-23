@@ -11,11 +11,13 @@ public class Draw extends CardPile{
 		draw = new ArrayList<Card>();
 	}
 	
+	//fait
 	public void createDraw(Deck deck) {
 		Objects.requireNonNull(deck);
 		draw.addAll(deck.copyDeck());
 	}
 	
+	//fait
 	public Card drawOneCard(Discard discard) {
 		if (draw.isEmpty()) {
 			draw.addAll(discard.emptyDiscard());

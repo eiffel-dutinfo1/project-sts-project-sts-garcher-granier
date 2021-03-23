@@ -28,6 +28,8 @@ public class Test {
 		Player p1 = new Player(100, 100, d1);
 		PlayerAvatar a1 = new PlayerAvatar(p1, 3, d1);
 		
-		System.out.println(a1.hand());
+		System.out.println(a1);
+		a1.drawFiveCards();
+		System.out.println(a1);
 	}
 }

@@ -10,6 +10,7 @@ public class Discard extends CardPile{
 		discard = new ArrayList<Card>();
 	}
 	
+	//fait
 	public ArrayList<Card> emptyDiscard() {
 		ArrayList<Card> copy = new ArrayList<>();
 		for (Card card : discard) {
@@ -19,6 +20,7 @@ public class Discard extends CardPile{
 		return copy;
 	}
 	
+	//fait
 	public void cardToDiscard(Card card) {
 		Objects.requireNonNull(card);
 		discard.add(card);

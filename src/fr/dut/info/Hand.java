@@ -13,12 +13,14 @@ public class Hand extends CardPile{
 		return hand;
 	}
 	
-	public void drawCards(Draw draw, Discard discard) {
+	//fait
+	public void drawFiveCards(Draw draw, Discard discard) {
 		for (int i = 0; i < 5; i++) {
 			hand.add(draw.drawOneCard(discard));
 		}
 	}
 	
+	//fait
 	public void emptyHand(Discard discard) {
 		for (Card card : hand) {
 			discard.cardToDiscard(card);
@@ -26,6 +28,7 @@ public class Hand extends CardPile{
 		}
 	}
 	
+	//fait
 	@Override
 	public String toString() {
 		StringBuilder display = new StringBuilder("Cards in hand:\n");
@@ -37,6 +40,7 @@ public class Hand extends CardPile{
 		return display.toString();
 	}
 	
+	//fait
 	public void playOneCard(Card card, Discard discard) {
 		//on part du principe que la carte peut etre jouee et que ça a été vérifié en amont
 		discard.cardToDiscard(card);
