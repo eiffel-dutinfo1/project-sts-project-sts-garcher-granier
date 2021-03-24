@@ -16,9 +16,9 @@ public class PlayerAvatar {
 		this.player = player;
 		this.maxEnergy = maxEnergy;
 		this.energy = maxEnergy;
-		discard = new ArrayList<>();
-		hand = new ArrayList<>();
-		draw = new ArrayList<>();
+		discard = new ArrayList<Card>();
+		hand = new ArrayList<Card>();
+		draw = new ArrayList<Card>();
 		Objects.requireNonNull(deck);
 		draw.addAll(deck.copyDeck());
 	}
@@ -60,6 +60,14 @@ public class PlayerAvatar {
 		discard.add(card);
 		hand.remove(card);
 		return card;
+	}
+	
+	public boolean takeDamage(int damage) {
+		return player.takeDamage(damage);
+	}
+	
+	public String showPlayerHP() {
+		return super.toString();
 	}
 	
 	@Override

@@ -12,4 +12,18 @@ public class Player {
 		this.gold = gold;
 		this.deck = deck; 
 	}
+	
+	public boolean takeDamage(int damage) {
+		hp -= damage;
+		if (hp <= 0) {
+			//return true si le player meurt de l'attaque
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "HP: " + hp;
+	}
 }
