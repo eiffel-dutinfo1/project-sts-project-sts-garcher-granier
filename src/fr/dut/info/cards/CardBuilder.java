@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import fr.dut.info.cards.colorless.*;
 
-public abstract class CardBuilder {
+public class CardBuilder {
 	private static CardBuilder instance = null;
 	private static final Card[] commonCards = {new SwiftStrike()};
 	private static final HashSet<Card> uncommonCards;
@@ -19,5 +19,4 @@ public abstract class CardBuilder {
 		return instance;
 	}
 	
-	public abstract Card createCard();
 }
