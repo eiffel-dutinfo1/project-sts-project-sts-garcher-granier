@@ -11,6 +11,8 @@ public class PlayerAvatar {
 	private final Player player;
 	private int maxEnergy;
 	private int energy;
+	private int strength;
+	private int weak;
 	private final ArrayList<Card> discard;
 	private final ArrayList<Card> hand;
 	private final ArrayList<Card> draw;
@@ -19,6 +21,8 @@ public class PlayerAvatar {
 		this.player = player;
 		this.maxEnergy = maxEnergy;
 		this.energy = maxEnergy;
+		this.strength = 0;
+		this.weak = 0;
 		discard = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
 		draw = new ArrayList<Card>();
@@ -71,6 +75,14 @@ public class PlayerAvatar {
 	
 	public String showPlayerHP() {
 		return super.toString();
+	}
+	
+	public double weakModifier() {
+		return weak > 0 ? 0.75 : 1;
+	}
+	
+	public int getStrength() {
+		return strength;
 	}
 	
 	@Override
