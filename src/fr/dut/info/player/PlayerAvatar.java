@@ -1,8 +1,11 @@
-package fr.dut.info;
+package fr.dut.info.player;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+
+import fr.dut.info.cards.Card;
+import fr.dut.info.cards.Deck;
 
 public class PlayerAvatar {
 	private final Player player;

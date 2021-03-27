@@ -1,4 +1,4 @@
-package fr.dut.info;
+package fr.dut.info.monsters;
 
 public abstract class Strategie {
 	abstract int choixAttaque();

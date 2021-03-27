@@ -1,4 +1,4 @@
-package fr.dut.info;
+package fr.dut.info.cards;
 
 import java.util.Objects;
 

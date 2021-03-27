@@ -2,6 +2,11 @@ package fr.dut.info;
 
 import java.util.Iterator;
 
+import fr.dut.info.cards.Card;
+import fr.dut.info.cards.Deck;
+import fr.dut.info.player.Player;
+import fr.dut.info.player.PlayerAvatar;
+
 public class Test {
 	public static void main(String[] args) {
 		Card c0 = new Card("Basic attack", "common", 1, "attack", 5);

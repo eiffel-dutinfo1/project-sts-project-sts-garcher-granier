@@ -1,4 +1,6 @@
-package fr.dut.info;
+package fr.dut.info.player;
+
+import fr.dut.info.cards.Deck;
 
 public class Player {
 	private int maxhp;

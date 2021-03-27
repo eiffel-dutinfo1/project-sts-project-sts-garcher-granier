@@ -1,4 +1,7 @@
-package fr.dut.info;
+package fr.dut.info.rooms;
+
+import fr.dut.info.UI;
+import fr.dut.info.player.Player;
 
 public class Room {
 	private final Player player;

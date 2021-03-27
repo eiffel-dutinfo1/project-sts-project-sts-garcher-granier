@@ -1,6 +1,9 @@
-package fr.dut.info;
+package fr.dut.info.cards;
 
 import java.util.ArrayList;
+
+import fr.dut.info.monsters.Opponent;
+import fr.dut.info.player.PlayerAvatar;
 
 public interface Card {
 	//boolean pas definitif, reste pour tester des trucs

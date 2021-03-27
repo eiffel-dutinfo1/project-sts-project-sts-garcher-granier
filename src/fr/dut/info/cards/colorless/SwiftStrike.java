@@ -1,6 +1,10 @@
-package fr.dut.info;
+package fr.dut.info.cards.colorless;
 
 import java.util.ArrayList;
+
+import fr.dut.info.cards.AbstractCard;
+import fr.dut.info.monsters.Opponent;
+import fr.dut.info.player.PlayerAvatar;
 
 public class SwiftStrike extends AbstractCard {
 	private final int damage;

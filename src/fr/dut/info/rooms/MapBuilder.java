@@ -1,4 +1,4 @@
-package fr.dut.info;
+package fr.dut.info.rooms;
 
 public abstract class MapBuilder {
 	private static MapBuilder instance = null;
