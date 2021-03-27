@@ -1,5 +1,4 @@
 package fr.dut.info.monsters;
 
-public class Opponent {
-
+public interface Opponent {
 }
