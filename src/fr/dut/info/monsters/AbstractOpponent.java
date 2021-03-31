@@ -30,4 +30,5 @@ public class AbstractOpponent implements Opponent{
 	public void dealStrength(int x) {
 		strength += x;
 	}
+	
 }
