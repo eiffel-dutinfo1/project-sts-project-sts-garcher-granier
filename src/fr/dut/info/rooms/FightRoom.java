@@ -11,6 +11,15 @@ public class FightRoom extends Room{
 	
 	public FightRoom(Player player, UI ui) {
 		super(player, ui);
+		this.opponents = new TreeMap<Integer, Opponent>();
 		
+	}
+	
+	public void startCombat() {
+		PlayerAvatar playerAvatar = new PlayerAvatar(getPlayer(), 3, deck)
+		while(opponents.size() != 0 || !(playerAvatar.isDead())) {
+			playerAvatar.drawFiveCards();
+			
+		}
 	}
 }

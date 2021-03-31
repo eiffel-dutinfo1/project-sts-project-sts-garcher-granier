@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import fr.dut.info.cards.Card;
 import fr.dut.info.cards.Deck;
+import fr.dut.info.controller.Input;
 
 public class PlayerAvatar {
 	private final Player player;
@@ -56,9 +57,7 @@ public class PlayerAvatar {
 	}
 	
 	public Card selectCard() {
-		this.toString();
-		Scanner sc = new Scanner(System.in);
-		int numCard = sc.nextInt();
+		Input.getCard(hand);
 		Card card = hand.get(numCard-1);
 		if (card.energyCost() > energy) {
 			return null;
@@ -94,5 +93,14 @@ public class PlayerAvatar {
 			counter++;
 		}
 		return display.toString();
+	}
+	
+	public boolean isDead() {
+		if (player.hp() <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

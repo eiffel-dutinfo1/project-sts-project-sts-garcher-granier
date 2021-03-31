@@ -13,6 +13,9 @@ public class Room {
 	public void enterRoom(Player player) {
 		
 	}
+	public Player getPlayer() {
+		return player;
+	}
 	
 	public UI getUi() {
 		return ui;
