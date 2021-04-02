@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import fr.dut.info.UI;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.Player;
+import fr.dut.info.player.PlayerAvatar;
 
 public class FightRoom extends Room{
 	private final TreeMap<Integer, Opponent> opponents;
@@ -16,7 +17,7 @@ public class FightRoom extends Room{
 	}
 	
 	public void startCombat() {
-		PlayerAvatar playerAvatar = new PlayerAvatar(getPlayer(), 3, deck)
+		PlayerAvatar playerAvatar = new PlayerAvatar(getPlayer(), 3);
 		while(opponents.size() != 0 || !(playerAvatar.isDead())) {
 			playerAvatar.drawFiveCards();
 			

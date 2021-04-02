@@ -1,18 +1,41 @@
 package fr.dut.info.player;
 
-import fr.dut.info.cards.Deck;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import fr.dut.info.cards.Card;
+import fr.dut.info.cards.CardBuilder;
 
 public class Player {
 	private int maxhp;
 	private int hp;
 	private int gold;
-	private final Deck deck;
+	private final ArrayList<Card> deck;
 	
-	public Player(int maxhp, int gold, Deck deck) {
+	public Player(int maxhp, int gold) throws CloneNotSupportedException, IOException {
 		this.maxhp = maxhp;
 		this.hp = maxhp;
 		this.gold = gold;
-		this.deck = deck; 
+		deck = new ArrayList<Card>(); 
+		this.initDeck();
+	}
+	
+	public void initDeck() throws CloneNotSupportedException, IOException {
+		for (int i = 0; i < 10; i++) {
+			deck.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
+		}
+	}
+	
+	public ArrayList<Card> copyDeck() {
+		ArrayList<Card> copy = new ArrayList<>();
+		for (Card card : deck) {
+			copy.add(card);
+		}
+		return copy;
+	}
+	
+	public ArrayList<Card> getDeck() {
+		return deck;
 	}
 	
 	public boolean takeDamage(int damage) {
@@ -22,6 +45,13 @@ public class Player {
 			return true;
 		}
 		return false;
+	}
+	
+	//pour tester
+	public void printDeck() {
+		for (Card card : deck) {
+			System.out.println(card.toString());
+		}
 	}
 	
 	@Override

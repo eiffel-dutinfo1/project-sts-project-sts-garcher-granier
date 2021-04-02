@@ -3,6 +3,7 @@ package fr.dut.info.monsters;
 import fr.dut.info.player.PlayerAvatar;
 
 public class Cultist extends AbstractOpponent{
+	public static final String name = "Cultist";
 	
 	public Cultist() {
 		super((int) (Math.random() * ( 54 - 48 )));
@@ -14,5 +15,14 @@ public class Cultist extends AbstractOpponent{
 	
 	public void incantation() {
 		dealStrength(3);
+	}
+
+	@Override
+	public void doAction() {
+	}
+	
+	@Override
+	public String toString() {
+		return name + "\n" + super.toString();
 	}
 }

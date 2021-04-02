@@ -1,5 +1,6 @@
 package fr.dut.info.player;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -12,23 +13,25 @@ public class PlayerAvatar {
 	private final Player player;
 	private int maxEnergy;
 	private int energy;
+	private int block;
 	private int strength;
 	private int weak;
 	private final ArrayList<Card> discard;
 	private final ArrayList<Card> hand;
 	private final ArrayList<Card> draw;
 	
-	public PlayerAvatar(Player player, int maxEnergy, Deck deck) {
+	public PlayerAvatar(Player player, int maxEnergy) {
 		this.player = player;
 		this.maxEnergy = maxEnergy;
 		this.energy = maxEnergy;
 		this.strength = 0;
 		this.weak = 0;
+		this.block = 0;
 		discard = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
 		draw = new ArrayList<Card>();
-		Objects.requireNonNull(deck);
-		draw.addAll(deck.copyDeck());
+		Objects.requireNonNull(player.getDeck());
+		draw.addAll(player.copyDeck());
 	}
 	
 	public Card drawOneCard() {
@@ -56,8 +59,8 @@ public class PlayerAvatar {
 		}
 	}
 	
-	public Card selectCard() {
-		Input.getCard(hand);
+	public Card selectCard() throws IOException {
+		int numCard = Input.getCard(hand);
 		Card card = hand.get(numCard-1);
 		if (card.energyCost() > energy) {
 			return null;
@@ -70,6 +73,10 @@ public class PlayerAvatar {
 	
 	public boolean takeDamage(int damage) {
 		return player.takeDamage(damage);
+	}
+	
+	public void giveBlock(int value) {
+		block += value;
 	}
 	
 	public String showPlayerHP() {

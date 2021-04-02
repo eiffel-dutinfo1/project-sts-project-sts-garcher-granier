@@ -2,7 +2,7 @@ package fr.dut.info.monsters;
 
 public interface Opponent {
 
-	void takeDamage(int value);
+	boolean takeDamage(int value);
 	
-	public void doAction();
+	void doAction();
 }

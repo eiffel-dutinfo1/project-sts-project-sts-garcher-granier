@@ -2,7 +2,7 @@ package fr.dut.info.monsters;
 
 import fr.dut.info.player.PlayerAvatar;
 
-public class AbstractOpponent implements Opponent{
+public abstract class AbstractOpponent implements Opponent{
 	private int hp;
 	private int strength;
 	private int weak;
@@ -13,6 +13,12 @@ public class AbstractOpponent implements Opponent{
 		this.strength = 0;
 		this.weak = 0;
 		this.block = 0;
+	}
+	
+	@Override
+	public boolean takeDamage(int value) {
+		hp -= value;
+		return hp <= 0;
 	}
 
 	public void dealDamage(PlayerAvatar playerAvatar, int damage) {
@@ -31,4 +37,8 @@ public class AbstractOpponent implements Opponent{
 		strength += x;
 	}
 	
+	@Override
+	public String toString() {
+		return "HP left :" + hp + "\n";
+	}
 }
