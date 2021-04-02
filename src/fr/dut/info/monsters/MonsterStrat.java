@@ -1,5 +1,5 @@
 package fr.dut.info.monsters;
 
-public abstract class Strategie {
+public abstract class MonsterStrat {
 	abstract int choixAttaque();
 }

@@ -28,4 +28,8 @@ public class Player {
 	public String toString() {
 		return "HP: " + hp;
 	}
+	
+	public int hp() {
+		return hp;
+	}
 }
