@@ -1,14 +1,15 @@
-package fr.dut.info.cards.strategies;
+package fr.dut.info.cards.strategies.cardstrats;
 
 import java.io.IOException;
 import java.util.TreeMap;
 
+import fr.dut.info.cards.strategies.Strat;
 import fr.dut.info.controller.Input;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
 
 public class SingleTargetAttackStrat implements Strat {
-	private int damage;
+	private final int damage;
 	
 	public SingleTargetAttackStrat(int value) {
 		damage = value;

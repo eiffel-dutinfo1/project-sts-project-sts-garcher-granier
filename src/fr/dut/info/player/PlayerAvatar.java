@@ -75,6 +75,10 @@ public class PlayerAvatar {
 		return player.takeDamage(damage);
 	}
 	
+	public void applyWeak(int value) {
+		weak += value;
+	}
+	
 	public void giveBlock(int value) {
 		block += value;
 	}

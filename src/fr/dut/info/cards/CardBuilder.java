@@ -52,7 +52,7 @@ public class CardBuilder {
 		}
 	}
 	
-	public Card giveRandomCommonCard() throws CloneNotSupportedException {
+	public Card giveRandomCommonCard() {
 		return commonCards[Randomizer.randomInt(0, totalCommonCards)];
 	}
 	

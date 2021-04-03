@@ -1,7 +1,8 @@
-package fr.dut.info.cards.strategies;
+package fr.dut.info.cards.strategies.cardstrats;
 
 import java.util.TreeMap;
 
+import fr.dut.info.cards.strategies.Strat;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
 

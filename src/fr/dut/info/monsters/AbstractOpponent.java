@@ -1,18 +1,44 @@
 package fr.dut.info.monsters;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import fr.dut.info.player.PlayerAvatar;
 
 public abstract class AbstractOpponent implements Opponent{
+	private final String name;
 	private int hp;
 	private int strength;
 	private int weak;
 	private int block;
+	private final ArrayList<Move> moves;
+	private Move nextMove;
 	
-	public AbstractOpponent(int hp) {
+	public AbstractOpponent(String name, int hp) {
+		this.name = name;
 		this.hp = hp;
 		this.strength = 0;
 		this.weak = 0;
 		this.block = 0;
+		moves = new ArrayList<Move>();
+	}
+	
+	public void firstMove(Move move) {
+		nextMove = move;
+	}
+	
+	public void addMove(Move move) {
+		moves.add(move);
+	}
+	
+	public void executeMove(Opponent self, PlayerAvatar avatar) throws IOException {
+		nextMove.executeActions(self, avatar);
+	}
+	
+	public abstract Move getNextMove();
+	
+	public ArrayList<Move> getMoves() {
+		return moves;
 	}
 	
 	@Override
@@ -29,16 +55,16 @@ public abstract class AbstractOpponent implements Opponent{
 		playerAvatar.takeDamage((int) ((damage + strength) * 0.75));
 	}
 	
-	public void dealBlock(int x) {
-		block += x;
+	public void applyBlock(int value) {
+		block += value;
 	}
 	
-	public void dealStrength(int x) {
-		strength += x;
+	public void applyStrength(int value) {
+		strength += value;
 	}
 	
 	@Override
 	public String toString() {
-		return "HP left :" + hp + "\n";
+		return "HP left : " + hp + "\n";
 	}
 }

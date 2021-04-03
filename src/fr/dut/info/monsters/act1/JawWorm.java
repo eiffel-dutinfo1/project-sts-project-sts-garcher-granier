@@ -1,5 +1,6 @@
-package fr.dut.info.monsters;
+package fr.dut.info.monsters.act1;
 
+import fr.dut.info.monsters.AbstractOpponent;
 import fr.dut.info.player.PlayerAvatar;
 
 public class JawWorm extends AbstractOpponent{

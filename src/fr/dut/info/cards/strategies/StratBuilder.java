@@ -1,5 +1,8 @@
 package fr.dut.info.cards.strategies;
 
+import fr.dut.info.cards.strategies.cardstrats.BlockStrat;
+import fr.dut.info.cards.strategies.cardstrats.SingleTargetAttackStrat;
+
 public class StratBuilder {
 	public static Strat createStrat(String name, int value) {
 		switch (name) {

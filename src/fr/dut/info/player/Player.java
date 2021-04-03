@@ -12,7 +12,7 @@ public class Player {
 	private int gold;
 	private final ArrayList<Card> deck;
 	
-	public Player(int maxhp, int gold) throws CloneNotSupportedException, IOException {
+	public Player(int maxhp, int gold) throws IOException {
 		this.maxhp = maxhp;
 		this.hp = maxhp;
 		this.gold = gold;
@@ -20,7 +20,7 @@ public class Player {
 		this.initDeck();
 	}
 	
-	public void initDeck() throws CloneNotSupportedException, IOException {
+	public void initDeck() throws IOException {
 		for (int i = 0; i < 10; i++) {
 			deck.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
 		}

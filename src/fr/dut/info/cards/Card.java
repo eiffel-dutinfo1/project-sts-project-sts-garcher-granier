@@ -28,6 +28,7 @@ public class Card implements Comparable<Card> {
 	}
 	
 	public void addStrat(Strat strat) {
+		Objects.requireNonNull(strat);
 		strategies.add(strat);
 	}
 	
