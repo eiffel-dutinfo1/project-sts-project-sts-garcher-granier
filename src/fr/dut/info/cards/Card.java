@@ -41,6 +41,11 @@ public class Card implements Comparable<Card> {
 	}
 	
 	public void playCard(TreeMap<Integer, Opponent> opponents, PlayerAvatar avatar) throws IOException {
+		// MODIFIER CONDITION PAS ASSEZ ENERGIE!!!!!!!!!!!!!!!!
+		if (avatar.getEnergy() == 0) {
+			System.out.println("PAS ASSEZ ENERGIE");
+			return;
+		}
 		for (Strat strat : strategies) {
 			strat.useStrat(opponents, avatar);
 		}

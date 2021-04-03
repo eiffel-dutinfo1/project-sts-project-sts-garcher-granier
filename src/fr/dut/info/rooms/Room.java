@@ -5,10 +5,10 @@ import fr.dut.info.player.Player;
 
 public class Room {
 	private final Player player;
-	private final UI ui;
-	public Room(Player player, UI ui) {
+	//private final UI ui;
+	public Room(Player player) {
 		this.player = player;
-		this.ui = ui;
+		//this.ui = ui;
 	}
 	public void enterRoom(Player player) {
 		
@@ -17,7 +17,9 @@ public class Room {
 		return player;
 	}
 	
+	/*
 	public UI getUi() {
 		return ui;
 	}
+	*/
 }

@@ -11,9 +11,11 @@ import fr.dut.info.monsters.Opponent;
 import fr.dut.info.monsters.act1.Cultist;
 import fr.dut.info.player.Player;
 import fr.dut.info.player.PlayerAvatar;
+import fr.dut.info.rooms.FightRoom;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
+		/*
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
 		//cardBuilder.printCards();
 		Player player = new Player(100, 100);
@@ -26,5 +28,16 @@ public class Test {
 		System.out.println(cultist);
 		avatar.selectCard().playCard(opponents, avatar);
 		System.out.println(cultist);
+		avatar.selectCard().playCard(opponents, avatar);
+		System.out.println(cultist);
+		*/
+		
+		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
+		Player player = new Player(100, 100);
+		Opponent cultist = new Cultist();
+		FightRoom room = new FightRoom(player);
+		room.addOpponent(cultist);
+		room.startCombat();
+		
 	}
 }

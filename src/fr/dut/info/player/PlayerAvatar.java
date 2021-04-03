@@ -34,6 +34,10 @@ public class PlayerAvatar {
 		draw.addAll(player.copyDeck());
 	}
 	
+	public int getEnergy() {
+		return energy;
+	}
+	
 	public Card drawOneCard() {
 		//si la pioche est vide, on la remplit avec la defausse puis on vide la defausse
 		if (draw.isEmpty()) {
