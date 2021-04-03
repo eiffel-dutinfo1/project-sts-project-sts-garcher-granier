@@ -2,6 +2,7 @@ package fr.dut.info.cards;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ public class CardBuilder {
 	private static Card[] commonCards = new Card[totalCommonCards];
 	
 	private CardBuilder() throws IOException {
-		Path commonPath = Path.of("C:\\Users\\pc\\Desktop\\Google Drive\\MLV\\Java\\projet SlayTheSpire\\common_cards.txt");
+		Path commonPath = FileSystems.getDefault().getPath("resources", "common_cards.txt");
 		commonCards = this.cardExtractor(commonPath, "common");
 	}
 	

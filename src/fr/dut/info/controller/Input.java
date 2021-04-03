@@ -45,4 +45,19 @@ public class Input {
 			return card;
 		}
 	}
+	
+	
+	public static int endTurn() {
+		try(Scanner turnScan = new Scanner(System.in)) {
+			System.out.println("End of your turn (0(no) / 1(yes)) :");
+			int turn = 0;
+			while (turnScan.hasNextInt()) {
+				turn = turnScan.nextInt();
+				if (turn == 0 || turn == 1) {
+					break;
+				}
+			}
+			return turn;
+		}
+	}
 }

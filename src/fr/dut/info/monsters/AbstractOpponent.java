@@ -67,4 +67,8 @@ public abstract class AbstractOpponent implements Opponent{
 	public String toString() {
 		return "HP left : " + hp + "\n";
 	}
+	
+	public int getHp() {
+		return hp;
+	}
 }
