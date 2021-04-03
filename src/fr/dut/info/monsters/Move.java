@@ -8,12 +8,12 @@ import fr.dut.info.player.PlayerAvatar;
 
 public class Move {
 	private final String name;
-	private final double probability;
+	private final int probability;
 	private final int maxStreak;
 	private int currentStreak;
 	private final ArrayList<MonsterAction> actions;
 	
-	public Move(String name, double probability, int maxStreak, ArrayList<String> actionNames, int value) {
+	public Move(String name, int probability, int maxStreak, ArrayList<String> actionNames, int value) {
 		this.name = name;
 		this.probability = probability;
 		this.maxStreak = maxStreak;
@@ -22,6 +22,10 @@ public class Move {
 		for (String string : actionNames) {
 			actions.add(ActionBuilder.createAction(string, value));
 		}
+	}
+	
+	public int getProbability() {
+		return probability;
 	}
 	
 	//return true si le move est illégal

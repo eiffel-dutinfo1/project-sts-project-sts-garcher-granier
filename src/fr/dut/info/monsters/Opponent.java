@@ -8,7 +8,6 @@ public interface Opponent {
 
 	boolean takeDamage(int value);
 	void applyStrength(int value);
-	void doAction();
-	void executeMove(Opponent opponent, PlayerAvatar playerAvatar) throws IOException;
-	int getHp();
+	void applyBlock(int value);
+	void executeMove(Opponent self, PlayerAvatar avatar) throws IOException ;
 }
