@@ -1,12 +1,18 @@
 package fr.dut.info.monsters.act1;
 
+import fr.dut.info.Randomizer;
 import fr.dut.info.monsters.AbstractOpponent;
+import fr.dut.info.monsters.ActionBuilder;
+import fr.dut.info.monsters.Move;
 import fr.dut.info.player.PlayerAvatar;
 
 public class JawWorm extends AbstractOpponent{
 	
 	public JawWorm() {
-		super((int) (Math.random() * ( 44 - 40 )));
+		super("Jaw Worm", Randomizer.randomInt(40, 44));
+		super.addMove(new Move("Bellow", 45, 1, ActionBuilder.stringToArray("strength-block"), 6));
+		super.addMove(new Move("Dark Strike", 100, -1, ActionBuilder.stringToArray("damage"), 6));
+		super.addMove(new Move("Dark Strike", 100, -1, ActionBuilder.stringToArray("damage"), 6));
 	}
 	
 	public void chomp(PlayerAvatar playerAvatar) {

@@ -3,6 +3,7 @@ package fr.dut.info.monsters;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import fr.dut.info.Randomizer;
 import fr.dut.info.player.PlayerAvatar;
 
 public abstract class AbstractOpponent implements Opponent{
@@ -35,7 +36,26 @@ public abstract class AbstractOpponent implements Opponent{
 		nextMove.executeActions(self, avatar);
 	}
 	
-	public abstract Move getNextMove();
+	public void getNextMove() {
+		int maxProbability = 0;
+		ArrayList<Move> legalMoves = new ArrayList<Move>();
+		for (Move move : moves) {
+			if (!move.isIllegal()) {
+				legalMoves.add(move);
+				maxProbability += move.getProbability();
+			}
+		}
+		int randomNumber = Randomizer.randomInt(0, maxProbability);
+		int cumulativeProbability = 0;
+		for (Move move : moves) {
+			if (move.getProbability() + cumulativeProbability < randomNumber) {
+				nextMove = move;
+				return;
+			} else {
+				cumulativeProbability += move.getProbability();
+			}
+		}
+	}
 	
 	public ArrayList<Move> getMoves() {
 		return moves;
