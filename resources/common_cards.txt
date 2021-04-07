@@ -1,3 +1,3 @@
-Basic Attack-1-true-single_damage-6
-Basic Block-1-true-block-3
-Counter Strike-1-true-single_damage-4-block-4
+Basic Attack#1#true#true#single_damage#6
+Basic Block#1#true#false#block#3
+Counter Strike#1#true#true#single_damage#4#block#4
