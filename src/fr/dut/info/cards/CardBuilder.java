@@ -15,7 +15,7 @@ import fr.dut.info.cards.strategies.StratBuilder;
 public class CardBuilder {
 	private static CardBuilder instance = null;
 	//important !!! determiner a l'avance le nombre de cartes dans le tableau
-	//a priori ça bouge pas
+	//a priori ï¿½a bouge pas
 	private static final int totalCommonCards = 3;
 	private static Card[] commonCards = new Card[totalCommonCards];
 	
@@ -30,14 +30,15 @@ public class CardBuilder {
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 			String line;
 			while ((line = reader.readLine()) != null) {
-				String[] data = line.split("-");
+				String[] data = line.split("#");
 				String name = data[0];
 				int cost = Integer.valueOf(data[1]);
 				boolean exhaustable = Boolean.valueOf(data[2]);
-				Card card = new Card(name, cost, "common", exhaustable);
-				int numberOfStrats = (data.length-3);
+				boolean needTarget = Boolean.valueOf(data[3]);
+				Card card = new Card(name, cost, "common", exhaustable, needTarget);
+				int numberOfStrats = (data.length-4);
 				for (int i = 0; i < numberOfStrats; i = i + 2) {
-					Strat strat = StratBuilder.createStrat(data[i + 3], Integer.valueOf(data[i + 4]));
+					Strat strat = StratBuilder.createStrat(data[i + 4], Integer.valueOf(data[i + 5]));
 					card.addStrat(strat);
 				}
 				cards[cardNumber] = card;

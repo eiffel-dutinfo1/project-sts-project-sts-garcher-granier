@@ -20,9 +20,9 @@ public class PlayerAvatar {
 	private final ArrayList<Card> hand;
 	private final ArrayList<Card> draw;
 	
-	public PlayerAvatar(Player player, int maxEnergy) {
+	public PlayerAvatar(Player player) {
 		this.player = player;
-		this.maxEnergy = maxEnergy;
+		this.maxEnergy = 3;
 		this.energy = maxEnergy;
 		this.strength = 0;
 		this.weak = 0;
@@ -36,6 +36,10 @@ public class PlayerAvatar {
 	
 	public int getEnergy() {
 		return energy;
+	}
+	
+	public ArrayList<Card> getHand() {
+		return hand;
 	}
 	
 	public Card drawOneCard() {
