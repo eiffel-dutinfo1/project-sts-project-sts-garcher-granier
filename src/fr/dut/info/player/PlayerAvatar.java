@@ -42,6 +42,18 @@ public class PlayerAvatar {
 		return hand;
 	}
 	
+	public int getCurrentHP() {
+		return player.getCurrentHP();
+	}
+	
+	public int getMaxHP() {
+		return player.getMaxHP();
+	}
+	
+	public int getCurrentBlock() {
+		return block;
+	}
+	
 	public Card drawOneCard() {
 		//si la pioche est vide, on la remplit avec la defausse puis on vide la defausse
 		if (draw.isEmpty()) {
@@ -115,7 +127,7 @@ public class PlayerAvatar {
 	}
 	
 	public boolean isDead() {
-		if (player.hp() <= 0) {
+		if (player.getCurrentHP() <= 0) {
 			return true;
 		}
 		else {

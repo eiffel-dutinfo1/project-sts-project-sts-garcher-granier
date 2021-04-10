@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.TreeMap;
 
 import fr.dut.info.cards.strategies.Strat;
-import fr.dut.info.controller.Input;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
 
@@ -16,12 +15,8 @@ public class SingleTargetAttackStrat implements Strat {
 	}
 	
 	@Override
-	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar) throws IOException {
-		if (opponents.size() == 1) {
-			opponents.get(opponents.firstKey()).takeDamage(damage);
-		} else {
-			opponents.get(Input.getTarget(opponents)).takeDamage(damage);
-		}
+	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
+		opponents.get(target).takeDamage(damage);
 	}
 	
 	@Override

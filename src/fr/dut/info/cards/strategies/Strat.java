@@ -7,5 +7,5 @@ import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
 
 public interface Strat {
-	void useStrat(Opponent opponent, PlayerAvatar playerAvatar) throws IOException;
+	void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException;
 }

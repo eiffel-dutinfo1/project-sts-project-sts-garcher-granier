@@ -13,20 +13,26 @@ public class Card implements Comparable<Card> {
 	private final String name;
 	private final int energyCost;
 	private final String rarity;
+	private final String picturePath;
 	private final boolean exhaustable;
 	private boolean exhausted;
 	private final ArrayList<Strat> strategies;
 	private final boolean needTarget;
 	
-	public Card(String name, int energyCost, String rarity, boolean exhaustable, boolean needTarget) {
+	public Card(String name, int energyCost, String rarity, String picturePath, boolean exhaustable, boolean needTarget) {
 		this.name = Objects.requireNonNull(name);
 		this.energyCost = energyCost;
 		this.rarity = Objects.requireNonNull(rarity);
+		this.picturePath = Objects.requireNonNull(picturePath);
 		this.exhaustable = exhaustable;
 		this.needTarget = needTarget;
 		//par d�faut, une carte commence non exhausted car non jou�e
 		exhausted = false;
 		strategies = new ArrayList<Strat>();
+	}
+	
+	public String getPicturePath() {
+		return picturePath;
 	}
 	
 	public void addStrat(Strat strat) {
@@ -46,13 +52,13 @@ public class Card implements Comparable<Card> {
 		return (Card) this.clone();
 	}
 	
-	public void playCard(Opponent opponent, PlayerAvatar avatar) throws IOException {
+	public void playCard(TreeMap<Integer, Opponent> opponents, PlayerAvatar avatar, int target) throws IOException {
 		// MODIFIER CONDITION PAS ASSEZ ENERGIE!!!!!!!!!!!!!!!!
 		if (avatar.getEnergy() == 0) {
 			return;
 		}
 		for (Strat strat : strategies) {
-			strat.useStrat(opponent, avatar);
+			strat.useStrat(opponents, avatar, target);
 		}
 	}
 

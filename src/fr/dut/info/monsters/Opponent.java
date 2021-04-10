@@ -11,4 +11,7 @@ public interface Opponent {
 	void applyBlock(int value);
 	int getHp();
 	void executeMove(Opponent self, PlayerAvatar avatar) throws IOException ;
+	String getPicturePath();
+	int getCurrentHP();
+	int getMaxHP();
 }

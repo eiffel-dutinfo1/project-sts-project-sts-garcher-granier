@@ -8,6 +8,8 @@ import fr.dut.info.player.PlayerAvatar;
 
 public abstract class AbstractOpponent implements Opponent{
 	private final String name;
+	private final String picturePath;
+	private final int maxhp;
 	private int hp;
 	private int strength;
 	private int weak;
@@ -15,13 +17,27 @@ public abstract class AbstractOpponent implements Opponent{
 	private final ArrayList<Move> moves;
 	private Move nextMove;
 	
-	public AbstractOpponent(String name, int hp) {
+	public AbstractOpponent(String name, int maxhp, String picturePath) {
 		this.name = name;
-		this.hp = hp;
+		this.picturePath = picturePath;
+		this.maxhp = maxhp;
+		this.hp = maxhp;
 		this.strength = 0;
 		this.weak = 0;
 		this.block = 0;
 		moves = new ArrayList<Move>();
+	}
+	
+	public int getCurrentHP() {
+		return hp;
+	}
+	
+	public int getMaxHP() {
+		return maxhp;
+	}
+	
+	public String getPicturePath() {
+		return picturePath;
 	}
 	
 	public void firstMove(Move move) {

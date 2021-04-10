@@ -16,7 +16,7 @@ public class CardBuilder {
 	private static CardBuilder instance = null;
 	//important !!! determiner a l'avance le nombre de cartes dans le tableau
 	//a priori �a bouge pas
-	private static final int totalCommonCards = 3;
+	private static final int totalCommonCards = 2;
 	private static Card[] commonCards = new Card[totalCommonCards];
 	
 	private CardBuilder() throws IOException {
@@ -32,13 +32,14 @@ public class CardBuilder {
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split("#");
 				String name = data[0];
-				int cost = Integer.valueOf(data[1]);
-				boolean exhaustable = Boolean.valueOf(data[2]);
-				boolean needTarget = Boolean.valueOf(data[3]);
-				Card card = new Card(name, cost, "common", exhaustable, needTarget);
-				int numberOfStrats = (data.length-4);
+				String picturePath = "resources/pictures/" + data[1];
+				int cost = Integer.valueOf(data[2]);
+				boolean exhaustable = Boolean.valueOf(data[3]);
+				boolean needTarget = Boolean.valueOf(data[4]);
+				Card card = new Card(name, cost, "common", picturePath, exhaustable, needTarget);
+				int numberOfStrats = (data.length-5);
 				for (int i = 0; i < numberOfStrats; i = i + 2) {
-					Strat strat = StratBuilder.createStrat(data[i + 4], Integer.valueOf(data[i + 5]));
+					Strat strat = StratBuilder.createStrat(data[i + 5], Integer.valueOf(data[i + 6]));
 					card.addStrat(strat);
 				}
 				cards[cardNumber] = card;

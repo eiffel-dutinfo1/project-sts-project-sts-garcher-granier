@@ -59,7 +59,11 @@ public class Player {
 		return "HP: " + hp;
 	}
 	
-	public int hp() {
+	public int getCurrentHP() {
 		return hp;
+	}
+	
+	public int getMaxHP() {
+		return maxhp;
 	}
 }

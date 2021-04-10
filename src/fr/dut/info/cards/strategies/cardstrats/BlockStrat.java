@@ -13,7 +13,7 @@ private int block;
 		block = value;
 	}
 	
-	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar) {
+	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) {
 		playerAvatar.giveBlock(block);
 	}
 	

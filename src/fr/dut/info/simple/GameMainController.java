@@ -2,7 +2,14 @@ package fr.dut.info.simple;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
+import java.io.IOException;
 
+import fr.dut.info.cards.CardBuilder;
+import fr.dut.info.monsters.Opponent;
+import fr.dut.info.monsters.act1.Cultist;
+import fr.dut.info.player.Player;
+import fr.dut.info.rooms.FightRoom;
+import fr.dut.info.rooms.Room;
 import fr.dut.info.view.SimpleGameView;
 import fr.umlv.zen5.Application;
 import fr.umlv.zen5.ApplicationContext;
@@ -18,8 +25,9 @@ public class GameMainController {
 	 * Le jeu de termine lorsquon appuie sur une touche du clavier.
 	 *  
 	 * @param context
+	 * @throws IOException 
 	 */
-	static void simpleGame(ApplicationContext context) {
+	static void simpleGame(ApplicationContext context) throws IOException {
 		// Le contexte nous apporte la taille de l'écran. 
 		ScreenInfo screenInfo = context.getScreenInfo();
 		float width = screenInfo.getWidth();
@@ -33,9 +41,15 @@ public class GameMainController {
 		float gameWidth = 1920;
 		float gameHeight = 1080;
 		
-		
-		SimpleGameData data = new SimpleGameData();
-		
+		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
+		Player player = new Player(100, 100);
+		Opponent opponent1 = new Cultist();
+		Opponent opponent2 = new Cultist();
+		FightRoom data = new FightRoom(player);
+		data.getAvatar().drawFiveCards();
+		System.out.println(data.getAvatar());
+		data.addOpponent(opponent1);
+		data.addOpponent(opponent2);
 		
 		SimpleGameView view = SimpleGameView.initGameGraphics(height, width, data, gameWidth, gameHeight); 
 		view.draw(context);
@@ -45,8 +59,16 @@ public class GameMainController {
 		GameMainController.mainLoop(context, data, view);
 	}
 	public static void main(String[] args) {
-		Application.run(Color.LIGHT_GRAY, GameMainController::simpleGame); // attention, utilisation d'une
+		//Application.run(Color.LIGHT_GRAY, GameMainController::simpleGame); // attention, utilisation d'une
 																					// lambda.
+		
+		Application.run(Color.LIGHT_GRAY, t -> {
+			try {
+				simpleGame(t);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 		System.out.println("ne doit pas s'afficher");
 	}
 	
@@ -58,8 +80,9 @@ public class GameMainController {
 	 * @param context  Le contexte de l'application.
 	 * @param data Les données du modèle.
 	 * @param view La vue.
+	 * @throws IOException 
 	 */
-	private static void mainLoop(ApplicationContext context, SimpleGameData data, SimpleGameView view) {
+	private static void mainLoop(ApplicationContext context, FightRoom data, SimpleGameView view) throws IOException {
 		while (true) {
 			Event event = context.pollOrWaitEvent(20); // modifier pour avoir un affichage fluide
 			if (event == null) { // Rien ne se passe. 
@@ -83,13 +106,14 @@ public class GameMainController {
 				// TODO : Question 5
 				// Utiliser les méthodes de sélection de SimpleGameData
 				// Pour sélectionner les cartes et les monstres dans le modèle.
+				
 				if (index >= 0 && index <= 3) {
-					data.selectCard(index-1);
+					//data.selectCard(index-1);
 				} else if (index >= 4 && index <= 5) {
-					data.selectTarget(index-4);
+					//data.selectTarget(index-4);
 				}
 				if (data.cardSelected() && data.targetSelected()) {
-					data.playSelected();
+					//data.playSelected();
 				}
 				System.out.println("Area : " + index);
 				}

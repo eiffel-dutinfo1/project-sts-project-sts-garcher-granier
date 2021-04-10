@@ -14,10 +14,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 
-import fr.dut.info.simple.SimpleGameData;
+import fr.dut.info.cards.Card;
+import fr.dut.info.monsters.Opponent;
+import fr.dut.info.rooms.FightRoom;
+import fr.dut.info.rooms.Room;
 
 
 /**
@@ -31,7 +37,7 @@ import fr.dut.info.simple.SimpleGameData;
  *
  */
 @SuppressWarnings("preview")
-public record SimpleGameView(float height, float width, float hMargin, float vMargin,SimpleGameData data, float hSize, float vSize) implements GameView {
+public record SimpleGameView(float height, float width, float hMargin, float vMargin, FightRoom data, float hSize, float vSize) implements GameView {
 	
 	/**
 	 * C'est une méthode qui fournit comme résultat une SimpleGameView et sert de point d'entrée au contrôleur. 
@@ -43,7 +49,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	 * @param vSize Taille verticale utile.
 	 * @return Une SimpleGameView correctement initialisée.
 	 */
-	public static SimpleGameView initGameGraphics(float height, float width,  SimpleGameData data, float hSize, float vSize) {
+	public static SimpleGameView initGameGraphics(float height, float width, FightRoom data, float hSize, float vSize) {
 		float hMargin, vMargin;
 		hMargin = (width - hSize)/2;
 		vMargin = (height -vSize)/2;		
@@ -76,20 +82,24 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	@Override
 	public int areaFromCoordinates(float x, float y) {
 		// Todo : Question 1
-		if (y < 540) {
-			if (x < 960) {
+		if (y < vSize/2) {
+			if (x < hSize/2) {
+				return 6;
+			} else {
+				return 7;
+			}
+		}
+		if (y > (vSize/2) + 40) {
+			if (x < hSize/5) {
+				return 1;
+			} else if (x < 2*hSize/5) {
+				return 2;
+			} else if (x < 3*hSize/5) {
+				return 3;
+			} else if (x < 4*hSize/5) {
 				return 4;
 			} else {
 				return 5;
-			}
-		}
-		if (y > 580) {
-			if (x < 640) {
-				return 1;
-			} else if (x < 1280) {
-				return 2;
-			} else {
-				return 3;
 			}
 		}
 		return 0;
@@ -112,7 +122,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		for (float step : steps) {
 			graphics.draw(new Line2D.Float(0+hMargin, yLow + step, hSize + hMargin, yLow + step));
 		}
-		float [] xLimits = {hSize/3, 2*hSize/3};
+		float [] xLimits = {hSize/5, 2*hSize/5, 3*hSize/5, 4*hSize/5};
 		yLow += ySpace ; 
 		// Les lignes verticales de la partie basse.
 		for (float xLimit : xLimits) {
@@ -127,42 +137,38 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		drawOpponents(data, graphics);
 	}
 
-	private void drawPlayerInfo(SimpleGameData data,Graphics2D graphics) {
-		//TODO : Adapter en tutilisant data (question 2)
-		int playerHP = data.getPlayer().getCurrentHP();
-		int playerMaxHP = data.getPlayer().getMaxHP();
-		int playerBlock = data.getPlayer().getCurrentBlock();
-		writeStringAtCoords("Player HP : " + playerHP + " / " + playerMaxHP, graphics, hMargin, vMargin + vSize/2 + 20);
-		writeStringAtCoords("Player Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 20);
+	private void drawPlayerInfo(FightRoom data, Graphics2D graphics) {
+		int playerHP = data.getAvatar().getCurrentHP();
+		int playerMaxHP = data.getAvatar().getMaxHP();
+		int playerBlock = data.getAvatar().getCurrentBlock();
+		writeStringAtCoords("Player HP : " + playerHP + " / " + playerMaxHP, graphics, hMargin, vMargin + vSize/2 + 30);
+		writeStringAtCoords("Player Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30);
 	}
-	private void drawCards(SimpleGameData data,Graphics2D graphics) {
-		// TODO : Question 3
-		// Utiliser la fonction drawImageInArea et writeStringAtCoords
-		// Pour indiquer que la carte est sélectionnée.
-		SimpleCard[] hand = data.getCardHand();
-		float xUpL = hSize/12;
+	private void drawCards(FightRoom data, Graphics2D graphics) {
+		ArrayList<Card> hand = data.getAvatar().getHand();
+		float xUpL = hSize/50;
+		float xLowR = 9*hSize/50;
 		float yUpL = vSize/2 + 80;
-		float xLowR = 3*hSize/12;
 		float yLowR = vSize - 60;
-		for (SimpleCard simpleCard : hand) {
-			drawImageInArea(graphics, simpleCard.getPicturePath(), xUpL, yUpL, xLowR, yLowR);
-			xUpL += hSize/3;
-			xLowR += hSize/3;
+		for (Card card : hand) {
+			drawImageInArea(graphics, card.getPicturePath(), xUpL, yUpL, xLowR, yLowR);
+			xUpL += hSize/5;
+			xLowR += hSize/5;
 		}
 		//writeStringAtCoords("Jouer cette carte", graphics, *hSize/3, vSize - 40);
 	}
-	private void drawOpponents(SimpleGameData data,Graphics2D graphics) {
+	private void drawOpponents(FightRoom data,Graphics2D graphics) {
 		// TODO : Question 4 
 		// Utiliser la fonction drawImageInArea et writeStringAtCoords
 		// Pour afficher les informations de l'adversaire.
-		Monster[] monsters = data.getOpponents();
+		TreeMap<Integer, Opponent> opponents = data.getOpponents();
 		float xUpL = hSize/8;
 		float yUpL =  vSize - 11*vSize/12;
 		float xLowR = 3*hSize/8;
 		float yLowR = yUpL + 4*vSize/12;
-		for (Monster monster : monsters) {
-			drawImageInArea(graphics, monster.getPicturePath(), xUpL, yUpL, xLowR, yLowR);
-			writeStringAtCoords("HP : " + monster.getCurrentHP() + " / " + monster.getMaxHP(), graphics, xUpL + hSize/12, yLowR+20);
+		for (Entry<Integer, Opponent> opponent : opponents.entrySet()) {
+			drawImageInArea(graphics, opponent.getValue().getPicturePath(), xUpL, yUpL, xLowR, yLowR);
+			writeStringAtCoords("HP : " + opponent.getValue().getCurrentHP() + " / " + opponent.getValue().getMaxHP(), graphics, xUpL + hSize/12, yLowR+20);
 			xUpL += hSize/2;
 			xLowR += hSize/2;
 		}
