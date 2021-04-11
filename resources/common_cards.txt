@@ -1,0 +1,2 @@
+Defend#defend.png#1#false#false#block#5
+Strike#strike.png#1#false#true#single_damage#6

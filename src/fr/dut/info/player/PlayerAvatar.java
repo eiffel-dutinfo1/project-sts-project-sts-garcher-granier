@@ -1,5 +1,6 @@
 package fr.dut.info.player;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -7,28 +8,47 @@ import java.util.Scanner;
 import fr.dut.info.cards.Card;
 import fr.dut.info.cards.Deck;
 import fr.dut.info.controller.Input;
+import stats.Stats;
 
 public class PlayerAvatar {
 	private final Player player;
 	private int maxEnergy;
 	private int energy;
-	private int strength;
-	private int weak;
+	private final Stats stats;
 	private final ArrayList<Card> discard;
 	private final ArrayList<Card> hand;
 	private final ArrayList<Card> draw;
 	
-	public PlayerAvatar(Player player, int maxEnergy, Deck deck) {
+	public PlayerAvatar(Player player) {
 		this.player = player;
-		this.maxEnergy = maxEnergy;
+		this.maxEnergy = 3;
 		this.energy = maxEnergy;
-		this.strength = 0;
-		this.weak = 0;
+		stats = new Stats();
 		discard = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
 		draw = new ArrayList<Card>();
-		Objects.requireNonNull(deck);
-		draw.addAll(deck.copyDeck());
+		Objects.requireNonNull(player.getDeck());
+		draw.addAll(player.copyDeck());
+	}
+	
+	public int getEnergy() {
+		return energy;
+	}
+	
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
+	
+	public int getCurrentHP() {
+		return player.getCurrentHP();
+	}
+	
+	public int getMaxHP() {
+		return player.getMaxHP();
+	}
+	
+	public Stats getStats() {
+		return stats;
 	}
 	
 	public Card drawOneCard() {
@@ -56,8 +76,8 @@ public class PlayerAvatar {
 		}
 	}
 	
-	public Card selectCard() {
-		Input.getCard(hand);
+	public Card selectCard() throws IOException {
+		int numCard = Input.getCard(hand);
 		Card card = hand.get(numCard-1);
 		if (card.energyCost() > energy) {
 			return null;
@@ -76,14 +96,6 @@ public class PlayerAvatar {
 		return super.toString();
 	}
 	
-	public double weakModifier() {
-		return weak > 0 ? 0.75 : 1;
-	}
-	
-	public int getStrength() {
-		return strength;
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder display = new StringBuilder("Cards in hand:\n");
@@ -96,7 +108,7 @@ public class PlayerAvatar {
 	}
 	
 	public boolean isDead() {
-		if (player.hp() <= 0) {
+		if (player.getCurrentHP() <= 0) {
 			return true;
 		}
 		else {

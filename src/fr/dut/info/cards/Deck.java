@@ -3,6 +3,7 @@ package fr.dut.info.cards;
 import java.util.ArrayList;
 import java.util.Objects;
 
+//classe qui sert a rien pour le moment
 public class Deck {
 	private final ArrayList<Card> deck;
 	

@@ -1,34 +1,90 @@
 package fr.dut.info.monsters;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import fr.dut.info.Randomizer;
 import fr.dut.info.player.PlayerAvatar;
+import stats.Stats;
 
-public class AbstractOpponent implements Opponent{
+public abstract class AbstractOpponent implements Opponent{
+	private final String name;
+	private final String picturePath;
+	private final int maxhp;
 	private int hp;
-	private int strength;
-	private int weak;
-	private int block;
+	private final Stats stats;
+	private final ArrayList<Move> moves;
+	private Move nextMove;
 	
-	public AbstractOpponent(int hp) {
-		this.hp = hp;
-		this.strength = 0;
-		this.weak = 0;
-		this.block = 0;
+	public AbstractOpponent(String name, int maxhp, String picturePath) {
+		this.name = name;
+		this.picturePath = picturePath;
+		this.maxhp = maxhp;
+		this.hp = maxhp;
+		stats = new Stats();
+		moves = new ArrayList<Move>();
 	}
-
-	public void dealDamage(PlayerAvatar playerAvatar, int damage) {
-		if (weak == 0) {
-			playerAvatar.takeDamage(damage + strength);
-			return;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public int getCurrentHP() {
+		return hp;
+	}
+	
+	public int getMaxHP() {
+		return maxhp;
+	}
+	
+	public Stats getStats() {
+		return stats;
+	}
+	
+	public String getPicturePath() {
+		return picturePath;
+	}
+	
+	public void firstMove(Move move) {
+		nextMove = move;
+	}
+	
+	public void addMove(Move move) {
+		moves.add(move);
+	}
+	
+	public void executeMove(Opponent self, PlayerAvatar avatar) throws IOException {
+		nextMove.executeActions(self, avatar);
+	}
+	
+	public void getNextMove() {
+		int maxProbability = 0;
+		ArrayList<Move> legalMoves = new ArrayList<Move>();
+		for (Move move : moves) {
+			if (!move.isIllegal()) {
+				legalMoves.add(move);
+				maxProbability += move.getProbability();
+			}
 		}
-		playerAvatar.takeDamage((int) ((damage + strength) * 0.75));
+		int randomNumber = Randomizer.randomInt(0, maxProbability);
+		int cumulativeProbability = 0;
+		for (Move move : moves) {
+			if (move.getProbability() + cumulativeProbability < randomNumber) {
+				nextMove = move;
+				return;
+			} else {
+				cumulativeProbability += move.getProbability();
+			}
+		}
 	}
 	
-	public void dealBlock(int x) {
-		block += x;
+	public ArrayList<Move> getMoves() {
+		return moves;
 	}
 	
-	public void dealStrength(int x) {
-		strength += x;
+	@Override
+	public boolean takeDamage(int value) {
+		hp -= value;
+		return hp <= 0;
 	}
-	
 }

@@ -1,6 +1,6 @@
 package fr.dut.info.rooms;
 
-public abstract class MapBuilder {
+public class MapBuilder {
 	private static MapBuilder instance = null;
 	
 	private MapBuilder() {}
@@ -12,5 +12,7 @@ public abstract class MapBuilder {
 		return instance;
 	}
 	
-	public abstract Map createMap(int nbRooms, int lvl);
+	public Map createMap(int nbRooms, int lvl) {
+		
+	}
 }

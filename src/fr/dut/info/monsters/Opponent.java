@@ -1,8 +1,17 @@
 package fr.dut.info.monsters;
 
+import java.io.IOException;
+
+import fr.dut.info.player.PlayerAvatar;
+import stats.Stats;
+
 public interface Opponent {
 
-	void takeDamage(int value);
-	
-	public void doAction();
+	boolean takeDamage(int value);
+	void executeMove(Opponent self, PlayerAvatar avatar) throws IOException ;
+	String getPicturePath();
+	int getCurrentHP();
+	int getMaxHP();
+	Stats getStats();
+	String getName();
 }
