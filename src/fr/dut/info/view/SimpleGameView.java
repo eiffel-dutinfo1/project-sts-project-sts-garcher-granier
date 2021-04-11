@@ -96,6 +96,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 				return -1;
 			}
 		}
+		if ((y > vSize/2) && (y < (vSize/2) + 40) && (x > 4*hSize/5)) {
+			return 9;
+		}
 		if (y > (vSize/2) + 40) {
 			if (x < hSize/5) {
 				return 0;
@@ -129,7 +132,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		for (float xLimit : xLimits) {
 			graphics.draw(new Line2D.Float(xLimit+hMargin, vMargin, xLimit + hMargin, yLow));
 		}
-		yLow += ySpace ; 
+		graphics.draw(new Line2D.Float(4*hSize/5, 0, 4*hSize/5, vSize));
+		writeStringAtCoords("END TURN", graphics, 87*hSize/100, vMargin + vSize/2 + 30);
+		yLow += ySpace ;
 		// Les lignes verticales de la partie basse.
 		for (float xLimit : xLimits) {
 			graphics.draw(new Line2D.Float(xLimit+hMargin, yLow, xLimit + hMargin, vMargin + vSize));
