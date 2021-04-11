@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import fr.dut.info.Randomizer;
 import fr.dut.info.player.PlayerAvatar;
-import stats.Stats;
+import fr.dut.info.stats.Stats;
 
 public abstract class AbstractOpponent implements Opponent{
 	private final String name;

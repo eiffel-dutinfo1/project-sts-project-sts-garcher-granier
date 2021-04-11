@@ -1,4 +1,4 @@
-package stats;
+package fr.dut.info.stats;
 
 public class Stats {
 	private int block;

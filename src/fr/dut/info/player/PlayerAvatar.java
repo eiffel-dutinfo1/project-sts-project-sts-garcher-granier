@@ -8,7 +8,7 @@ import java.util.Scanner;
 import fr.dut.info.cards.Card;
 import fr.dut.info.cards.Deck;
 import fr.dut.info.controller.Input;
-import stats.Stats;
+import fr.dut.info.stats.Stats;
 
 public class PlayerAvatar {
 	private final Player player;
