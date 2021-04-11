@@ -75,6 +75,11 @@ public class PlayerAvatar {
 		}
 	}
 	
+	public void removeCard(Card card) {
+		discard.add(card);
+		hand.remove(card);
+	}
+	
 	public boolean takeDamage(int damage) {
 		return player.takeDamage(damage);
 	}
