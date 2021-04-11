@@ -15,11 +15,13 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 
+import fr.dut.info.Log;
 import fr.dut.info.cards.Card;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.rooms.FightRoom;
@@ -113,16 +115,15 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	public void drawLayout(Graphics2D graphics) {
 		float yLow = vSize/2 + vMargin, ySpace =40; 
 		float [] steps = {0, ySpace};
-		// On reste en gris pour la première ligne verticale.
-		graphics.draw(new Line2D.Float(960+hMargin, vMargin, hSize/2 + hMargin, yLow));
-
-		// On passe en noir pour le reste de l'interface.
 		graphics.setColor(Color.BLACK);
 		// 2 lignes horizontales
 		for (float step : steps) {
 			graphics.draw(new Line2D.Float(0+hMargin, yLow + step, hSize + hMargin, yLow + step));
 		}
 		float [] xLimits = {hSize/5, 2*hSize/5, 3*hSize/5, 4*hSize/5};
+		for (float xLimit : xLimits) {
+			graphics.draw(new Line2D.Float(xLimit+hMargin, vMargin, xLimit + hMargin, yLow));
+		}
 		yLow += ySpace ; 
 		// Les lignes verticales de la partie basse.
 		for (float xLimit : xLimits) {
@@ -135,12 +136,13 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		graphics.setColor(Color.LIGHT_GRAY);
 		drawCards(data, graphics);
 		drawOpponents(data, graphics);
+		drawLogs(graphics);
 	}
 
 	private void drawPlayerInfo(FightRoom data, Graphics2D graphics) {
 		int playerHP = data.getAvatar().getCurrentHP();
 		int playerMaxHP = data.getAvatar().getMaxHP();
-		int playerBlock = data.getAvatar().getCurrentBlock();
+		int playerBlock = data.getAvatar().getStats().getBlock();
 		writeStringAtCoords("Player HP : " + playerHP + " / " + playerMaxHP, graphics, hMargin, vMargin + vSize/2 + 30);
 		writeStringAtCoords("Player Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30);
 	}
@@ -162,17 +164,26 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		// Utiliser la fonction drawImageInArea et writeStringAtCoords
 		// Pour afficher les informations de l'adversaire.
 		TreeMap<Integer, Opponent> opponents = data.getOpponents();
-		float xUpL = hSize/8;
-		float yUpL =  vSize - 11*vSize/12;
-		float xLowR = 3*hSize/8;
-		float yLowR = yUpL + 4*vSize/12;
+		float xUpL = hSize/50;
+		float xLowR = 9*hSize/50;
+		float yUpL = 30;
+		float yLowR = vSize/3;
 		for (Entry<Integer, Opponent> opponent : opponents.entrySet()) {
 			drawImageInArea(graphics, opponent.getValue().getPicturePath(), xUpL, yUpL, xLowR, yLowR);
-			writeStringAtCoords("HP : " + opponent.getValue().getCurrentHP() + " / " + opponent.getValue().getMaxHP(), graphics, xUpL + hSize/12, yLowR+20);
-			xUpL += hSize/2;
-			xLowR += hSize/2;
+			writeStringAtCoords("HP : " + opponent.getValue().getCurrentHP() + " / " + opponent.getValue().getMaxHP(), graphics, xUpL + hSize/20, yLowR+20);
+			xUpL += hSize/5;
+			xLowR += hSize/5;
 		}
 	}
+	
+	private void drawLogs(Graphics2D graphics) {
+		float yCoord = 30;
+		for (String log : Log.getLog().getLogs()) {
+			writeStringAtCoords(log, graphics, hMargin + 4*hSize/5 + 10, yCoord);
+			yCoord+=30;
+		}
+	}
+	
 	private void writeStringAtCoords(String letter, Graphics2D graphics, float x, float y) {
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		Font font = new Font("Serif", Font.PLAIN, 24);

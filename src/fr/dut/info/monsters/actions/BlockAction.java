@@ -15,7 +15,7 @@ public class BlockAction implements MonsterAction {
 	
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
-		opponent.applyBlock(block);
+		opponent.getStats().addBlock(block);
 	}
 	
 	@Override

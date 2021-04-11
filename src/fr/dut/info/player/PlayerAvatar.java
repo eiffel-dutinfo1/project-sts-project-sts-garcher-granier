@@ -8,14 +8,13 @@ import java.util.Scanner;
 import fr.dut.info.cards.Card;
 import fr.dut.info.cards.Deck;
 import fr.dut.info.controller.Input;
+import stats.Stats;
 
 public class PlayerAvatar {
 	private final Player player;
 	private int maxEnergy;
 	private int energy;
-	private int block;
-	private int strength;
-	private int weak;
+	private final Stats stats;
 	private final ArrayList<Card> discard;
 	private final ArrayList<Card> hand;
 	private final ArrayList<Card> draw;
@@ -24,9 +23,7 @@ public class PlayerAvatar {
 		this.player = player;
 		this.maxEnergy = 3;
 		this.energy = maxEnergy;
-		this.strength = 0;
-		this.weak = 0;
-		this.block = 0;
+		stats = new Stats();
 		discard = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
 		draw = new ArrayList<Card>();
@@ -50,8 +47,8 @@ public class PlayerAvatar {
 		return player.getMaxHP();
 	}
 	
-	public int getCurrentBlock() {
-		return block;
+	public Stats getStats() {
+		return stats;
 	}
 	
 	public Card drawOneCard() {
@@ -95,24 +92,8 @@ public class PlayerAvatar {
 		return player.takeDamage(damage);
 	}
 	
-	public void applyWeak(int value) {
-		weak += value;
-	}
-	
-	public void giveBlock(int value) {
-		block += value;
-	}
-	
 	public String showPlayerHP() {
 		return super.toString();
-	}
-	
-	public double weakModifier() {
-		return weak > 0 ? 0.75 : 1;
-	}
-	
-	public int getStrength() {
-		return strength;
 	}
 	
 	@Override

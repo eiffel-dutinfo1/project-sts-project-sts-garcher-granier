@@ -5,15 +5,14 @@ import java.util.ArrayList;
 
 import fr.dut.info.Randomizer;
 import fr.dut.info.player.PlayerAvatar;
+import stats.Stats;
 
 public abstract class AbstractOpponent implements Opponent{
 	private final String name;
 	private final String picturePath;
 	private final int maxhp;
 	private int hp;
-	private int strength;
-	private int weak;
-	private int block;
+	private final Stats stats;
 	private final ArrayList<Move> moves;
 	private Move nextMove;
 	
@@ -22,10 +21,12 @@ public abstract class AbstractOpponent implements Opponent{
 		this.picturePath = picturePath;
 		this.maxhp = maxhp;
 		this.hp = maxhp;
-		this.strength = 0;
-		this.weak = 0;
-		this.block = 0;
+		stats = new Stats();
 		moves = new ArrayList<Move>();
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public int getCurrentHP() {
@@ -34,6 +35,10 @@ public abstract class AbstractOpponent implements Opponent{
 	
 	public int getMaxHP() {
 		return maxhp;
+	}
+	
+	public Stats getStats() {
+		return stats;
 	}
 	
 	public String getPicturePath() {
@@ -81,30 +86,5 @@ public abstract class AbstractOpponent implements Opponent{
 	public boolean takeDamage(int value) {
 		hp -= value;
 		return hp <= 0;
-	}
-
-	public void dealDamage(PlayerAvatar playerAvatar, int damage) {
-		if (weak == 0) {
-			playerAvatar.takeDamage(damage + strength);
-			return;
-		}
-		playerAvatar.takeDamage((int) ((damage + strength) * 0.75));
-	}
-	
-	public void applyBlock(int value) {
-		block += value;
-	}
-	
-	public void applyStrength(int value) {
-		strength += value;
-	}
-	
-	@Override
-	public String toString() {
-		return "HP left : " + hp + "\n";
-	}
-	
-	public int getHp() {
-		return hp;
 	}
 }

@@ -2,6 +2,7 @@ package fr.dut.info.cards.strategies.cardstrats;
 
 import java.util.TreeMap;
 
+import fr.dut.info.Log;
 import fr.dut.info.cards.strategies.Strat;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
@@ -14,11 +15,7 @@ private int block;
 	}
 	
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) {
-		playerAvatar.giveBlock(block);
-	}
-	
-	@Override
-	public String toString() {
-		return "Adds " + block + " to blocking.";
+		playerAvatar.getStats().addBlock(block);
+		Log.getLog().addLog("You apply " + block + " block to yourself");
 	}
 }

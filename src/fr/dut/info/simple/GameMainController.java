@@ -45,11 +45,15 @@ public class GameMainController {
 		Player player = new Player(100, 100);
 		Opponent opponent1 = new Cultist();
 		Opponent opponent2 = new Cultist();
+		Opponent opponent3 = new Cultist();
+		Opponent opponent4 = new Cultist();
 		FightRoom data = new FightRoom(player);
 		data.getAvatar().drawFiveCards();
 		System.out.println(data.getAvatar());
 		data.addOpponent(opponent1);
 		data.addOpponent(opponent2);
+		data.addOpponent(opponent3);
+		data.addOpponent(opponent4);
 		
 		SimpleGameView view = SimpleGameView.initGameGraphics(height, width, data, gameWidth, gameHeight); 
 		view.draw(context);

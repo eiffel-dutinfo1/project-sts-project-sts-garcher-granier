@@ -13,14 +13,14 @@ public class Move {
 	private int currentStreak;
 	private final ArrayList<MonsterAction> actions;
 	
-	public Move(String name, int probability, int maxStreak, ArrayList<String> actionNames, int value) {
+	public Move(String name, int probability, int maxStreak, ArrayList<String> actionNames, ArrayList<Integer> actionValues) {
 		this.name = name;
 		this.probability = probability;
 		this.maxStreak = maxStreak;
 		currentStreak = 0;
 		actions = new ArrayList<MonsterAction>();
-		for (String string : actionNames) {
-			actions.add(ActionBuilder.createAction(string, value));
+		for (int i = 0; i < actionNames.size(); i++) {
+			actions.add(ActionBuilder.createAction(actionNames.get(i), actionValues.get(i)));
 		}
 	}
 	
@@ -28,7 +28,7 @@ public class Move {
 		return probability;
 	}
 	
-	//return true si le move est illégal
+	//return true si le move est illï¿½gal
 	public boolean isIllegal() {
 		return currentStreak == maxStreak;
 	}

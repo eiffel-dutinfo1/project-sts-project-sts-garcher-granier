@@ -23,10 +23,18 @@ public class ActionBuilder {
 		}
 	}
 	
-	public static ArrayList<String> stringToArray(String string) {
+	public static ArrayList<String> stringsToArray(String string) {
 		ArrayList<String> array = new ArrayList<String>();
-		for (String word : string.split("-")) {
+		for (String word : string.split("#")) {
 			array.add(word);
+		}
+		return array;
+	}
+	
+	public static ArrayList<Integer> integersToArray(String string) {
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		for (String str : string.split("#")) {
+			array.add(Integer.valueOf(str));
 		}
 		return array;
 	}
