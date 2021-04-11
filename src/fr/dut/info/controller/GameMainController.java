@@ -1,4 +1,4 @@
-package fr.dut.info.simple;
+package fr.dut.info.controller;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
