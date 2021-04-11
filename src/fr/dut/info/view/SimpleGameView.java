@@ -83,28 +83,33 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 
 	@Override
 	public int areaFromCoordinates(float x, float y) {
-		// Todo : Question 1
 		if (y < vSize/2) {
-			if (x < hSize/2) {
+			if (x < hSize/5) {
+				return 5;
+			} else if (x < 2*hSize/5) {
 				return 6;
-			} else {
+			} else if (x < 3*hSize/5) {
 				return 7;
+			} else if (x < 4*hSize/5) {
+				return 8;
+			} else {
+				return -1;
 			}
 		}
 		if (y > (vSize/2) + 40) {
 			if (x < hSize/5) {
-				return 1;
+				return 0;
 			} else if (x < 2*hSize/5) {
-				return 2;
+				return 1;
 			} else if (x < 3*hSize/5) {
-				return 3;
+				return 2;
 			} else if (x < 4*hSize/5) {
-				return 4;
+				return 3;
 			} else {
-				return 5;
+				return 4;
 			}
 		}
-		return 0;
+		return -1;
 	}
 	
 	/**

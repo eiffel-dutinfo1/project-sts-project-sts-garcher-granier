@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import fr.dut.info.cards.Card;
 import fr.dut.info.cards.Deck;
-import fr.dut.info.controller.Input;
 import fr.dut.info.stats.Stats;
 
 public class PlayerAvatar {
@@ -74,18 +73,6 @@ public class PlayerAvatar {
 			discard.add(card);
 			hand.remove(card);
 		}
-	}
-	
-	public Card selectCard() throws IOException {
-		int numCard = Input.getCard(hand);
-		Card card = hand.get(numCard-1);
-		if (card.energyCost() > energy) {
-			return null;
-		}
-		energy -= card.energyCost();
-		discard.add(card);
-		hand.remove(card);
-		return card;
 	}
 	
 	public boolean takeDamage(int damage) {

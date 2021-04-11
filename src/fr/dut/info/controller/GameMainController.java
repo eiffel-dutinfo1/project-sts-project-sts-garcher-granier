@@ -125,6 +125,5 @@ public class GameMainController {
 			// à la fin on affiche à nouveau toute l'interface. 
 			view.draw(context);
 		}
-
 	}
 }
