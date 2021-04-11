@@ -49,7 +49,6 @@ public class GameMainController {
 		Opponent opponent4 = new Cultist();
 		FightRoom data = new FightRoom(player);
 		data.getAvatar().drawFiveCards();
-		System.out.println(data.getAvatar());
 		data.addOpponent(opponent1);
 		data.addOpponent(opponent2);
 		data.addOpponent(opponent3);
@@ -107,19 +106,7 @@ public class GameMainController {
 				Point2D.Float location = event.getLocation();
 				int index = view.areaFromCoordinates(location.x, location.y);
 				System.out.println("Area : " + index);
-				// TODO : Question 5
-				// Utiliser les méthodes de sélection de SimpleGameData
-				// Pour sélectionner les cartes et les monstres dans le modèle.
-				
-				if (index >= 0 && index <= 3) {
-					//data.selectCard(index-1);
-				} else if (index >= 4 && index <= 5) {
-					//data.selectTarget(index-4);
-				}
-				if (data.cardSelected() && data.targetSelected()) {
-					//data.playSelected();
-				}
-				System.out.println("Area : " + index);
+				data.roomEvent(index);
 				}
 
 			// à la fin on affiche à nouveau toute l'interface. 

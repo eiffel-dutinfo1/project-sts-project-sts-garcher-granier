@@ -15,7 +15,7 @@ public class PlayerAvatar {
 	private int energy;
 	private final Stats stats;
 	private final ArrayList<Card> discard;
-	private final ArrayList<Card> hand;
+	private ArrayList<Card> hand;
 	private final ArrayList<Card> draw;
 	
 	public PlayerAvatar(Player player) {
@@ -71,8 +71,8 @@ public class PlayerAvatar {
 		//permet de vider la main dans la defausse a la fin d'un tour
 		for (Card card : hand) {
 			discard.add(card);
-			hand.remove(card);
 		}
+		hand = new ArrayList<Card>();
 	}
 	
 	public void removeCard(Card card) {

@@ -65,7 +65,7 @@ public class FightRoom implements Room {
 	}
 	
 	public void roomEvent(int index) throws IOException {
-		if (index >= 0 && index <= 4) {
+		if (index >= 0 && index <= avatar.getHand().size()-1) {
 			selectedCard = index;
 		}
 		else if (index >= 5 && index <= 8) {
@@ -78,7 +78,7 @@ public class FightRoom implements Room {
 			}
 			avatar.drawFiveCards();
 		}
-		if (cardSelected() && avatar.getHand().get(selectedCard).getNeedTarget()) {
+		if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
 			playSelected();
 		}
 		else if (cardSelected() && targetSelected()) {
