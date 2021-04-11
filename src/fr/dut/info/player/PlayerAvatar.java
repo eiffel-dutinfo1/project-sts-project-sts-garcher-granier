@@ -88,6 +88,10 @@ public class PlayerAvatar {
 		return card;
 	}
 	
+	public void removeCard(Card card) {
+		hand.remove(card);
+	}
+	
 	public boolean takeDamage(int damage) {
 		return player.takeDamage(damage);
 	}

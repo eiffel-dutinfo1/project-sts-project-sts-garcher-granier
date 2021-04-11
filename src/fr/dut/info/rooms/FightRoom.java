@@ -1,8 +1,10 @@
 package fr.dut.info.rooms;
 
 import java.io.IOException;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import fr.dut.info.cards.Card;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.Player;
 import fr.dut.info.player.PlayerAvatar;
@@ -51,13 +53,37 @@ public class FightRoom implements Room {
 	}
 
 	public void playSelected() throws IOException {
-		avatar.getHand().get(selectedCard).playCard(opponents, avatar, selectedTarget);
+		Card card = avatar.getHand().get(selectedCard);
+		card.playCard(opponents, avatar, selectedTarget);
+		avatar.removeCard(card);
 		resetSelected();
 	}
 
 	private void resetSelected() {
 		selectedTarget = -1;
 		selectedCard = -1;
+	}
+	
+	public void roomEvent(int index) throws IOException {
+		if (index >= 0 && index <= 4) {
+			selectedCard = index;
+		}
+		else if (index >= 5 && index <= 8) {
+			selectedTarget = index - 4;
+		}
+		else if (index == 9) {
+			avatar.emptyHand();
+			for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
+				entry.getValue().executeMove(entry.getValue(), avatar);
+			}
+			avatar.drawFiveCards();
+		}
+		if (cardSelected() && avatar.getHand().get(selectedCard).getNeedTarget()) {
+			playSelected();
+		}
+		else if (cardSelected() && targetSelected()) {
+			playSelected();
+		}
 	}
 
 	/*
