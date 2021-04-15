@@ -55,6 +55,7 @@ public abstract class AbstractOpponent implements Opponent{
 	
 	public void executeMove(Opponent self, PlayerAvatar avatar) throws IOException {
 		nextMove.executeActions(self, avatar);
+		getNextMove();
 	}
 	
 	public void getNextMove() {
@@ -69,7 +70,7 @@ public abstract class AbstractOpponent implements Opponent{
 		int randomNumber = Randomizer.randomInt(0, maxProbability);
 		int cumulativeProbability = 0;
 		for (Move move : moves) {
-			if (move.getProbability() + cumulativeProbability < randomNumber) {
+			if (move.getProbability() + cumulativeProbability > randomNumber) {
 				nextMove = move;
 				return;
 			} else {

@@ -147,6 +147,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		drawCards(data, graphics);
 		drawOpponents(data, graphics);
 		drawLogs(graphics);
+		drawSelectedEntities(data, graphics);
 	}
 
 	private void drawPlayerInfo(FightRoom data, Graphics2D graphics) {
@@ -169,7 +170,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		}
 		//writeStringAtCoords("Jouer cette carte", graphics, *hSize/3, vSize - 40);
 	}
-	private void drawOpponents(FightRoom data,Graphics2D graphics) {
+	private void drawOpponents(FightRoom data, Graphics2D graphics) {
 		// TODO : Question 4 
 		// Utiliser la fonction drawImageInArea et writeStringAtCoords
 		// Pour afficher les informations de l'adversaire.
@@ -185,15 +186,27 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			xLowR += hSize/5;
 		}
 	}
-	
 	private void drawLogs(Graphics2D graphics) {
 		float yCoord = 30;
-		for (String log : Log.getLog().getLogs()) {
+		int numberOfLogs = (int) (vSize/2)/27;
+		for (String log : Log.getLog().logDisplay(numberOfLogs)) {
 			writeStringAtCoords(log, graphics, hMargin + 4*hSize/5 + 10, yCoord);
-			yCoord+=30;
+			yCoord+=26;
 		}
 	}
-	
+	private void drawSelectedEntities(FightRoom data,Graphics2D graphics) {
+		if (data.targetSelected()) {
+			drawCross(graphics, data.getSelectedTarget()*hSize/5-hSize/10, vSize/2-40);
+		}
+		if (data.cardSelected()) {
+			drawCross(graphics, data.getSelectedCard()*hSize/5+hSize/10, vSize/2+80);
+		}
+	}
+	private void drawCross(Graphics2D graphics, float x, float y) {
+		graphics.setColor(Color.BLACK);
+		graphics.draw(new Line2D.Float(x-20, y-20, x+20, y+20));
+		graphics.draw(new Line2D.Float(x+20, y-20, x-20, y+20));
+	}
 	private void writeStringAtCoords(String letter, Graphics2D graphics, float x, float y) {
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		Font font = new Font("Serif", Font.PLAIN, 24);

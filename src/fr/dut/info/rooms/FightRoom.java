@@ -51,6 +51,14 @@ public class FightRoom implements Room {
 	public boolean cardSelected() {
 		return selectedCard >= 0;
 	}
+	
+	public int getSelectedCard() {
+		return selectedCard;
+	}
+	
+	public int getSelectedTarget() {
+		return selectedTarget;
+	}
 
 	public void playSelected() throws IOException {
 		Card card = avatar.getHand().get(selectedCard);
@@ -62,6 +70,13 @@ public class FightRoom implements Room {
 	private void resetSelected() {
 		selectedTarget = -1;
 		selectedCard = -1;
+	}
+	
+	private void statsUpdate() {
+		avatar.getStats().turnUpdate();
+		for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
+			entry.getValue().getStats().turnUpdate();
+		}
 	}
 	
 	public void roomEvent(int index) throws IOException {
@@ -77,6 +92,8 @@ public class FightRoom implements Room {
 				entry.getValue().executeMove(entry.getValue(), avatar);
 			}
 			avatar.drawFiveCards();
+			resetSelected();
+			statsUpdate();
 		}
 		if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
 			playSelected();
