@@ -57,7 +57,6 @@ public class FightRoom implements Room {
 		Card card = avatar.getHand().get(selectedCard);
 		card.playCard(opponents, avatar, selectedTarget);
 		avatar.removeCard(card);
-		resetSelected();
 	}
 
 	private void resetSelected() {
