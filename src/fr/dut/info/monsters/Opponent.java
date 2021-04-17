@@ -14,4 +14,5 @@ public interface Opponent {
 	int getMaxHP();
 	Stats getStats();
 	String getName();
+	boolean isDead();
 }

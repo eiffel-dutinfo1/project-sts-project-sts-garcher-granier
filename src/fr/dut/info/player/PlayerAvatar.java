@@ -65,6 +65,7 @@ public class PlayerAvatar {
 		for (int i = 0; i < 5; i++) {
 			hand.add(drawOneCard());
 		}
+		energy = maxEnergy;
 	}
 	
 	public void emptyHand() {
@@ -106,5 +107,13 @@ public class PlayerAvatar {
 		else {
 			return false;
 		}
+	}
+	
+	public boolean useEnergy(int i) {
+		if (i > energy) {
+			return false;
+		}
+		energy -= i;
+		return true;
 	}
 }

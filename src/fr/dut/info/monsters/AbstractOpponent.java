@@ -88,4 +88,11 @@ public abstract class AbstractOpponent implements Opponent{
 		hp -= value;
 		return hp <= 0;
 	}
+	
+	public boolean isDead() {
+		if (hp <= 0) {
+			return true;
+		}
+		return false;
+	}
 }

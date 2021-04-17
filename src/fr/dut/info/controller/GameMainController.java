@@ -107,6 +107,15 @@ public class GameMainController {
 				int index = view.areaFromCoordinates(location.x, location.y);
 				System.out.println("Area : " + index);
 				data.roomEvent(index);
+				data.deadOpponent();
+				if (data.victory()) {
+					System.out.println("You win !");
+					context.exit(0);
+				}
+				if (data.defeat()) {
+					System.out.println("You lose !");
+					context.exit(0);
+				}
 				}
 
 			// à la fin on affiche à nouveau toute l'interface. 
