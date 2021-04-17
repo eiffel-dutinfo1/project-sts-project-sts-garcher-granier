@@ -30,7 +30,7 @@ public class Test {
 		System.out.println(cultist);
 		avatar.selectCard().playCard(opponents, avatar);
 		System.out.println(cultist);
-		*/
+		
 		
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
 		Player player = new Player(100, 100);
@@ -38,6 +38,6 @@ public class Test {
 		FightRoom room = new FightRoom(player);
 		room.addOpponent(cultist);
 		room.startCombat();
-		
+		*/
 	}
 }

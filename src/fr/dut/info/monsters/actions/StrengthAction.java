@@ -2,6 +2,7 @@ package fr.dut.info.monsters.actions;
 
 import java.io.IOException;
 
+import fr.dut.info.Log;
 import fr.dut.info.monsters.MonsterAction;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
@@ -15,11 +16,7 @@ public class StrengthAction implements MonsterAction {
 	
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
-		opponent.applyStrength(strength);
-	}
-	
-	@Override
-	public String toString() {
-		return "Applies " + strength + " stack" + (strength > 1 ? "s" : "") + " to himself.";
+		opponent.getStats().addStrength(strength);
+		Log.getLog().addLog(opponent.getName() + " gains " + strength + " stack" + (strength > 1 ? "s" : "") + " of strength");
 	}
 }
