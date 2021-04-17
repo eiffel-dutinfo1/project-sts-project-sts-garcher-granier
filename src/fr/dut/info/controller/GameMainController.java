@@ -105,7 +105,6 @@ public class GameMainController {
 			}else {
 				Point2D.Float location = event.getLocation();
 				int index = view.areaFromCoordinates(location.x, location.y);
-				System.out.println("Area : " + index);
 				data.roomEvent(index);
 				data.deadOpponent();
 				if (data.victory()) {

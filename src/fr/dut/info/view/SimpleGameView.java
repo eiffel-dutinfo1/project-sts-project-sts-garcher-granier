@@ -154,8 +154,10 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		int playerHP = data.getAvatar().getCurrentHP();
 		int playerMaxHP = data.getAvatar().getMaxHP();
 		int playerBlock = data.getAvatar().getStats().getBlock();
+		int playerEnergy = data.getAvatar().getEnergy();
 		writeStringAtCoords("Player HP : " + playerHP + " / " + playerMaxHP, graphics, hMargin, vMargin + vSize/2 + 30);
-		writeStringAtCoords("Player Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30);
+		writeStringAtCoords("Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30);
+		writeStringAtCoords("Energy : " + playerEnergy, graphics, hMargin + hSize/4 + 200, vMargin + vSize/2 + 30);
 	}
 	private void drawCards(FightRoom data, Graphics2D graphics) {
 		ArrayList<Card> hand = data.getAvatar().getHand();

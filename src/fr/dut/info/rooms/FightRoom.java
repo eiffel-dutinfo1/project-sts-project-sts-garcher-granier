@@ -62,6 +62,7 @@ public class FightRoom implements Room {
 	}
 
 	public void playSelected() throws IOException {
+		System.out.println(selectedCard);
 		Card card = avatar.getHand().get(selectedCard);
 		card.playCard(opponents, avatar, selectedTarget);
 		avatar.removeCard(card);
