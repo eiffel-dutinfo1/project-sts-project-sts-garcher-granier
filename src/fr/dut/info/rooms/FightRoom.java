@@ -1,6 +1,7 @@
 package fr.dut.info.rooms;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -68,7 +69,7 @@ public class FightRoom implements Room {
 		if (index >= 0 && index <= avatar.getHand().size()-1) {
 			selectedCard = index;
 		}
-		else if (index >= 5 && index <= 8) {
+		else if (index >= 5 && index <= opponents.size() + 4) {
 			selectedTarget = index - 4;
 		}
 		else if (index == 9) {
@@ -79,11 +80,47 @@ public class FightRoom implements Room {
 			avatar.drawFiveCards();
 		}
 		if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
-			playSelected();
+			if (avatar.useEnergy(avatar.getHand().get(selectedCard).energyCost())) {
+				playSelected();
+			}
+			resetSelected();
 		}
 		else if (cardSelected() && targetSelected()) {
-			playSelected();
+			if (avatar.useEnergy(avatar.getHand().get(selectedCard).energyCost())) {
+				playSelected();
+			}
+			resetSelected();
 		}
+	}
+	
+	public void deadOpponent() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
+			if (entry.getValue().isDead()) {
+				list.add(entry.getKey());
+			}
+		}
+		for(Integer integer : list) {
+			opponents.remove(integer);
+			for(int i = integer; i <= opponents.size(); i++) {
+				opponents.put(i, opponents.get(i + 1));
+				opponents.remove(i+1);
+			}
+		}
+	}
+	
+	public boolean victory() {
+		if (opponents.size() == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean defeat() {
+		if (avatar.isDead()) {
+			return true;
+		}
+		return false;
 	}
 
 	/*
