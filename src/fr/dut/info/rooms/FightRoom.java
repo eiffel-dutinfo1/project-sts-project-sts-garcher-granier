@@ -21,6 +21,7 @@ public class FightRoom implements Room {
 		this.opponents = new TreeMap<Integer, Opponent>();
 		numberOfOpponents = 0;
 		avatar = new PlayerAvatar(player);
+		avatar.drawFiveCards();
 		resetSelected();
 	}
 

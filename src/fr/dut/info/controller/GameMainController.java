@@ -7,6 +7,7 @@ import java.io.IOException;
 import fr.dut.info.cards.CardBuilder;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.monsters.act1.Cultist;
+import fr.dut.info.monsters.act1.JawWorm;
 import fr.dut.info.player.Player;
 import fr.dut.info.rooms.FightRoom;
 import fr.dut.info.rooms.Room;
@@ -43,16 +44,9 @@ public class GameMainController {
 		
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
 		Player player = new Player(100, 100);
-		Opponent opponent1 = new Cultist();
-		Opponent opponent2 = new Cultist();
-		Opponent opponent3 = new Cultist();
-		Opponent opponent4 = new Cultist();
+		Opponent opponent1 = new JawWorm();
 		FightRoom data = new FightRoom(player);
-		data.getAvatar().drawFiveCards();
 		data.addOpponent(opponent1);
-		data.addOpponent(opponent2);
-		data.addOpponent(opponent3);
-		data.addOpponent(opponent4);
 		
 		SimpleGameView view = SimpleGameView.initGameGraphics(height, width, data, gameWidth, gameHeight); 
 		view.draw(context);

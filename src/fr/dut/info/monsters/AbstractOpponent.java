@@ -55,6 +55,11 @@ public abstract class AbstractOpponent implements Opponent{
 	
 	public void executeMove(Opponent self, PlayerAvatar avatar) throws IOException {
 		nextMove.executeActions(self, avatar);
+		for (Move move : moves) {
+			if (!move.equals(nextMove)) {
+				move.resetStreak();
+			}
+		}
 		getNextMove();
 	}
 	
@@ -62,14 +67,16 @@ public abstract class AbstractOpponent implements Opponent{
 		int maxProbability = 0;
 		ArrayList<Move> legalMoves = new ArrayList<Move>();
 		for (Move move : moves) {
-			if (!move.isIllegal()) {
+			System.out.println(move.getName());
+			System.out.println(move.getCurrentStreak());
+			if (move.isLegal()) {
 				legalMoves.add(move);
 				maxProbability += move.getProbability();
 			}
 		}
 		int randomNumber = Randomizer.randomInt(0, maxProbability);
 		int cumulativeProbability = 0;
-		for (Move move : moves) {
+		for (Move move : legalMoves) {
 			if (move.getProbability() + cumulativeProbability > randomNumber) {
 				nextMove = move;
 				return;

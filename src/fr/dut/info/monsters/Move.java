@@ -24,13 +24,21 @@ public class Move {
 		}
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public int getCurrentStreak() {
+		return currentStreak;
+	}
+	
 	public int getProbability() {
 		return probability;
 	}
 	
 	//return true si le move est ill�gal
-	public boolean isIllegal() {
-		return currentStreak == maxStreak;
+	public boolean isLegal() {
+		return currentStreak < maxStreak;
 	}
 	
 	public void resetStreak() {
@@ -47,7 +55,6 @@ public class Move {
 		}
 	}
 	
-	/* inutiles pour le moment
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -63,5 +70,4 @@ public class Move {
 		Move other = (Move) obj;
 		return name.equals(other.name);
 	}
-	*/
 }
