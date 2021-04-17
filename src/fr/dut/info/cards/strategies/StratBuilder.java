@@ -1,6 +1,5 @@
 package fr.dut.info.cards.strategies;
 
-import fr.dut.info.cards.strategies.cardstrats.AttackAndBlock;
 import fr.dut.info.cards.strategies.cardstrats.BlockStrat;
 import fr.dut.info.cards.strategies.cardstrats.MultiAttackStrat;
 import fr.dut.info.cards.strategies.cardstrats.SingleTargetAttackBlockStrat;
@@ -17,8 +16,6 @@ public class StratBuilder {
 			return new SingleTargetAttackBlockStrat(value);
 		case "multi_damage":
 			return new MultiAttackStrat(value);
-		case "damage_block":
-			return new AttackAndBlock(value);
 		default:
 			throw new IllegalArgumentException("Strat name is not recognized, please verify the .txt file");
 		}
