@@ -109,11 +109,7 @@ public class PlayerAvatar {
 		}
 	}
 	
-	public boolean useEnergy(int i) {
-		if (i > energy) {
-			return false;
-		}
+	public void useEnergy(int i) {
 		energy -= i;
-		return true;
 	}
 }

@@ -65,8 +65,8 @@ public class FightRoom implements Room {
 		System.out.println(selectedCard);
 		Card card = avatar.getHand().get(selectedCard);
 		card.playCard(opponents, avatar, selectedTarget);
+		avatar.useEnergy(card.energyCost());
 		avatar.removeCard(card);
-		resetSelected();
 	}
 
 	private void resetSelected() {
@@ -98,13 +98,13 @@ public class FightRoom implements Room {
 			statsUpdate();
 		}
 		if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
-			if (avatar.useEnergy(avatar.getHand().get(selectedCard).energyCost())) {
+			if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
 				playSelected();
 			}
 			resetSelected();
 		}
 		else if (cardSelected() && targetSelected()) {
-			if (avatar.useEnergy(avatar.getHand().get(selectedCard).energyCost())) {
+			if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
 				playSelected();
 			}
 			resetSelected();
