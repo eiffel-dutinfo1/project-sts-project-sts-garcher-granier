@@ -113,7 +113,7 @@ public class GameMainController {
 					context.exit(0);
 				}
 				if (data.defeat()) {
-					System.out.println("You loose !");
+					System.out.println("You lose !");
 					context.exit(0);
 				}
 				}
