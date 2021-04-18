@@ -3,7 +3,7 @@ package fr.dut.info.monsters;
 import java.io.IOException;
 
 import fr.dut.info.player.PlayerAvatar;
-import stats.Stats;
+import fr.dut.info.stats.Stats;
 
 public interface Opponent {
 
@@ -14,4 +14,5 @@ public interface Opponent {
 	int getMaxHP();
 	Stats getStats();
 	String getName();
+	boolean isDead();
 }

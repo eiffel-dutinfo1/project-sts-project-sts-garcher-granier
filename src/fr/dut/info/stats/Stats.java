@@ -1,4 +1,4 @@
-package stats;
+package fr.dut.info.stats;
 
 public class Stats {
 	private int block;
@@ -65,10 +65,38 @@ public class Stats {
 		vulnerability += value;
 	}
 	
-	public void turnStatsDecrease() {
+	public int applyAttackerModifiers(int damageDealt) {
+		damageDealt += strength;
+		if (weak > 0) {
+			damageDealt = (int) (damageDealt * 0.75);
+		}
+		return damageDealt;
+	}
+	
+	public int applyDefenderModifiers(int damageTaken) {
+		if (block > 0) {
+			int temp = damageTaken;
+			damageTaken -= block;
+			block -= temp;
+		}
+		if (damageTaken <= 0) {
+			return 0;
+		}
+		if (vulnerability > 0) {
+			damageTaken = (int) (damageTaken *1.5);
+		}
+		return damageTaken;
+	}
+	
+	public void turnUpdate() {
 		block = 0;
 		strength += ritual;
 		ritual = 0;
-		
+		if (weak > 0) {
+			weak--;
+		}
+		if (vulnerability > 0) {
+			vulnerability--;
+		}
 	}
 }

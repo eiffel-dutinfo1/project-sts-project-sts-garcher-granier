@@ -4,28 +4,15 @@ import fr.dut.info.Randomizer;
 import fr.dut.info.monsters.AbstractOpponent;
 import fr.dut.info.monsters.ActionBuilder;
 import fr.dut.info.monsters.Move;
-import fr.dut.info.player.PlayerAvatar;
 
 public class JawWorm extends AbstractOpponent{
 	
 	public JawWorm() {
-		super("Jaw Worm", Randomizer.randomInt(40, 44));
-		super.addMove(new Move("Bellow", 45, 1, ActionBuilder.stringToArray("strength-block"), 6));
-		super.addMove(new Move("Dark Strike", 100, -1, ActionBuilder.stringToArray("damage"), 6));
-		super.addMove(new Move("Dark Strike", 100, -1, ActionBuilder.stringToArray("damage"), 6));
-	}
-	
-	public void chomp(PlayerAvatar playerAvatar) {
-		dealDamage(playerAvatar, 11);
-	}
-	
-	public void trash(PlayerAvatar playerAvatar) {
-		dealDamage(playerAvatar, 7);
-		dealBlock(5);
-	}
-	
-	public void bellow() {
-		dealStrength(3);
-		dealBlock(6);
+		super("Jaw Worm", Randomizer.randomInt(40, 44), "resources/pictures/jawworm.png");
+		Move chomp = new Move("Chomp", 25, 1, ActionBuilder.stringsToArray("damage"), ActionBuilder.integersToArray("11"));
+		super.firstMove(chomp);
+		super.addMove(chomp);
+		super.addMove(new Move("Bellow", 45, 1, ActionBuilder.stringsToArray("strength#block"), ActionBuilder.integersToArray("3#6")));
+		super.addMove(new Move("Thrash", 30, 2, ActionBuilder.stringsToArray("damage#block"), ActionBuilder.integersToArray("7#5")));
 	}
 }

@@ -1,6 +1,7 @@
 package fr.dut.info.rooms;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -15,11 +16,14 @@ public class FightRoom implements Room {
 	private PlayerAvatar avatar;
 	private int selectedCard;
 	private int selectedTarget;
+	private boolean isGameFinished;
 
 	public FightRoom(Player player) {
 		this.opponents = new TreeMap<Integer, Opponent>();
 		numberOfOpponents = 0;
+		isGameFinished = false;
 		avatar = new PlayerAvatar(player);
+		avatar.drawFiveCards();
 		resetSelected();
 	}
 
@@ -51,12 +55,29 @@ public class FightRoom implements Room {
 	public boolean cardSelected() {
 		return selectedCard >= 0;
 	}
-
+	
+	public int getSelectedCard() {
+		return selectedCard;
+	}
+	
+	public int getSelectedTarget() {
+		return selectedTarget;
+	}
+	
+	public boolean getIsGameFinished() {
+		return isGameFinished;
+	}
+	
+	public void finishGame() {
+		isGameFinished = true;
+	}
+	
 	public void playSelected() throws IOException {
+		System.out.println(selectedCard);
 		Card card = avatar.getHand().get(selectedCard);
 		card.playCard(opponents, avatar, selectedTarget);
+		avatar.useEnergy(card.energyCost());
 		avatar.removeCard(card);
-		resetSelected();
 	}
 
 	private void resetSelected() {
@@ -64,11 +85,18 @@ public class FightRoom implements Room {
 		selectedCard = -1;
 	}
 	
+	private void statsUpdate() {
+		avatar.getStats().turnUpdate();
+		for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
+			entry.getValue().getStats().turnUpdate();
+		}
+	}
+	
 	public void roomEvent(int index) throws IOException {
-		if (index >= 0 && index <= 4) {
+		if (index >= 0 && index <= avatar.getHand().size()-1) {
 			selectedCard = index;
 		}
-		else if (index >= 5 && index <= 8) {
+		else if (index >= 5 && index <= opponents.size() + 4) {
 			selectedTarget = index - 4;
 		}
 		else if (index == 9) {
@@ -77,13 +105,51 @@ public class FightRoom implements Room {
 				entry.getValue().executeMove(entry.getValue(), avatar);
 			}
 			avatar.drawFiveCards();
+			resetSelected();
+			statsUpdate();
 		}
-		if (cardSelected() && avatar.getHand().get(selectedCard).getNeedTarget()) {
-			playSelected();
+		if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
+			if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
+				playSelected();
+			}
+			resetSelected();
 		}
 		else if (cardSelected() && targetSelected()) {
-			playSelected();
+			if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
+				playSelected();
+			}
+			resetSelected();
 		}
+	}
+	
+	public void deadOpponent() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
+			if (entry.getValue().isDead()) {
+				list.add(entry.getKey());
+			}
+		}
+		for(Integer integer : list) {
+			opponents.remove(integer);
+			for(int i = integer; i <= opponents.size(); i++) {
+				opponents.put(i, opponents.get(i + 1));
+				opponents.remove(i+1);
+			}
+		}
+	}
+	
+	public boolean victory() {
+		if (opponents.size() == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean defeat() {
+		if (avatar.isDead()) {
+			return true;
+		}
+		return false;
 	}
 
 	/*

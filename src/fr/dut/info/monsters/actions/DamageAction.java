@@ -16,12 +16,10 @@ public class DamageAction implements MonsterAction {
 	
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
-		avatar.takeDamage(damage);
-		Log.getLog().addLog("You take " + damage + " damage from " + opponent);
-	}
-	
-	@Override
-	public String toString() {
-		return "Deals " + damage + " damage to you.";
+		int modifiedDamage = damage;
+		modifiedDamage = opponent.getStats().applyAttackerModifiers(modifiedDamage);
+		modifiedDamage = avatar.getStats().applyDefenderModifiers(modifiedDamage);
+		avatar.takeDamage(modifiedDamage);
+		Log.getLog().addLog("You take " + modifiedDamage + " damage from " + opponent.getName());
 	}
 }

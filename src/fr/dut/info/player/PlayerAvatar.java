@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 import fr.dut.info.cards.Card;
 import fr.dut.info.cards.Deck;
-import fr.dut.info.controller.Input;
-import stats.Stats;
+import fr.dut.info.stats.Stats;
 
 public class PlayerAvatar {
 	private final Player player;
@@ -16,7 +15,7 @@ public class PlayerAvatar {
 	private int energy;
 	private final Stats stats;
 	private final ArrayList<Card> discard;
-	private final ArrayList<Card> hand;
+	private ArrayList<Card> hand;
 	private final ArrayList<Card> draw;
 	
 	public PlayerAvatar(Player player) {
@@ -66,26 +65,20 @@ public class PlayerAvatar {
 		for (int i = 0; i < 5; i++) {
 			hand.add(drawOneCard());
 		}
+		energy = maxEnergy;
 	}
 	
 	public void emptyHand() {
 		//permet de vider la main dans la defausse a la fin d'un tour
 		for (Card card : hand) {
 			discard.add(card);
-			hand.remove(card);
 		}
+		hand = new ArrayList<Card>();
 	}
 	
-	public Card selectCard() throws IOException {
-		int numCard = Input.getCard(hand);
-		Card card = hand.get(numCard-1);
-		if (card.energyCost() > energy) {
-			return null;
-		}
-		energy -= card.energyCost();
+	public void removeCard(Card card) {
 		discard.add(card);
 		hand.remove(card);
-		return card;
 	}
 	
 	public void removeCard(Card card) {
@@ -118,5 +111,9 @@ public class PlayerAvatar {
 		else {
 			return false;
 		}
+	}
+	
+	public void useEnergy(int i) {
+		energy -= i;
 	}
 }

@@ -7,16 +7,16 @@ import fr.dut.info.monsters.MonsterAction;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
 
-public class BlockAction implements MonsterAction {
-	private final int block;
+public class RitualAction implements MonsterAction {
+	private final int ritual;
 	
-	public BlockAction(int value) {
-		block = value;
+	public RitualAction(int value) {
+		ritual = value;
 	}
 	
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
-		opponent.getStats().addBlock(block);
-		Log.getLog().addLog(opponent.getName() + " gains " + block + " stack" + (block > 1 ? "s" : "") + " of block");
+		opponent.getStats().addRitual(ritual);
+		Log.getLog().addLog(opponent.getName() + " gains " + ritual + " stack" + (ritual > 1 ? "s" : "") + " of ritual");
 	}
 }

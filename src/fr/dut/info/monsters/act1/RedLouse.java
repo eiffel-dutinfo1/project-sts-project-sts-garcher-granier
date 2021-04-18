@@ -4,19 +4,10 @@ import fr.dut.info.monsters.AbstractOpponent;
 import fr.dut.info.player.PlayerAvatar;
 
 public class RedLouse extends AbstractOpponent{
-	
-	private final int damage;
-	
-	public RedLouse() {
-		super((int) (Math.random() * ( 15 - 10 )));
-		this.damage = (int) (Math.random() * ( 7 - 5 ));
+
+	public RedLouse(String name, int maxhp, String picturePath) {
+		super(name, maxhp, picturePath);
+		// TODO Auto-generated constructor stub
 	}
-	
-	public void bite(PlayerAvatar playerAvatar) {
-		dealDamage(playerAvatar, damage);
-	}
-	
-	public void grow() {
-		dealStrength(3);
-	}
+
 }

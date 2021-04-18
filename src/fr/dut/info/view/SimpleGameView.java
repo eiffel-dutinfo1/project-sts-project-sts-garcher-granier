@@ -77,34 +77,47 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		graphics.setColor(Color.LIGHT_GRAY);
 		
 		// Fonction auxiliaire de l'affichage du contenu. 
-		drawLayout(graphics);
+		
+		if (data.getIsGameFinished()) {
+			drawEndScreen(graphics);
+		} else {
+			drawLayout(graphics);
+		}
 	}
 
 
 	@Override
 	public int areaFromCoordinates(float x, float y) {
-		// Todo : Question 1
 		if (y < vSize/2) {
-			if (x < hSize/2) {
+			if (x < hSize/5) {
+				return 5;
+			} else if (x < 2*hSize/5) {
 				return 6;
-			} else {
+			} else if (x < 3*hSize/5) {
 				return 7;
+			} else if (x < 4*hSize/5) {
+				return 8;
+			} else {
+				return -1;
 			}
+		}
+		if ((y > vSize/2) && (y < (vSize/2) + 40) && (x > 4*hSize/5)) {
+			return 9;
 		}
 		if (y > (vSize/2) + 40) {
 			if (x < hSize/5) {
-				return 1;
+				return 0;
 			} else if (x < 2*hSize/5) {
-				return 2;
+				return 1;
 			} else if (x < 3*hSize/5) {
-				return 3;
+				return 2;
 			} else if (x < 4*hSize/5) {
-				return 4;
+				return 3;
 			} else {
-				return 5;
+				return 4;
 			}
 		}
-		return 0;
+		return -1;
 	}
 	
 	/**
@@ -124,7 +137,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		for (float xLimit : xLimits) {
 			graphics.draw(new Line2D.Float(xLimit+hMargin, vMargin, xLimit + hMargin, yLow));
 		}
-		yLow += ySpace ; 
+		graphics.draw(new Line2D.Float(4*hSize/5, 0, 4*hSize/5, vSize));
+		writeStringAtCoords("END TURN", graphics, 87*hSize/100, vMargin + vSize/2 + 30);
+		yLow += ySpace ;
 		// Les lignes verticales de la partie basse.
 		for (float xLimit : xLimits) {
 			graphics.draw(new Line2D.Float(xLimit+hMargin, yLow, xLimit + hMargin, vMargin + vSize));
@@ -132,21 +147,33 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		
 		// Ensuite affichage des autres éléments : infos du joueur,
 		// cartes puis adversaires. 
-		drawPlayerInfo(data,graphics);
+		drawPlayerInfo(graphics);
 		graphics.setColor(Color.LIGHT_GRAY);
-		drawCards(data, graphics);
-		drawOpponents(data, graphics);
+		drawCards(graphics);
+		drawOpponents(graphics);
 		drawLogs(graphics);
+		drawSelectedEntities(graphics);
+	}
+	
+	private void drawEndScreen(Graphics2D graphics) {
+		if (data.victory()) {
+			writeStringAtCoords("You win!", graphics, hSize/2, vSize/2);
+		}
+		if (data.defeat()) {
+			writeStringAtCoords("You lose!", graphics, hSize/2, vSize/2);
+		}
 	}
 
-	private void drawPlayerInfo(FightRoom data, Graphics2D graphics) {
+	private void drawPlayerInfo(Graphics2D graphics) {
 		int playerHP = data.getAvatar().getCurrentHP();
 		int playerMaxHP = data.getAvatar().getMaxHP();
 		int playerBlock = data.getAvatar().getStats().getBlock();
+		int playerEnergy = data.getAvatar().getEnergy();
 		writeStringAtCoords("Player HP : " + playerHP + " / " + playerMaxHP, graphics, hMargin, vMargin + vSize/2 + 30);
-		writeStringAtCoords("Player Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30);
+		writeStringAtCoords("Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30);
+		writeStringAtCoords("Energy : " + playerEnergy, graphics, hMargin + hSize/4 + 200, vMargin + vSize/2 + 30);
 	}
-	private void drawCards(FightRoom data, Graphics2D graphics) {
+	private void drawCards(Graphics2D graphics) {
 		ArrayList<Card> hand = data.getAvatar().getHand();
 		float xUpL = hSize/50;
 		float xLowR = 9*hSize/50;
@@ -159,7 +186,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		}
 		//writeStringAtCoords("Jouer cette carte", graphics, *hSize/3, vSize - 40);
 	}
-	private void drawOpponents(FightRoom data,Graphics2D graphics) {
+	private void drawOpponents(Graphics2D graphics) {
 		// TODO : Question 4 
 		// Utiliser la fonction drawImageInArea et writeStringAtCoords
 		// Pour afficher les informations de l'adversaire.
@@ -175,15 +202,27 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			xLowR += hSize/5;
 		}
 	}
-	
 	private void drawLogs(Graphics2D graphics) {
 		float yCoord = 30;
-		for (String log : Log.getLog().getLogs()) {
+		int numberOfLogs = (int) (vSize/2)/27;
+		for (String log : Log.getLog().logDisplay(numberOfLogs)) {
 			writeStringAtCoords(log, graphics, hMargin + 4*hSize/5 + 10, yCoord);
-			yCoord+=30;
+			yCoord+=26;
 		}
 	}
-	
+	private void drawSelectedEntities(Graphics2D graphics) {
+		if (data.targetSelected()) {
+			drawCross(graphics, data.getSelectedTarget()*hSize/5-hSize/10, vSize/2-40);
+		}
+		if (data.cardSelected()) {
+			drawCross(graphics, data.getSelectedCard()*hSize/5+hSize/10, vSize/2+80);
+		}
+	}
+	private void drawCross(Graphics2D graphics, float x, float y) {
+		graphics.setColor(Color.BLACK);
+		graphics.draw(new Line2D.Float(x-20, y-20, x+20, y+20));
+		graphics.draw(new Line2D.Float(x+20, y-20, x-20, y+20));
+	}
 	private void writeStringAtCoords(String letter, Graphics2D graphics, float x, float y) {
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		Font font = new Font("Serif", Font.PLAIN, 24);

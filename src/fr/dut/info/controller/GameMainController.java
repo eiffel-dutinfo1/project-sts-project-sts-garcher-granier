@@ -7,6 +7,7 @@ import java.io.IOException;
 import fr.dut.info.cards.CardBuilder;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.monsters.act1.Cultist;
+import fr.dut.info.monsters.act1.JawWorm;
 import fr.dut.info.player.Player;
 import fr.dut.info.rooms.FightRoom;
 import fr.dut.info.rooms.Room;
@@ -43,17 +44,11 @@ public class GameMainController {
 		
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
 		Player player = new Player(100, 100);
-		Opponent opponent1 = new Cultist();
+		Opponent opponent1 = new JawWorm();
 		Opponent opponent2 = new Cultist();
-		Opponent opponent3 = new Cultist();
-		Opponent opponent4 = new Cultist();
 		FightRoom data = new FightRoom(player);
-		data.getAvatar().drawFiveCards();
-		System.out.println(data.getAvatar());
 		data.addOpponent(opponent1);
 		data.addOpponent(opponent2);
-		data.addOpponent(opponent3);
-		data.addOpponent(opponent4);
 		
 		SimpleGameView view = SimpleGameView.initGameGraphics(height, width, data, gameWidth, gameHeight); 
 		view.draw(context);
@@ -106,25 +101,20 @@ public class GameMainController {
 			}else {
 				Point2D.Float location = event.getLocation();
 				int index = view.areaFromCoordinates(location.x, location.y);
-				System.out.println("Area : " + index);
-				// TODO : Question 5
-				// Utiliser les méthodes de sélection de SimpleGameData
-				// Pour sélectionner les cartes et les monstres dans le modèle.
-				
-				if (index >= 0 && index <= 3) {
-					//data.selectCard(index-1);
-				} else if (index >= 4 && index <= 5) {
-					//data.selectTarget(index-4);
+				data.roomEvent(index);
+				data.deadOpponent();
+				if (data.victory()) {
+					data.finishGame();
+					System.out.println("You win !");
 				}
-				if (data.cardSelected() && data.targetSelected()) {
-					//data.playSelected();
+				if (data.defeat()) {
+					data.finishGame();
+					System.out.println("You lose !");
 				}
-				System.out.println("Area : " + index);
 				}
 
 			// à la fin on affiche à nouveau toute l'interface. 
 			view.draw(context);
 		}
-
 	}
 }

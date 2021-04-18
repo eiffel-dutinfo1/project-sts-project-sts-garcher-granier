@@ -16,7 +16,7 @@ public class CardBuilder {
 	private static CardBuilder instance = null;
 	//important !!! determiner a l'avance le nombre de cartes dans le tableau
 	//a priori �a bouge pas
-	private static final int totalCommonCards = 2;
+	private static final int totalCommonCards = 5;
 	private static Card[] commonCards = new Card[totalCommonCards];
 	
 	private CardBuilder() throws IOException {

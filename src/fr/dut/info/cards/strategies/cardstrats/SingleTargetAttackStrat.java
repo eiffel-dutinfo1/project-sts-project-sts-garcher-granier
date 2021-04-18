@@ -17,7 +17,10 @@ public class SingleTargetAttackStrat implements Strat {
 	
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
-		opponents.get(target).takeDamage(damage);
-		Log.getLog().addLog("You deal " + damage + " damage to " + opponents.get(target).getName());
+		int modifiedDamage = damage;
+		modifiedDamage = playerAvatar.getStats().applyAttackerModifiers(modifiedDamage);
+		modifiedDamage = opponents.get(target).getStats().applyDefenderModifiers(modifiedDamage);
+		opponents.get(target).takeDamage(modifiedDamage);
+		Log.getLog().addLog("You deal " + modifiedDamage + " damage to " + opponents.get(target).getName());
 	}
 }

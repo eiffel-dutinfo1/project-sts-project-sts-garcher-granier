@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import fr.dut.info.Randomizer;
 import fr.dut.info.player.PlayerAvatar;
-import stats.Stats;
+import fr.dut.info.stats.Stats;
 
 public abstract class AbstractOpponent implements Opponent{
 	private final String name;
@@ -55,21 +55,29 @@ public abstract class AbstractOpponent implements Opponent{
 	
 	public void executeMove(Opponent self, PlayerAvatar avatar) throws IOException {
 		nextMove.executeActions(self, avatar);
+		for (Move move : moves) {
+			if (!move.equals(nextMove)) {
+				move.resetStreak();
+			}
+		}
+		getNextMove();
 	}
 	
 	public void getNextMove() {
 		int maxProbability = 0;
 		ArrayList<Move> legalMoves = new ArrayList<Move>();
 		for (Move move : moves) {
-			if (!move.isIllegal()) {
+			System.out.println(move.getName());
+			System.out.println(move.getCurrentStreak());
+			if (move.isLegal()) {
 				legalMoves.add(move);
 				maxProbability += move.getProbability();
 			}
 		}
 		int randomNumber = Randomizer.randomInt(0, maxProbability);
 		int cumulativeProbability = 0;
-		for (Move move : moves) {
-			if (move.getProbability() + cumulativeProbability < randomNumber) {
+		for (Move move : legalMoves) {
+			if (move.getProbability() + cumulativeProbability > randomNumber) {
 				nextMove = move;
 				return;
 			} else {
@@ -86,5 +94,12 @@ public abstract class AbstractOpponent implements Opponent{
 	public boolean takeDamage(int value) {
 		hp -= value;
 		return hp <= 0;
+	}
+	
+	public boolean isDead() {
+		if (hp <= 0) {
+			return true;
+		}
+		return false;
 	}
 }
