@@ -77,7 +77,12 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		graphics.setColor(Color.LIGHT_GRAY);
 		
 		// Fonction auxiliaire de l'affichage du contenu. 
-		drawLayout(graphics);
+		
+		if (data.getIsGameFinished()) {
+			drawEndScreen(graphics);
+		} else {
+			drawLayout(graphics);
+		}
 	}
 
 
@@ -142,15 +147,24 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		
 		// Ensuite affichage des autres éléments : infos du joueur,
 		// cartes puis adversaires. 
-		drawPlayerInfo(data,graphics);
+		drawPlayerInfo(graphics);
 		graphics.setColor(Color.LIGHT_GRAY);
-		drawCards(data, graphics);
-		drawOpponents(data, graphics);
+		drawCards(graphics);
+		drawOpponents(graphics);
 		drawLogs(graphics);
-		drawSelectedEntities(data, graphics);
+		drawSelectedEntities(graphics);
+	}
+	
+	private void drawEndScreen(Graphics2D graphics) {
+		if (data.victory()) {
+			writeStringAtCoords("You win!", graphics, hSize/2, vSize/2);
+		}
+		if (data.defeat()) {
+			writeStringAtCoords("You lose!", graphics, hSize/2, vSize/2);
+		}
 	}
 
-	private void drawPlayerInfo(FightRoom data, Graphics2D graphics) {
+	private void drawPlayerInfo(Graphics2D graphics) {
 		int playerHP = data.getAvatar().getCurrentHP();
 		int playerMaxHP = data.getAvatar().getMaxHP();
 		int playerBlock = data.getAvatar().getStats().getBlock();
@@ -159,7 +173,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		writeStringAtCoords("Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30);
 		writeStringAtCoords("Energy : " + playerEnergy, graphics, hMargin + hSize/4 + 200, vMargin + vSize/2 + 30);
 	}
-	private void drawCards(FightRoom data, Graphics2D graphics) {
+	private void drawCards(Graphics2D graphics) {
 		ArrayList<Card> hand = data.getAvatar().getHand();
 		float xUpL = hSize/50;
 		float xLowR = 9*hSize/50;
@@ -172,7 +186,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		}
 		//writeStringAtCoords("Jouer cette carte", graphics, *hSize/3, vSize - 40);
 	}
-	private void drawOpponents(FightRoom data, Graphics2D graphics) {
+	private void drawOpponents(Graphics2D graphics) {
 		// TODO : Question 4 
 		// Utiliser la fonction drawImageInArea et writeStringAtCoords
 		// Pour afficher les informations de l'adversaire.
@@ -196,7 +210,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			yCoord+=26;
 		}
 	}
-	private void drawSelectedEntities(FightRoom data,Graphics2D graphics) {
+	private void drawSelectedEntities(Graphics2D graphics) {
 		if (data.targetSelected()) {
 			drawCross(graphics, data.getSelectedTarget()*hSize/5-hSize/10, vSize/2-40);
 		}

@@ -16,10 +16,12 @@ public class FightRoom implements Room {
 	private PlayerAvatar avatar;
 	private int selectedCard;
 	private int selectedTarget;
+	private boolean isGameFinished;
 
 	public FightRoom(Player player) {
 		this.opponents = new TreeMap<Integer, Opponent>();
 		numberOfOpponents = 0;
+		isGameFinished = false;
 		avatar = new PlayerAvatar(player);
 		avatar.drawFiveCards();
 		resetSelected();
@@ -61,7 +63,15 @@ public class FightRoom implements Room {
 	public int getSelectedTarget() {
 		return selectedTarget;
 	}
-
+	
+	public boolean getIsGameFinished() {
+		return isGameFinished;
+	}
+	
+	public void finishGame() {
+		isGameFinished = true;
+	}
+	
 	public void playSelected() throws IOException {
 		System.out.println(selectedCard);
 		Card card = avatar.getHand().get(selectedCard);

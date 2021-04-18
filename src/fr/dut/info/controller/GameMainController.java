@@ -45,8 +45,10 @@ public class GameMainController {
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
 		Player player = new Player(100, 100);
 		Opponent opponent1 = new JawWorm();
+		Opponent opponent2 = new Cultist();
 		FightRoom data = new FightRoom(player);
 		data.addOpponent(opponent1);
+		data.addOpponent(opponent2);
 		
 		SimpleGameView view = SimpleGameView.initGameGraphics(height, width, data, gameWidth, gameHeight); 
 		view.draw(context);
@@ -102,12 +104,12 @@ public class GameMainController {
 				data.roomEvent(index);
 				data.deadOpponent();
 				if (data.victory()) {
+					data.finishGame();
 					System.out.println("You win !");
-					context.exit(0);
 				}
 				if (data.defeat()) {
+					data.finishGame();
 					System.out.println("You lose !");
-					context.exit(0);
 				}
 				}
 

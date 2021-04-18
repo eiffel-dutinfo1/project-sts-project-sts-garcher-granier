@@ -11,8 +11,4 @@ public class MapBuilder {
 		}
 		return instance;
 	}
-	
-	public Map createMap(int nbRooms, int lvl) {
-		
-	}
 }
