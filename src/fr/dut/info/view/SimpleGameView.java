@@ -138,7 +138,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			graphics.draw(new Line2D.Float(xLimit+hMargin, vMargin, xLimit + hMargin, yLow));
 		}
 		graphics.draw(new Line2D.Float(4*hSize/5, 0, 4*hSize/5, vSize));
-		writeStringAtCoords("END TURN", graphics, 87*hSize/100, vMargin + vSize/2 + 30);
+		writeStringAtCoords("END TURN", graphics, 87*hSize/100, vMargin + vSize/2 + 30, 24);
 		yLow += ySpace ;
 		// Les lignes verticales de la partie basse.
 		for (float xLimit : xLimits) {
@@ -157,10 +157,10 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	
 	private void drawEndScreen(Graphics2D graphics) {
 		if (data.victory()) {
-			writeStringAtCoords("You win!", graphics, hSize/2, vSize/2);
+			writeStringAtCoords("You win!", graphics, hSize/2, vSize/2, 24);
 		}
 		if (data.defeat()) {
-			writeStringAtCoords("You lose!", graphics, hSize/2, vSize/2);
+			writeStringAtCoords("You lose!", graphics, hSize/2, vSize/2, 24);
 		}
 	}
 
@@ -169,9 +169,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		int playerMaxHP = data.getAvatar().getMaxHP();
 		int playerBlock = data.getAvatar().getStats().getBlock();
 		int playerEnergy = data.getAvatar().getEnergy();
-		writeStringAtCoords("Player HP : " + playerHP + " / " + playerMaxHP, graphics, hMargin, vMargin + vSize/2 + 30);
-		writeStringAtCoords("Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30);
-		writeStringAtCoords("Energy : " + playerEnergy, graphics, hMargin + hSize/4 + 200, vMargin + vSize/2 + 30);
+		writeStringAtCoords("Player HP : " + playerHP + " / " + playerMaxHP, graphics, hMargin, vMargin + vSize/2 + 30, 24);
+		writeStringAtCoords("Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30, 24);
+		writeStringAtCoords("Energy : " + playerEnergy, graphics, hMargin + hSize/4 + 200, vMargin + vSize/2 + 30, 24);
 	}
 	private void drawCards(Graphics2D graphics) {
 		ArrayList<Card> hand = data.getAvatar().getHand();
@@ -197,7 +197,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		float yLowR = vSize/3;
 		for (Entry<Integer, Opponent> opponent : opponents.entrySet()) {
 			drawImageInArea(graphics, opponent.getValue().getPicturePath(), xUpL, yUpL, xLowR, yLowR);
-			writeStringAtCoords("HP : " + opponent.getValue().getCurrentHP() + " / " + opponent.getValue().getMaxHP(), graphics, xUpL + hSize/20, yLowR+20);
+			writeStringAtCoords("HP : " + opponent.getValue().getCurrentHP() + " / " + opponent.getValue().getMaxHP(), graphics, xUpL + hSize/20, yLowR+20, 24);
 			xUpL += hSize/5;
 			xLowR += hSize/5;
 		}
@@ -206,7 +206,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		float yCoord = 30;
 		int numberOfLogs = (int) (vSize/2)/27;
 		for (String log : Log.getLog().logDisplay(numberOfLogs)) {
-			writeStringAtCoords(log, graphics, hMargin + 4*hSize/5 + 10, yCoord);
+			writeStringAtCoords(log, graphics, hMargin + 4*hSize/5 + 10, yCoord, hSize/80);
 			yCoord+=26;
 		}
 	}
@@ -223,9 +223,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		graphics.draw(new Line2D.Float(x-20, y-20, x+20, y+20));
 		graphics.draw(new Line2D.Float(x+20, y-20, x-20, y+20));
 	}
-	private void writeStringAtCoords(String letter, Graphics2D graphics, float x, float y) {
+	private void writeStringAtCoords(String letter, Graphics2D graphics, float x, float y, double fontWeight) {
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		Font font = new Font("Serif", Font.PLAIN, 24);
+		Font font = new Font("Serif", Font.PLAIN, (int) fontWeight);
 		graphics.setColor(Color.BLACK);
 	    graphics.setFont(font);
 		graphics.drawString(letter, x,y);
