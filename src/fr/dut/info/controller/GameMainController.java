@@ -39,8 +39,8 @@ public class GameMainController {
 		// Pour des questions pratique on définit la taille du terrain de jeu.
 		// Ce n'est pas forcément portable ni souhaitable. 
 		// Vous pouvez modifier ces valeur selon la taille de votre écran.
-		float gameWidth = 1920;
-		float gameHeight = 1080;
+		float gameWidth = width;
+		float gameHeight = height;
 		
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
 		Player player = new Player(100, 100);
