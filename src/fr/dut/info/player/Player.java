@@ -66,4 +66,16 @@ public class Player {
 	public int getMaxHP() {
 		return maxhp;
 	}
+	
+	public int getGold() {
+		return gold;
+	}
+	
+	public void useGold(int value) {
+		gold -= value;
+	}
+	
+	public void heal() {
+		hp = maxhp;
+	}
 }
