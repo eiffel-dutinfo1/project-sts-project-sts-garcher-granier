@@ -36,7 +36,7 @@ public class CardBuilder {
 				int cost = Integer.valueOf(data[2]);
 				boolean exhaustable = Boolean.valueOf(data[3]);
 				boolean needTarget = Boolean.valueOf(data[4]);
-				Card card = new Card(name, cost, "common", picturePath, exhaustable, needTarget);
+				Card card = new Card(name, cost, rarity, picturePath, exhaustable, needTarget);
 				int numberOfStrats = (data.length-5);
 				for (int i = 0; i < numberOfStrats; i = i + 2) {
 					Strat strat = StratBuilder.createStrat(data[i + 5], Integer.valueOf(data[i + 6]));
