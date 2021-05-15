@@ -13,16 +13,15 @@ import fr.dut.info.player.PlayerAvatar;
 public class FightRoom implements Room {
 	private final TreeMap<Integer, Opponent> opponents;
 	private int numberOfOpponents;
-	private PlayerAvatar avatar;
+	private PlayerAvatar avatar = null;
 	private int selectedCard;
 	private int selectedTarget;
 	private boolean isGameFinished;
 
-	public FightRoom(Player player) {
+	public FightRoom() {
 		this.opponents = new TreeMap<Integer, Opponent>();
 		numberOfOpponents = 0;
 		isGameFinished = false;
-		avatar = new PlayerAvatar(player);
 		avatar.drawFiveCards();
 		resetSelected();
 	}
@@ -92,7 +91,10 @@ public class FightRoom implements Room {
 		}
 	}
 	
-	public void roomEvent(int index) throws IOException {
+	public void roomEvent(int index, Player player) throws IOException {
+		if (avatar == null) {
+			avatar = new PlayerAvatar(player);
+		}
 		if (index >= 0 && index <= avatar.getHand().size()-1) {
 			selectedCard = index;
 		}

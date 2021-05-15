@@ -79,4 +79,8 @@ public class Card implements Comparable<Card> {
 	public int compareTo(Card card) {
 		return name.compareTo(card.name);
 	}
+	
+	public String getRarity() {
+		return rarity;
+	}
 }
