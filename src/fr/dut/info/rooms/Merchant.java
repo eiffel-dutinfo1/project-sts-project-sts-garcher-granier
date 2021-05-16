@@ -45,7 +45,7 @@ public class Merchant implements Room{
 		return false;
 	}
 	
-	public int getCardPrice(Card card) {
+	public static int getCardPrice(Card card) {
 		int price = 0;
 		if(card.getRarity() == "common") {
 			price = 45;
@@ -57,6 +57,10 @@ public class Merchant implements Room{
 			price = 135;
 		}
 		return price;
+	}
+	
+	public ArrayList<Card> getShop() {
+		return shop;
 	}
 	
 }

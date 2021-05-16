@@ -25,6 +25,7 @@ import fr.dut.info.Log;
 import fr.dut.info.cards.Card;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.rooms.FightRoom;
+import fr.dut.info.rooms.Merchant;
 import fr.dut.info.rooms.Room;
 
 
@@ -115,6 +116,64 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 				return 3;
 			} else {
 				return 4;
+			}
+		}
+		return -1;
+	}
+	
+	public int areaFromCoordinatesFightRoom(float x, float y) {
+		if (y < vSize/2) {
+			if (x < hSize/5) {
+				return 5;
+			} else if (x < 2*hSize/5) {
+				return 6;
+			} else if (x < 3*hSize/5) {
+				return 7;
+			} else if (x < 4*hSize/5) {
+				return 8;
+			} else {
+				return -1;
+			}
+		}
+		if ((y > vSize/2) && (y < (vSize/2) + 40) && (x > 4*hSize/5)) {
+			return 9;
+		}
+		if (y > (vSize/2) + 40) {
+			if (x < hSize/5) {
+				return 0;
+			} else if (x < 2*hSize/5) {
+				return 1;
+			} else if (x < 3*hSize/5) {
+				return 2;
+			} else if (x < 4*hSize/5) {
+				return 3;
+			} else {
+				return 4;
+			}
+		}
+		return -1;
+	}
+	
+	public int areaFromCoordinatesMerchant(float x, float y) {
+		if ((y > vSize/2) && (y < (vSize/2) + 40) && (x > 4*hSize/5)) {
+			return 9;
+		}
+		if (y < (vSize/2)) {
+			if (x < hSize/5) {
+				return 0;
+			} else if (x < 2*hSize/5) {
+				return 1;
+			} else if (x < 3*hSize/5) {
+				return 2;
+			} else if (x < 4*hSize/5) {
+				return 3;
+			} else {
+				return 4;
+			}
+		}
+		if (y > (vSize/2) + 40) {
+			if((x >= hSize/50) && (x <= 9*hSize/50) && (y >= vSize/2 + 80) && (y <= vSize - 60)) {
+				return 5;
 			}
 		}
 		return -1;
@@ -254,6 +313,39 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		} catch (IOException e) {
 			throw new RuntimeException("problème d'affichage : " + imagePath);
 		}
+	}
+	
+	private void drawMerchantLayout(Graphics2D graphics) {
+		int gold = data.getPlayer().getGold();
+		ArrayList<Card> shop = data.getCurrentRoom().getShop();
+		float xUpL = hSize/50;
+		float xLowR = 9*hSize/50;
+		float yUpL = 100;
+		float yLowR = 500;
+		for (Card card : shop) {
+			drawImageInArea(graphics, card.getPicturePath(), xUpL, yUpL, xLowR, yLowR);
+			writeStringAtCoords("" + Merchant.getCardPrice(card), graphics, xLowR/2, vMargin + yLowR + 30);
+			if(xUpL == 1728) {
+				xUpL = hSize/50;
+				xLowR = 9*hSize/50;
+				yUpL = vSize/2 + 80;
+				yLowR = vSize - 60;
+			}
+			else {
+				xUpL += hSize/5;
+				xLowR += hSize/5;
+			}
+		}
+		float yLow = vSize/2 + vMargin, ySpace =40; 
+		float [] steps = {0, ySpace};
+		graphics.setColor(Color.BLACK);
+		// 2 lignes horizontales
+		for (float step : steps) {
+			graphics.draw(new Line2D.Float(0+hMargin, yLow + step, hSize + hMargin, yLow + step));
+		}
+		graphics.draw(new Line2D.Float(4*hSize/5, 0, 4*hSize/5, vSize));
+		writeStringAtCoords("LEAVE", graphics, 87*hSize/100, vMargin + vSize/2 + 30);
+		writeStringAtCoords("Gold : " + gold, graphics, hMargin, vMargin + vSize/2 + 30);
 	}
 	
 }
