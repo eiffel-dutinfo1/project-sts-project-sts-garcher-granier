@@ -25,6 +25,7 @@ import fr.dut.info.Log;
 import fr.dut.info.cards.Card;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.rooms.FightRoom;
+import fr.dut.info.rooms.Map;
 import fr.dut.info.rooms.Room;
 
 
@@ -39,23 +40,23 @@ import fr.dut.info.rooms.Room;
  *
  */
 @SuppressWarnings("preview")
-public record SimpleGameView(float height, float width, float hMargin, float vMargin, FightRoom data, float hSize, float vSize) implements GameView {
+public record SimpleGameView(float height, float width, float hMargin, float vMargin, Map data, float hSize, float vSize) implements GameView {
 	
 	/**
 	 * C'est une méthode qui fournit comme résultat une SimpleGameView et sert de point d'entrée au contrôleur. 
 	 *  
 	 * @param height Hauteur totale de l'écran.
 	 * @param width Largeur totale de l'écran.
-	 * @param data  Point d'entrée au modèle.
+	 * @param data2  Point d'entrée au modèle.
 	 * @param hSize Taille horizontale utile.
 	 * @param vSize Taille verticale utile.
 	 * @return Une SimpleGameView correctement initialisée.
 	 */
-	public static SimpleGameView initGameGraphics(float height, float width, FightRoom data, float hSize, float vSize) {
+	public static SimpleGameView initGameGraphics(float height, float width, Map data2, float hSize, float vSize) {
 		float hMargin, vMargin;
 		hMargin = (width - hSize)/2;
 		vMargin = (height -vSize)/2;		
-		return new SimpleGameView(height, width, hMargin, vMargin, data, hSize, vSize);
+		return new SimpleGameView(height, width, hMargin, vMargin, data2, hSize, vSize);
 	}
 	
 
@@ -78,7 +79,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		
 		// Fonction auxiliaire de l'affichage du contenu. 
 		
-		if (data.getIsGameFinished()) {
+		if (data.isGameOver()) {
 			drawEndScreen(graphics);
 		} else {
 			drawLayout(graphics);
@@ -88,6 +89,17 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 
 	@Override
 	public int areaFromCoordinates(float x, float y) {
+		switch (data.getCurrentRoom().getRoomType()) {
+		case "FightRoom":
+			return areaFromCoordinatesFightRoom(x, y);
+		case "StartRoom":
+			return areaFromCoordinatesStartRoom(x, y);
+		default:
+			return -1;
+		}
+	}
+	
+	public int areaFromCoordinatesFightRoom(float x, float y) {
 		if (y < vSize/2) {
 			if (x < hSize/5) {
 				return 5;
@@ -120,12 +132,34 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		return -1;
 	}
 	
+	public int areaFromCoordinatesStartRoom(float x, float y) {
+		if (x < hSize/2) {
+			return 0;
+		} else if (x > hSize/2) {
+			return 1;
+		}
+		return -1;
+	}
+	
 	/**
 	 * Fonction auxiliaire de la construction des éléments de l'interface.
 	 * 
 	 * @param graphics
 	 */
 	public void drawLayout(Graphics2D graphics) {
+		switch (data.getCurrentRoom().getRoomType()) {
+		case "FightRoom":
+			drawFightRoomLayout(graphics);
+			break;
+		case "StartRoom":
+			drawStartRoomLayout(graphics);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void drawFightRoomLayout(Graphics2D graphics) {
 		float yLow = vSize/2 + vMargin, ySpace =40; 
 		float [] steps = {0, ySpace};
 		graphics.setColor(Color.BLACK);
@@ -156,25 +190,24 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	}
 	
 	private void drawEndScreen(Graphics2D graphics) {
-		if (data.victory()) {
-			writeStringAtCoords("You win!", graphics, hSize/2, vSize/2, 24);
-		}
-		if (data.defeat()) {
-			writeStringAtCoords("You lose!", graphics, hSize/2, vSize/2, 24);
-		}
+		writeStringAtCoords("You lose!", graphics, hSize/2, vSize/2, 24);
+	}
+	
+	private void drawStartRoomLayout(Graphics2D graphics) {
+		writeStringAtCoords("caca popo", graphics, hSize/2, vSize/2, 24);
 	}
 
 	private void drawPlayerInfo(Graphics2D graphics) {
-		int playerHP = data.getAvatar().getCurrentHP();
-		int playerMaxHP = data.getAvatar().getMaxHP();
-		int playerBlock = data.getAvatar().getStats().getBlock();
-		int playerEnergy = data.getAvatar().getEnergy();
+		int playerHP = ((FightRoom) data.getCurrentRoom()).getAvatar().getCurrentHP();
+		int playerMaxHP = ((FightRoom) data.getCurrentRoom()).getAvatar().getMaxHP();
+		int playerBlock = ((FightRoom) data.getCurrentRoom()).getAvatar().getStats().getBlock();
+		int playerEnergy = ((FightRoom) data.getCurrentRoom()).getAvatar().getEnergy();
 		writeStringAtCoords("Player HP : " + playerHP + " / " + playerMaxHP, graphics, hMargin, vMargin + vSize/2 + 30, 24);
 		writeStringAtCoords("Block : " + playerBlock, graphics, hMargin + hSize/4, vMargin + vSize/2 + 30, 24);
 		writeStringAtCoords("Energy : " + playerEnergy, graphics, hMargin + hSize/4 + 200, vMargin + vSize/2 + 30, 24);
 	}
 	private void drawCards(Graphics2D graphics) {
-		ArrayList<Card> hand = data.getAvatar().getHand();
+		ArrayList<Card> hand = ((FightRoom) data.getCurrentRoom()).getAvatar().getHand();
 		float xUpL = hSize/50;
 		float xLowR = 9*hSize/50;
 		float yUpL = vSize/2 + 80;
@@ -190,7 +223,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		// TODO : Question 4 
 		// Utiliser la fonction drawImageInArea et writeStringAtCoords
 		// Pour afficher les informations de l'adversaire.
-		TreeMap<Integer, Opponent> opponents = data.getOpponents();
+		TreeMap<Integer, Opponent> opponents = ((FightRoom) data.getCurrentRoom()).getOpponents();
 		float xUpL = hSize/50;
 		float xLowR = 9*hSize/50;
 		float yUpL = 30;
@@ -211,11 +244,11 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		}
 	}
 	private void drawSelectedEntities(Graphics2D graphics) {
-		if (data.targetSelected()) {
-			drawCross(graphics, data.getSelectedTarget()*hSize/5-hSize/10, vSize/2-40);
+		if (((FightRoom) data.getCurrentRoom()).targetSelected()) {
+			drawCross(graphics, ((FightRoom) data.getCurrentRoom()).getSelectedTarget()*hSize/5-hSize/10, vSize/2-40);
 		}
-		if (data.cardSelected()) {
-			drawCross(graphics, data.getSelectedCard()*hSize/5+hSize/10, vSize/2+80);
+		if (((FightRoom) data.getCurrentRoom()).cardSelected()) {
+			drawCross(graphics, ((FightRoom) data.getCurrentRoom()).getSelectedCard()*hSize/5+hSize/10, vSize/2+80);
 		}
 	}
 	private void drawCross(Graphics2D graphics, float x, float y) {

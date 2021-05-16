@@ -16,13 +16,10 @@ public class FightRoom implements Room {
 	private PlayerAvatar avatar = null;
 	private int selectedCard;
 	private int selectedTarget;
-	private boolean isGameFinished;
 
 	public FightRoom() {
 		this.opponents = new TreeMap<Integer, Opponent>();
 		numberOfOpponents = 0;
-		isGameFinished = false;
-		avatar.drawFiveCards();
 		resetSelected();
 	}
 
@@ -63,14 +60,6 @@ public class FightRoom implements Room {
 		return selectedTarget;
 	}
 	
-	public boolean getIsGameFinished() {
-		return isGameFinished;
-	}
-	
-	public void finishGame() {
-		isGameFinished = true;
-	}
-	
 	public void playSelected() throws IOException {
 		System.out.println(selectedCard);
 		Card card = avatar.getHand().get(selectedCard);
@@ -91,10 +80,14 @@ public class FightRoom implements Room {
 		}
 	}
 	
-	public void roomEvent(int index, Player player) throws IOException {
+	public void setAvatar(Player player) {
 		if (avatar == null) {
 			avatar = new PlayerAvatar(player);
+			avatar.drawFiveCards();
 		}
+	}
+	
+	public boolean roomEvent(int index, Player player) throws IOException {
 		if (index >= 0 && index <= avatar.getHand().size()-1) {
 			selectedCard = index;
 		}
@@ -122,6 +115,8 @@ public class FightRoom implements Room {
 			}
 			resetSelected();
 		}
+		deadOpponent();
+		return victory();
 	}
 	
 	public void deadOpponent() {
@@ -146,29 +141,9 @@ public class FightRoom implements Room {
 		}
 		return false;
 	}
-	
-	public boolean defeat() {
-		if (avatar.isDead()) {
-			return true;
-		}
-		return false;
-	}
 
-	/*
-	 * public void startCombat() throws IOException { PlayerAvatar playerAvatar =
-	 * new PlayerAvatar(getPlayer(), 3); while(opponents.size() != 0 ||
-	 * !(playerAvatar.isDead())) { for (Entry<Integer, Opponent> entry :
-	 * opponents.entrySet()) { System.out.println(entry.getValue().toString()); }
-	 * playerAvatar.drawFiveCards(); while(Input.endTurn() != 1) {
-	 * System.out.println(playerAvatar.getEnergy());
-	 * playerAvatar.selectCard().playCard(opponents, playerAvatar); for
-	 * (Entry<Integer, Opponent> entry : opponents.entrySet()) {
-	 * System.out.println(entry.getValue().toString()); } }
-	 * playerAvatar.emptyHand(); for (Entry<Integer, Opponent> entry :
-	 * opponents.entrySet()) { if (entry.getValue().getHp() <= 0) {
-	 * opponents.remove(entry.getKey()); } else {
-	 * entry.getValue().executeMove(entry.getValue(), playerAvatar); } } } if
-	 * (!(playerAvatar.isDead())) { System.out.println("You win !"); } else {
-	 * System.out.println("You lose !"); } }
-	 */
+	@Override
+	public String getRoomType() {
+		return "FightRoom";
+	}
 }

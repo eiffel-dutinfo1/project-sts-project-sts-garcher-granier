@@ -10,6 +10,7 @@ import fr.dut.info.monsters.act1.Cultist;
 import fr.dut.info.monsters.act1.JawWorm;
 import fr.dut.info.player.Player;
 import fr.dut.info.rooms.FightRoom;
+import fr.dut.info.rooms.Map;
 import fr.dut.info.rooms.Room;
 import fr.dut.info.view.SimpleGameView;
 import fr.umlv.zen5.Application;
@@ -42,13 +43,7 @@ public class GameMainController {
 		float gameWidth = width;
 		float gameHeight = height;
 		
-		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
-		Player player = new Player(100, 100);
-		Opponent opponent1 = new JawWorm();
-		Opponent opponent2 = new Cultist();
-		FightRoom data = new FightRoom(player);
-		data.addOpponent(opponent1);
-		data.addOpponent(opponent2);
+		Map data = new Map();
 		
 		SimpleGameView view = SimpleGameView.initGameGraphics(height, width, data, gameWidth, gameHeight); 
 		view.draw(context);
@@ -81,7 +76,7 @@ public class GameMainController {
 	 * @param view La vue.
 	 * @throws IOException 
 	 */
-	private static void mainLoop(ApplicationContext context, FightRoom data, SimpleGameView view) throws IOException {
+	private static void mainLoop(ApplicationContext context, Map data, SimpleGameView view) throws IOException {
 		while (true) {
 			Event event = context.pollOrWaitEvent(20); // modifier pour avoir un affichage fluide
 			if (event == null) { // Rien ne se passe. 
@@ -101,17 +96,16 @@ public class GameMainController {
 			}else {
 				Point2D.Float location = event.getLocation();
 				int index = view.areaFromCoordinates(location.x, location.y);
-				data.roomEvent(index);
-				data.deadOpponent();
-				if (data.victory()) {
-					data.finishGame();
-					System.out.println("You win !");
+				if (data.getCurrentRoom().roomEvent(index, data.getPlayer())) {
+					data.nextRoom();
+					if (data.getCurrentRoom().getRoomType().equals("FightRoom")) {
+						((FightRoom) data.getCurrentRoom()).setAvatar(data.getPlayer());;
+					}
 				}
-				if (data.defeat()) {
-					data.finishGame();
-					System.out.println("You lose !");
+				if (data.getPlayer().getCurrentHP() <= 0) {
+					data.gameOver();
 				}
-				}
+			}
 
 			// à la fin on affiche à nouveau toute l'interface. 
 			view.draw(context);
