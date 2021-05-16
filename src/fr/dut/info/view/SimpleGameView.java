@@ -95,6 +95,8 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			return areaFromCoordinatesFightRoom(x, y);
 		case "StartRoom":
 			return areaFromCoordinatesStartRoom(x, y);
+		case "Merchant":
+			return areaFromCoordinatesMerchant(x, y);
 		default:
 			return -1;
 		}
@@ -180,6 +182,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		case "StartRoom":
 			drawStartRoomLayout(graphics);
 			break;
+		case "Merchant":
+			drawMerchantLayout(graphics);
+			break;
 		default:
 			break;
 		}
@@ -217,14 +222,14 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	
 	private void drawMerchantLayout(Graphics2D graphics) {
 		int gold = data.getPlayer().getGold();
-		ArrayList<Card> shop = data.getCurrentRoom().getShop();
+		ArrayList<Card> shop = ((Merchant) data.getCurrentRoom()).getShop();
 		float xUpL = hSize/50;
 		float xLowR = 9*hSize/50;
 		float yUpL = 100;
 		float yLowR = 500;
 		for (Card card : shop) {
 			drawImageInArea(graphics, card.getPicturePath(), xUpL, yUpL, xLowR, yLowR);
-			writeStringAtCoords("" + Merchant.getCardPrice(card), graphics, xLowR/2, vMargin + yLowR + 30);
+			writeStringAtCoords("" + Merchant.getCardPrice(card), graphics, xLowR/2, vMargin + yLowR + 30, 24);
 			if(xUpL == 1728) {
 				xUpL = hSize/50;
 				xLowR = 9*hSize/50;
@@ -244,8 +249,8 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			graphics.draw(new Line2D.Float(0+hMargin, yLow + step, hSize + hMargin, yLow + step));
 		}
 		graphics.draw(new Line2D.Float(4*hSize/5, 0, 4*hSize/5, vSize));
-		writeStringAtCoords("LEAVE", graphics, 87*hSize/100, vMargin + vSize/2 + 30);
-		writeStringAtCoords("Gold : " + gold, graphics, hMargin, vMargin + vSize/2 + 30);
+		writeStringAtCoords("LEAVE", graphics, 87*hSize/100, vMargin + vSize/2 + 30, 24);
+		writeStringAtCoords("Gold : " + gold, graphics, hMargin, vMargin + vSize/2 + 30, 24);
 	}
 	
 	private void drawEndScreen(Graphics2D graphics) {
