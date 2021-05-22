@@ -21,7 +21,4 @@ public class StartRoom implements Room {
 	public String getRoomType() {
 		return "StartRoom";
 	}
-	
-	
-
 }

@@ -17,10 +17,11 @@ public class FightRoom implements Room {
 	private int selectedCard;
 	private int selectedTarget;
 
-	public FightRoom() {
+	public FightRoom(String monsterType) {
 		this.opponents = new TreeMap<Integer, Opponent>();
 		numberOfOpponents = 0;
 		resetSelected();
+		FightRoomBuilder.createFightRoom(this, monsterType);
 	}
 
 	public void addOpponent(Opponent opponent) {

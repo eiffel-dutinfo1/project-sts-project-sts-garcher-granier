@@ -258,7 +258,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	}
 	
 	private void drawStartRoomLayout(Graphics2D graphics) {
-		writeStringAtCoords("caca popo", graphics, hSize/2, vSize/2, 24);
+		writeStringAtCoords("IronClad", graphics, 2*hSize/8, vSize/2, 24);
+		writeStringAtCoords("Silent", graphics, 6*hSize/8, vSize/2, 24);
+		graphics.draw(new Line2D.Float(hSize/2, 0, hSize/2, vSize));
 	}
 
 	private void drawPlayerInfo(Graphics2D graphics) {
