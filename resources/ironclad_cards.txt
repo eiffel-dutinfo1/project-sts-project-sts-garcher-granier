@@ -1,0 +1,6 @@
+Defend#Defend.png#starter#1#false#false#block#5
+Strike#Strike.png#starter#1#false#true#single_damage#6
+Bash#Bash.png#starter#2#false#true#vulnerable#2
+Body Slam#BodySlam.png#common#1#false#true#single_damage_block#0
+Cleave#Cleave.png#common#1#false#false#multi_damage#8
+Iron Wave#IronWave.png#common#1#false#true#single_damage#5#block#5

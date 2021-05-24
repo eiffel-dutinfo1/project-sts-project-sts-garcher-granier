@@ -37,7 +37,7 @@ public class Map {
 		int remainingFireCamps = 2;
 		int remainingMerchants = 1;
 		while (index < 8) {
-			int number = Randomizer.randomInt(0, 4);
+			int number = Randomizer.randomInt(0, 2);
 			switch (number) {
 			case 0:
 				if (remainingBasicFightRooms != 0) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
@@ -14,19 +15,20 @@ import fr.dut.info.cards.strategies.StratBuilder;
 
 public class CardBuilder {
 	private static CardBuilder instance = null;
-	//important !!! determiner a l'avance le nombre de cartes dans le tableau
-	//a priori �a bouge pas
-	private static final int totalCommonCards = 5;
-	private static Card[] commonCards = new Card[totalCommonCards];
+	private static ArrayList<Card> starterCards;
+	private static ArrayList<Card> commonCards;
+	private static ArrayList<Card> uncommonCards;
+	private static ArrayList<Card> rareCards;
+	private static ArrayList<Card> specialCards;
 	
 	private CardBuilder() throws IOException {
-		Path commonPath = FileSystems.getDefault().getPath("resources", "common_cards.txt");
-		commonCards = this.cardExtractor(commonPath, "common");
+		Path commonPath = FileSystems.getDefault().getPath("resources", "colorless_cards.txt");
+		//commonCards = this.cardExtractor(commonPath, "common");
+		commonCards = new ArrayList<Card>();
 	}
 	
-	public Card[] cardExtractor(Path path, String rarity) throws IOException {
-		Card[] cards = new Card[totalCommonCards];
-		int cardNumber = 0;
+	public ArrayList<Card> cardExtractor(Path path, String rarity) throws IOException {
+		ArrayList<Card> cards = new ArrayList<Card>();
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -42,8 +44,7 @@ public class CardBuilder {
 					Strat strat = StratBuilder.createStrat(data[i + 5], Integer.valueOf(data[i + 6]));
 					card.addStrat(strat);
 				}
-				cards[cardNumber] = card;
-				cardNumber++;
+				cards.add(card);
 			}
 		}
 		return cards;
@@ -56,7 +57,7 @@ public class CardBuilder {
 	}
 	
 	public Card giveRandomCommonCard() {
-		return commonCards[Randomizer.randomInt(0, totalCommonCards)];
+		return commonCards.get(Randomizer.randomInt(0, commonCards.size()));
 	}
 	
 	public static CardBuilder getCardBuilder() throws IOException {
