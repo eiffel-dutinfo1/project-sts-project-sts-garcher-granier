@@ -11,7 +11,7 @@ import fr.dut.info.player.Player;
 
 public class Map {
 	private Room[] rooms = new Room[9];
-	private Player player;
+	private static Player player;
 	private static String hero;
 	private int currentRoom;
 	//passe a true si le jouer perd tous ses pv
@@ -22,10 +22,6 @@ public class Map {
 		isGameOver = false;
 		
 		currentRoom = 0;
-		
-		CardBuilder cardBuilder = CardBuilder.getCardBuilder();
-		
-		player = new Player(100, 100);
 		
 		rooms[0] = new StartRoom();
 		
@@ -59,7 +55,7 @@ public class Map {
 				break;
 			case 3:
 				if (remainingMerchants != 0) {
-					rooms[index] = new Merchant(cardBuilder);
+					rooms[index] = new Merchant();
 					index++;
 				}
 				break;
@@ -70,8 +66,14 @@ public class Map {
 		rooms[8] = new FightRoom("boss");
 	}
 	
-	public static void setHero(String heroType) {
+	public static void setHero(String heroType) throws IOException {
 		hero = heroType;
+		CardBuilder cardBuilder = CardBuilder.getCardBuilder(heroType);
+		if (hero.equals("IronClad")) {
+			player = new Player(80, 100, "IronClad");
+		} else {
+			player = new Player(70, 100, "Silent");
+		}
 	}
 	
 	public void gameOver() {

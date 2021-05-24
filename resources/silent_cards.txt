@@ -1,5 +1,0 @@
-Defend#defend.png##1#false#false#block#5
-Strike#strike.png#1#false#true#single_damage#6
-Body Slam#BodySlam.png#1#false#true#single_damage_block#0
-Cleave#Cleave.png#1#false#false#multi_damage#8
-Iron Wave#IronWave.png#1#false#true#single_damage#5#block#5

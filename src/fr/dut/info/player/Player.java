@@ -11,18 +11,41 @@ public class Player {
 	private int hp;
 	private int gold;
 	private final ArrayList<Card> deck;
+	private final String heroType;
 	
-	public Player(int maxhp, int gold) throws IOException {
+	public Player(int maxhp, int gold, String heroType) throws IOException {
 		this.maxhp = maxhp;
 		this.hp = maxhp;
 		this.gold = gold;
+		this.heroType = heroType;
 		deck = new ArrayList<Card>(); 
 		this.initDeck();
 	}
 	
 	public void initDeck() throws IOException {
-		for (int i = 0; i < 10; i++) {
-			deck.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
+		ArrayList<Card> starter = CardBuilder.getCardBuilder().getStarter();
+		if (heroType.equals("IronClad")) {
+			for (Card card : starter) {
+				switch (card.getName()) {
+				case "Strike":
+					for (int i = 0; i < 5; i++) {
+						deck.add(card);
+					}
+					break;
+				case "Defend":
+					for (int i = 0; i < 4; i++) {
+						deck.add(card);
+					}
+					break;
+				case "Bash":
+					deck.add(card);
+					break;
+				default:
+					throw new IllegalArgumentException("Error in starter, check .txt file.");
+				}
+			}
+		} else {
+			//do starter with Silent cards
 		}
 	}
 	

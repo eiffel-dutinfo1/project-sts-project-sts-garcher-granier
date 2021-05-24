@@ -13,15 +13,15 @@ public class Merchant implements Room{
 	private ArrayList<Card> selectedCard;
 	private int totalPrice;
 	
-	public Merchant(CardBuilder cardBuilder) {
+	public Merchant() {
 		this.shop = new ArrayList<Card>();
 		this.selectedCard = new ArrayList<Card>();
 		for(int i = 0; i < 4; i++) {
-			shop.add(cardBuilder.giveRandomCommonCard());
+			shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
 		}
-		shop.add(cardBuilder.giveRandomUncommonCard());
-		shop.add(cardBuilder.giveRandomUncommonCard());
-		shop.add(cardBuilder.giveRandomRareCard());
+		shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
+		shop.add(CardBuilder.getCardBuilder().giveRandomUncommonCard());
+		shop.add(CardBuilder.getCardBuilder().giveRandomRareCard());
 		this.totalPrice = 0;
 	}
 

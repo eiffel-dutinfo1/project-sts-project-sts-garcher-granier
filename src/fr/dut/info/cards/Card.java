@@ -31,6 +31,10 @@ public class Card implements Comparable<Card> {
 		strategies = new ArrayList<Strat>();
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	public String getPicturePath() {
 		return picturePath;
 	}

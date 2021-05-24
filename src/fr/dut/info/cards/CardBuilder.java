@@ -21,13 +21,24 @@ public class CardBuilder {
 	private static ArrayList<Card> rareCards;
 	private static ArrayList<Card> specialCards;
 	
-	private CardBuilder() throws IOException {
-		Path commonPath = FileSystems.getDefault().getPath("resources", "colorless_cards.txt");
-		//commonCards = this.cardExtractor(commonPath, "common");
+	private CardBuilder(String heroType) throws IOException {
+		Path colorlessPath = FileSystems.getDefault().getPath("resources", "colorless_cards.txt");
+		Path ironcladPath = FileSystems.getDefault().getPath("resources", "ironclad_cards.txt");
+		Path silentPath = FileSystems.getDefault().getPath("resources", "silent_cards.txt");
+		starterCards = new ArrayList<Card>();
 		commonCards = new ArrayList<Card>();
+		uncommonCards = new ArrayList<Card>();
+		rareCards = new ArrayList<Card>();
+		specialCards = new ArrayList<Card>();
+		this.cardExtractor(colorlessPath);
+		if (heroType.equals("IronClad")) {
+			this.cardExtractor(ironcladPath);
+		} else {
+			this.cardExtractor(silentPath);
+		}
 	}
 	
-	public ArrayList<Card> cardExtractor(Path path, String rarity) throws IOException {
+	public ArrayList<Card> cardExtractor(Path path) throws IOException {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 			String line;
@@ -35,16 +46,35 @@ public class CardBuilder {
 				String[] data = line.split("#");
 				String name = data[0];
 				String picturePath = "resources/pictures/" + data[1];
-				int cost = Integer.valueOf(data[2]);
-				boolean exhaustable = Boolean.valueOf(data[3]);
-				boolean needTarget = Boolean.valueOf(data[4]);
+				String rarity = data[2];
+				int cost = Integer.valueOf(data[3]);
+				boolean exhaustable = Boolean.valueOf(data[4]);
+				boolean needTarget = Boolean.valueOf(data[5]);
 				Card card = new Card(name, cost, rarity, picturePath, exhaustable, needTarget);
-				int numberOfStrats = (data.length-5);
+				int numberOfStrats = (data.length-6);
 				for (int i = 0; i < numberOfStrats; i = i + 2) {
-					Strat strat = StratBuilder.createStrat(data[i + 5], Integer.valueOf(data[i + 6]));
+					Strat strat = StratBuilder.createStrat(data[i + 6], Integer.valueOf(data[i + 7]));
 					card.addStrat(strat);
 				}
-				cards.add(card);
+				switch (rarity) {
+				case "starter":
+					starterCards.add(card);
+					break;
+				case "common":
+					commonCards.add(card);
+					break;
+				case "uncommon":
+					uncommonCards.add(card);
+					break;
+				case "rare":
+					rareCards.add(card);
+					break;
+				case "special":
+					specialCards.add(card);
+					break;
+				default:
+					throw new IllegalArgumentException("Rarity is not recognized, please verify the .txt file");
+				}
 			}
 		}
 		return cards;
@@ -60,9 +90,20 @@ public class CardBuilder {
 		return commonCards.get(Randomizer.randomInt(0, commonCards.size()));
 	}
 	
+	public ArrayList<Card> getStarter() {
+		return starterCards;
+	}
+	
 	public static CardBuilder getCardBuilder() throws IOException {
 		if (instance == null) {
-			instance = new CardBuilder();
+			throw new IllegalArgumentException("CardBuilder should have been initialized by now.");
+		}
+		return instance;
+	}
+	
+	public static CardBuilder getCardBuilder(String heroType) throws IOException {
+		if (instance == null) {
+			instance = new CardBuilder(heroType);
 		}
 		return instance;
 	}
