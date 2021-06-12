@@ -16,17 +16,19 @@ public class Merchant implements Room{
 	public Merchant() throws IOException {
 		this.shop = new ArrayList<Card>();
 		this.selectedCard = new ArrayList<Card>();
-		for(int i = 0; i < 4; i++) {
-			shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
-		}
-		shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
-		shop.add(CardBuilder.getCardBuilder().giveRandomUncommonCard());
-		shop.add(CardBuilder.getCardBuilder().giveRandomRareCard());
 		this.totalPrice = 0;
 	}
 
 	@Override
 	public boolean roomEvent(int index, Player player) throws IOException {
+		if (shop.size() == 0) {
+			for(int i = 0; i < 4; i++) {
+				shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
+			}
+			shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
+			shop.add(CardBuilder.getCardBuilder().giveRandomUncommonCard());
+			shop.add(CardBuilder.getCardBuilder().giveRandomRareCard());
+		}
 		if(index >= 0 && index <= shop.size() - 1) {
 			Card card = shop.get(index);
 			if(getCardPrice(card) <= player.getGold()) {
