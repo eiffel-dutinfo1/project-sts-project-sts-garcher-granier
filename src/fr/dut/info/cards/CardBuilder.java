@@ -90,6 +90,14 @@ public class CardBuilder {
 		return commonCards.get(Randomizer.randomInt(0, commonCards.size()));
 	}
 	
+	public Card giveRandomUncommonCard() {
+		return uncommonCards.get(Randomizer.randomInt(0, commonCards.size()));
+	}
+	
+	public Card giveRandomRareCard() {
+		return rareCards.get(Randomizer.randomInt(0, commonCards.size()));
+	}
+	
 	public ArrayList<Card> getStarter() {
 		return starterCards;
 	}

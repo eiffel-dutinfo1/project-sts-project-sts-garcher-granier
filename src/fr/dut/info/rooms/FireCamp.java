@@ -12,11 +12,19 @@ public class FireCamp implements Room{
 
 	@Override
 	public boolean roomEvent(int index, Player player) throws IOException {
-		if(index == 1) {
+		if(index == 0) {
 			player.heal();
 			return true;
 		}
+		if(index == 1) {
+			return true;
+		}
 		return false;
+	}
+
+	@Override
+	public String getRoomType() {
+		return "FireCamp";
 	}
 
 }

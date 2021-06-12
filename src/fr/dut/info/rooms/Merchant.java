@@ -13,7 +13,7 @@ public class Merchant implements Room{
 	private ArrayList<Card> selectedCard;
 	private int totalPrice;
 	
-	public Merchant() {
+	public Merchant() throws IOException {
 		this.shop = new ArrayList<Card>();
 		this.selectedCard = new ArrayList<Card>();
 		for(int i = 0; i < 4; i++) {
@@ -61,6 +61,11 @@ public class Merchant implements Room{
 	
 	public ArrayList<Card> getShop() {
 		return shop;
+	}
+
+	@Override
+	public String getRoomType() {
+		return "Merchant";
 	}
 	
 }

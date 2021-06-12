@@ -97,9 +97,20 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			return areaFromCoordinatesStartRoom(x, y);
 		case "Merchant":
 			return areaFromCoordinatesMerchant(x, y);
+		case "FireCamp":
+			return areaFromCoordinatesFireCamp(x, y);
 		default:
 			return -1;
 		}
+	}
+	
+	public int areaFromCoordinatesFireCamp(float x, float y) {
+		if (x < hSize/2) {
+			return 0;
+		} else if (x > hSize/2) {
+			return 1;
+		}
+		return -1;
 	}
 	
 	public int areaFromCoordinatesFightRoom(float x, float y) {
@@ -185,9 +196,18 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		case "Merchant":
 			drawMerchantLayout(graphics);
 			break;
+		case "FireCamp":
+			drawFireCampLayout(graphics);
+			break;
 		default:
 			break;
 		}
+	}
+	
+	public void drawFireCampLayout(Graphics2D graphics) {
+		writeStringAtCoords("Heal", graphics, 2*hSize/8, vSize/2, 24);
+		writeStringAtCoords("Forgeron", graphics, 6*hSize/8, vSize/2, 24);
+		graphics.draw(new Line2D.Float(hSize/2, 0, hSize/2, vSize));
 	}
 	
 	public void drawFightRoomLayout(Graphics2D graphics) {
