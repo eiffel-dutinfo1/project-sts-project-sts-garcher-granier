@@ -1,6 +1,22 @@
-Defend#Defend.png#starter#1#false#false#block#5
-Strike#Strike.png#starter#1#false#true#single_damage#6
-Bash#Bash.png#starter#2#false#true#single_damage#8#vulnerable#2
-Body Slam#BodySlam.png#common#1#false#true#single_damage_block#0
-Cleave#Cleave.png#common#1#false#false#multi_damage#8
-Iron Wave#IronWave.png#common#1#false#true#single_damage#5#block#5
+Defend#Defend.png#starter#1#false#false#skill#block#5
+Strike#Strike.png#starter#1#false#true#attack#single_damage#6
+Bash#Bash.png#starter#2#false#true#attack#single_damage#8#vulnerable#2
+Body Slam#BodySlam.png#common#1#false#true#attack#single_damage_block#0
+Cleave#Cleave.png#common#1#false#false#attack#multi_damage#8
+Iron Wave#IronWave.png#common#1#false#true#attack#single_damage#5#block#5
+Clothesline#Clothesline.png#common#2#false#true#attack#single_damage#12#apply_weak#2
+Headbutt#Headbutt.png#common#1#false#true#attack#single_damage#9#last_card_discard_to_draw#1
+Perfected Strike#PerfectedStrike.png#common#2#false#true#attack#single_damge#6#damage_nb_strike#0
+Pommel Strike#PommelStrike.png#common#1#false#true#attack#single_damage#9#draw_card#1
+Shrug it Off#ShrugItOff.png#common#1#false#false#skill#block#8#draw_card#1
+Sword Boomerang#SwordBoomerang.png#common#1#false#false#attack#damage_random_time#3
+Thunderclap#Thunderclap.png#common#1#false#true#attack#simple_damage#4#apply_vulnerable#1
+Twin Strike#TwinStrike.png#common#1#false#true#attack#simple_damage#5#simple_damage#5
+Bloodletting#Bloodletting.png#uncommon#0#false#false#skill#lose_hp#3#gain_energy#2
+Dropkick#Dropkick.png#uncommon#1#false#true#attack#simple_damage#5#if_vunerable_gain_energy_draw#1
+Entrench#Entrench.png#uncommon#1#false#false#skill#double_block#0
+Hemokinesis#Hemokinesis.png#uncommon#1#false#true#attack#lose_hp#2#simple_damage#15
+Inflame#Inflame.png#uncommon#1#false#false#power#gain_strength#2
+Metallicize#Metallicize.png#uncommon#1#false#false#power#en_turn_block#3
+Uppercut#Uppercut.png#uncommon#2#false#true#attack#simple_damage#13#apply_weak#1#apply_vulnerabe#1
+Bludgeon#Bludgeon.png#rare#3#false#true#attack#simple_damage#32

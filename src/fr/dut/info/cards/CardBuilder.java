@@ -91,11 +91,11 @@ public class CardBuilder {
 	}
 	
 	public Card giveRandomUncommonCard() {
-		return uncommonCards.get(Randomizer.randomInt(0, commonCards.size()));
+		return uncommonCards.get(Randomizer.randomInt(0, uncommonCards.size()));
 	}
 	
 	public Card giveRandomRareCard() {
-		return rareCards.get(Randomizer.randomInt(0, commonCards.size()));
+		return rareCards.get(Randomizer.randomInt(0, rareCards.size()));
 	}
 	
 	public ArrayList<Card> getStarter() {

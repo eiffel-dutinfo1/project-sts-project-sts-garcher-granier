@@ -2,6 +2,7 @@ package fr.dut.info.player;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -34,8 +35,16 @@ public class PlayerAvatar {
 		return energy;
 	}
 	
+	public void gainEnergy(int x) {
+		energy += x;
+	}
+	
 	public ArrayList<Card> getHand() {
 		return hand;
+	}
+	
+	public ArrayList<Card> getDiscard() {
+		return discard;
 	}
 	
 	public int getCurrentHP() {
@@ -79,6 +88,15 @@ public class PlayerAvatar {
 	public void removeCard(Card card) {
 		discard.add(card);
 		hand.remove(card);
+	}
+	
+	public void reverseRemoveCard(Card card) {
+		hand.add(card);
+		discard.remove(card);
+	}
+	
+	public void shuffleHand() {
+		Collections.shuffle(hand);
 	}
 	
 	public boolean takeDamage(int damage) {

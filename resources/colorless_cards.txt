@@ -1,0 +1,7 @@
+Blind#Blind.png#uncommon#0#false#false#skill#apply_all_weak#2
+Deep Breath#DeepBreath.png#uncommon#0#false#false#skill#shuffle_discard_into_draw#0
+Finesse#Finesse.png#uncommon#0#false#false#skill#block#2#draw_card#1
+Flash of Steel#FlashofSteel.png#uncommon#0#false#true#attack#simple_damage#3#draw_card#1
+Good Instincts#GoodInstincts.png#uncommon#0#false#false#skill#block#6
+Swift Strike#SwiftStrike.png#uncommon#0#false#true#attack#simple_damage#7
+Trip#Trip.png#uncommon#0#false#false#skill#apply_all_vulnerable#2
