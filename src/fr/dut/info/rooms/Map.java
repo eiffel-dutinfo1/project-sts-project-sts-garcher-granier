@@ -10,7 +10,7 @@ import fr.dut.info.monsters.act1.JawWorm;
 import fr.dut.info.player.Player;
 
 public class Map {
-	private static Room[] rooms = new Room[13];
+	private static Room[] rooms = new Room[14];
 	private static Player player;
 	private static String hero;
 	private static int currentRoom;
@@ -70,15 +70,16 @@ public class Map {
 			}
 		}
 		rooms[12] = new FightRoom("boss");
+		rooms[13] = new WinScreen();
 	}
 	
 	public static void setHero(String heroType) throws IOException {
 		hero = heroType;
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder(heroType);
 		if (hero.equals("IronClad")) {
-			player = new Player(800, 100, "IronClad");
+			player = new Player(800, 10000, "IronClad");
 		} else {
-			player = new Player(700, 100, "Silent");
+			player = new Player(700, 10000, "Silent");
 		}
 	}
 	

@@ -68,7 +68,9 @@ public class Player {
 				}
 			}
 		}
-		//deck.add(CardBuilder.getCardBuilder().fetchCard(""));
+		deck.add(CardBuilder.getCardBuilder().fetchCard("Warcry"));
+		deck.add(CardBuilder.getCardBuilder().fetchCard("Warcry"));
+		deck.add(CardBuilder.getCardBuilder().fetchCard("Warcry"));
 	}
 	
 	public ArrayList<Card> copyDeck() {

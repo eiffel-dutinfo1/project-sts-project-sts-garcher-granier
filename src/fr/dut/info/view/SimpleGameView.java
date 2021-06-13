@@ -102,9 +102,15 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			return areaFromCoordinatesFireCamp(x, y);
 		case "Reward":
 			return areaFromCoordinatesReward(x, y);
+		case "WinScreen":
+			return areaFromCoordinatesWin(x, y);
 		default:
 			return -1;
 		}
+	}
+	
+	public int areaFromCoordinatesWin(float x, float y) {
+		return -1;
 	}
 	
 	public int areaFromCoordinatesFireCamp(float x, float y) {
@@ -224,6 +230,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		case "Reward":
 			drawRewardLayout(graphics);
 			break;
+		case "WinScreen":
+			drawWinScreen(graphics);
+			break;
 		default:
 			break;
 		}
@@ -285,25 +294,28 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	}
 	
 	private void drawMerchantLayout(Graphics2D graphics) {
+		if (!((Merchant) data.getCurrentRoom()).isLoaded()) {
+			writeStringAtCoords("Click to reveal cards", graphics, hSize/2, vMargin + vSize/2 + 30, 24);
+		}
 		int gold = data.getPlayer().getGold();
 		ArrayList<Card> shop = ((Merchant) data.getCurrentRoom()).getShop();
+		int count = 0;
 		float xUpL = hSize/50;
 		float xLowR = 9*hSize/50;
-		float yUpL = 100;
-		float yLowR = 500;
+		float yUpL = 80;
+		float yLowR = vSize/2 - 60;
 		for (Card card : shop) {
 			drawImageInArea(graphics, card.getPicturePath(), xUpL, yUpL, xLowR, yLowR);
-			writeStringAtCoords("" + Merchant.getCardPrice(card), graphics, xLowR-((hSize/5)/2), vMargin + yLowR + 30, 24);
-			if(xUpL >= 1728) {
-				xUpL = hSize/50;
-				xLowR = 9*hSize/50;
+			writeStringAtCoords(String.valueOf(Merchant.getCardPrice(card)), graphics, xLowR-((hSize/5)/2), vMargin + yLowR + 30, 24);
+			xUpL += hSize/5;
+			xLowR += hSize/5;
+			if (count == 4) {
 				yUpL = vSize/2 + 80;
 				yLowR = vSize - 60;
+				xUpL = hSize/50;
+				xLowR = 9*hSize/50;
 			}
-			else {
-				xUpL += hSize/5;
-				xLowR += hSize/5;
-			}
+			count++;
 		}
 		float yLow = vSize/2 + vMargin, ySpace =40; 
 		float [] steps = {0, ySpace};
@@ -318,6 +330,10 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	
 	private void drawEndScreen(Graphics2D graphics) {
 		writeStringAtCoords("You lose!", graphics, hSize/2, vSize/2, 24);
+	}
+	
+	private void drawWinScreen(Graphics2D graphics) {
+		writeStringAtCoords("You win!", graphics, hSize/2, vSize/2, 24);
 	}
 	
 	private void drawStartRoomLayout(Graphics2D graphics) {

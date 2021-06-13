@@ -18,6 +18,7 @@ public class DamageNbStrikeStrat implements Strat{
 	
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
+		nbStrike = 0;
 		for(Card card : playerAvatar.getHand()) {
 			if(card.getName().contains("Strike")) {
 				nbStrike++;
