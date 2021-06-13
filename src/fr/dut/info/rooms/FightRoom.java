@@ -16,14 +16,20 @@ public class FightRoom implements Room {
 	private PlayerAvatar avatar = null;
 	private int selectedCard;
 	private int selectedTarget;
+	private int discardMode;
 
 	public FightRoom(String monsterType) {
 		this.opponents = new TreeMap<Integer, Opponent>();
 		numberOfOpponents = 0;
 		resetSelected();
 		FightRoomBuilder.createFightRoom(this, monsterType);
+		discardMode = 0;
 	}
-
+	
+	public void activateDiscardMode(int value) {
+		discardMode += value;
+	}
+	
 	public void addOpponent(Opponent opponent) {
 		numberOfOpponents++;
 		opponents.put(numberOfOpponents, opponent);
@@ -62,10 +68,14 @@ public class FightRoom implements Room {
 	}
 	
 	public void playSelected() throws IOException {
-		System.out.println(selectedCard);
 		Card card = avatar.getHand().get(selectedCard);
 		card.playCard(opponents, avatar, selectedTarget);
 		avatar.useEnergy(card.energyCost());
+		avatar.removeCard(card);
+	}
+	
+	public void discardSelected() {
+		Card card = avatar.getHand().get(selectedCard);
 		avatar.removeCard(card);
 	}
 
@@ -104,17 +114,23 @@ public class FightRoom implements Room {
 			resetSelected();
 			statsUpdate();
 		}
-		if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
-			if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
-				playSelected();
-			}
+		if (discardMode > 0) {
+			discardSelected();
 			resetSelected();
-		}
-		else if (cardSelected() && targetSelected()) {
-			if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
-				playSelected();
+			discardMode--;
+		} else {
+			if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
+				if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
+					playSelected();
+				}
+				resetSelected();
 			}
-			resetSelected();
+			else if (cardSelected() && targetSelected()) {
+				if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
+					playSelected();
+				}
+				resetSelected();
+			}
 		}
 		deadOpponent();
 		return victory();

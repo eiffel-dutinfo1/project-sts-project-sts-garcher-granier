@@ -45,8 +45,30 @@ public class Player {
 				}
 			}
 		} else {
-			//do starter with Silent cards
+			for (Card card : starter) {
+				switch (card.getName()) {
+				case "Survivor":
+					deck.add(card);
+					break;
+				case "Strike":
+					for (int i = 0; i < 5; i++) {
+						deck.add(card);
+					}
+					break;
+				case "Defend":
+					for (int i = 0; i < 5; i++) {
+						deck.add(card);
+					}
+					break;
+				case "Neutralize":
+					deck.add(card);
+					break;
+				default:
+					throw new IllegalArgumentException("Error in starter, check .txt file.");
+				}
+			}
 		}
+		//deck.add(CardBuilder.getCardBuilder().fetchCard(""));
 	}
 	
 	public ArrayList<Card> copyDeck() {

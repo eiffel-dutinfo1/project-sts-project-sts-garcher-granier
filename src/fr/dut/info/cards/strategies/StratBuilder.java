@@ -6,6 +6,9 @@ import fr.dut.info.cards.strategies.cardstrats.ApplyWeak;
 import fr.dut.info.cards.strategies.cardstrats.BlockStrat;
 import fr.dut.info.cards.strategies.cardstrats.DamageNbStrikeStrat;
 import fr.dut.info.cards.strategies.cardstrats.DamageRandomTimeStrat;
+import fr.dut.info.cards.strategies.cardstrats.DiscardAllDrawAllStrat;
+import fr.dut.info.cards.strategies.cardstrats.DiscardRandomStrat;
+import fr.dut.info.cards.strategies.cardstrats.DiscardStrat;
 import fr.dut.info.cards.strategies.cardstrats.DoubleBlockStrat;
 import fr.dut.info.cards.strategies.cardstrats.DrawCardStrat;
 import fr.dut.info.cards.strategies.cardstrats.EndTurnBlock;
@@ -61,6 +64,12 @@ public class StratBuilder {
 			return new ApplyAllWeak(value);
 		case "shuffle_discard_into_draw":
 			return new ShuffleDiscardIntoDraw(value);
+		case "discard":
+			return new DiscardStrat(value);
+		case "discard_random":
+			return new DiscardRandomStrat(value);
+		case "discard_all_draw_all":
+			return new DiscardAllDrawAllStrat();
 		default:
 			throw new IllegalArgumentException("Strat name is not recognized, please verify the .txt file. Input : " + name);
 		}

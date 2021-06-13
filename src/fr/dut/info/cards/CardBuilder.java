@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 import fr.dut.info.Randomizer;
@@ -101,6 +102,26 @@ public class CardBuilder {
 	
 	public ArrayList<Card> getStarter() {
 		return starterCards;
+	}
+	
+	public Card fetchCard(String cardName) {
+		Card wantedCard = null;
+		for (Card card : commonCards) {
+			if (card.getName().equals(cardName)) {
+				wantedCard = card;
+			}
+		}
+		for (Card card : uncommonCards) {
+			if (card.getName().equals(cardName)) {
+				wantedCard = card;
+			}
+		}
+		for (Card card : rareCards) {
+			if (card.getName().equals(cardName)) {
+				wantedCard = card;
+			}
+		}
+		return wantedCard;
 	}
 	
 	public static CardBuilder getCardBuilder() throws IOException {

@@ -98,6 +98,11 @@ public class PlayerAvatar {
 		hand.remove(card);
 	}
 	
+	public void removeCardNoExhaust(Card card) {
+		discard.add(card);
+		hand.remove(card);
+	}
+	
 	public void reverseRemoveCard(Card card) {
 		hand.add(card);
 		discard.remove(card);

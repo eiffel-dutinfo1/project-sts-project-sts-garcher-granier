@@ -1,1 +1,22 @@
-Defend#Defend.png#starter#1#false#false#skill#block#5
+Survivor#Survivor.png#starter#1#false#false#skill#block#8#discard#1
+Strike#Strike_G.png#starter#1#false#true#attack#single_damage#6
+Defend#Defend_G.png#starter#1#false#false#skill#block#5
+Neutralize#Neutralize.png#starter#0#false#true#attack#single_damage#3#apply_weak#1
+Acrobatics#Acrobatics.png#common#1#false#false#skill#draw_card#3#discard#1
+Adrenaline#Adrenaline.png#rare#0#true#false#skill#gain_energy#1#draw_card#2
+All Out Attack#AllOutAttack.png#uncommon#1#false#false#attack#multi_damage#10#discard_random#1
+Backflip#Backflip.png#common#1#false#false#skill#block#5#draw_card#2
+Calculated Gamble#CalculatedGamble.png#uncommon#0#true#false#skill#discard_all_draw_all#1
+Concentrate#Concentrate.png#uncommon#0#false#false#skill#discard#3#gain_energy#2
+Dagger Spray#DaggerSpray.png#common#1#false#false#attack#multi_damage#4#multi_damage#4
+Dagger Throw#R_daggerthrow.png#common#0#false#true#attack#single_damage#9#discard#1#draw_card#1
+Dash#Dash.png#uncommon#2#false#true#attack#single_damage#10#block#10
+Deflect#Deflect.png#common#0#false#false#skill#block#4
+Die Die Die#DieDieDie.png#rare#2#true#false#attack#multi_damage#13
+Leg Sweep#LegSweep.png#uncommon#2#false#true#skill#apply_weak#2#block#11
+Prepared#Prepared.png#common#0#false#false#skill#discard#1#draw_card#1
+Quick Slash#QuickSlash.png#common#1#false#true#attack#single_damage#8#draw_card#1
+Riddle With Holes#RiddleWithHoles.png#uncommon#2#false#true#attack#single_damage#3#single_damage#3#single_damage#3#single_damage#3#single_damage#3
+Slice#Slice.png#common#0#false#true#attack#single_damage#5
+Sucker Punch#SuckerPunch.png#common#1#false#true#attack#single_damage#7#apply_weak#1
+Terror#Terror.png#uncommon#1#true#true#skill#vulnerable#99
