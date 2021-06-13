@@ -22,7 +22,7 @@ public class Merchant implements Room{
 	@Override
 	public boolean roomEvent(int index, Player player) throws IOException {
 		if (loaded == false) {
-			for(int i = 0; i <= 8; i++) {
+			for(int i = 0; i < 8; i++) {
 				shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
 			}
 			shop.add(CardBuilder.getCardBuilder().giveRandomUncommonCard());
@@ -63,6 +63,10 @@ public class Merchant implements Room{
 	
 	public ArrayList<Card> getShop() {
 		return shop;
+	}
+	
+	public boolean isLoaded() {
+		return loaded;
 	}
 
 	@Override

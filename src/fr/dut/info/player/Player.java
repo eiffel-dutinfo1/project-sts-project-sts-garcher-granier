@@ -68,7 +68,9 @@ public class Player {
 				}
 			}
 		}
-		//deck.add(CardBuilder.getCardBuilder().fetchCard(""));
+		deck.add(CardBuilder.getCardBuilder().fetchCard("Offering"));
+		deck.add(CardBuilder.getCardBuilder().fetchCard("Offering"));
+		deck.add(CardBuilder.getCardBuilder().fetchCard("Offering"));
 	}
 	
 	public ArrayList<Card> copyDeck() {
@@ -92,7 +94,7 @@ public class Player {
 		return false;
 	}
 	
-	//pour tester
+	//for testing
 	public void printDeck() {
 		for (Card card : deck) {
 			System.out.println(card.toString());
