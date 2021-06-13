@@ -351,7 +351,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		float yCoord = 30;
 		int numberOfLogs = (int) (vSize/2)/27;
 		for (String log : Log.getLog().logDisplay(numberOfLogs)) {
-			writeStringAtCoords(log, graphics, hMargin + 4*hSize/5 + 10, yCoord, hSize/80);
+			writeStringAtCoords(log, graphics, hMargin + 4*hSize/5 + 10, yCoord, hSize/120);
 			yCoord+=26;
 		}
 	}

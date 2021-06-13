@@ -119,7 +119,7 @@ public class FightRoom implements Room {
 			resetSelected();
 			statsUpdate();
 		}
-		if (discardMode > 0) {
+		if (discardMode > 0 && index != -1) {
 			discardSelected();
 			resetSelected();
 			discardMode--;
