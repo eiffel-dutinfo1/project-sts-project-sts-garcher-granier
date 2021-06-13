@@ -16,7 +16,5 @@ Bloodletting#Bloodletting.png#uncommon#0#false#false#skill#lose_hp#3#gain_energy
 Dropkick#Dropkick.png#uncommon#1#false#true#attack#single_damage#5#if_vunerable_gain_energy_draw#1
 Entrench#Entrench.png#uncommon#1#false#false#skill#double_block#0
 Hemokinesis#Hemokinesis.png#uncommon#1#false#true#attack#lose_hp#2#single_damage#15
-Inflame#Inflame.png#uncommon#1#false#false#power#gain_strength#2
-Metallicize#Metallicize.png#uncommon#1#false#false#power#end_turn_block#3
 Uppercut#Uppercut.png#uncommon#2#false#true#attack#single_damage#13#apply_weak#1#vulnerable#1
 Bludgeon#Bludgeon.png#rare#3#false#true#attack#single_damage#32

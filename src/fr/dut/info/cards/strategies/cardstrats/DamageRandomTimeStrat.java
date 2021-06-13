@@ -19,7 +19,7 @@ public class DamageRandomTimeStrat implements Strat{
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		for(int i = 0; i < damage; i++) {
-			int nb = Randomizer.randomInt(0, opponents.size());
+			Integer nb = Randomizer.randomInt(0, opponents.size());
 			Opponent opponentTarget = opponents.get(nb);
 			int modifiedDamage = damage + playerAvatar.getStats().getBlock();
 			modifiedDamage = playerAvatar.getStats().applyAttackerModifiers(modifiedDamage);
