@@ -26,6 +26,7 @@ public class FightRoom implements Room {
 		discardMode = 0;
 	}
 	
+	//discard mode allows a player to discard specific cards in hand
 	public void activateDiscardMode(int value) {
 		discardMode += value;
 	}
@@ -67,6 +68,7 @@ public class FightRoom implements Room {
 		return selectedTarget;
 	}
 	
+	//play the selected card, removes its energy cost and sends the card to the discard
 	public void playSelected() throws IOException {
 		Card card = avatar.getHand().get(selectedCard);
 		card.playCard(opponents, avatar, selectedTarget);
@@ -84,6 +86,7 @@ public class FightRoom implements Room {
 		selectedCard = -1;
 	}
 	
+	//update stats each turn
 	private void statsUpdate() {
 		avatar.getStats().turnUpdate();
 		for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
@@ -105,6 +108,8 @@ public class FightRoom implements Room {
 		else if (index >= 5 && index <= opponents.size() + 4) {
 			selectedTarget = index - 4;
 		}
+		//this is when the player clicks on "end turn"
+		//it triggers enemy turn then starts the player turn again
 		else if (index == 9) {
 			avatar.emptyHand();
 			for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
@@ -119,6 +124,8 @@ public class FightRoom implements Room {
 			resetSelected();
 			discardMode--;
 		} else {
+			//we check if both a card and an enemy is select before playing a card if the card needs a target
+			//if not, the card is played instantly
 			if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
 				if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
 					playSelected();
@@ -136,6 +143,7 @@ public class FightRoom implements Room {
 		return victory();
 	}
 	
+	//actualizes the opponents list
 	public void deadOpponent() {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for(Entry<Integer, Opponent> entry : opponents.entrySet()) {

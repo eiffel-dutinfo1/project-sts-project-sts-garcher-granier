@@ -16,6 +16,7 @@ public class FireCamp implements Room{
 			player.heal();
 			return true;
 		}
+		//card improvement not yet implemented
 		if(index == 1) {
 			return true;
 		}

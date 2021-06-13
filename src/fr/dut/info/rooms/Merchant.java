@@ -18,9 +18,11 @@ public class Merchant implements Room{
 		this.selectedCard = new ArrayList<Card>();
 		loaded = false;
 	}
-
+	
 	@Override
 	public boolean roomEvent(int index, Player player) throws IOException {
+		//this is necessary because when we generate the map and the rooms, the CardBuilder is not yet generated
+		//so we must populate the cards of the merchant on entering the room (after the first click actually)
 		if (loaded == false) {
 			for(int i = 0; i < 8; i++) {
 				shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
