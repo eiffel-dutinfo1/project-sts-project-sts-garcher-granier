@@ -48,6 +48,7 @@ public class Map {
 					index++;
 					rooms[index] = new RewardRoom("basic");
 					index++;
+					remainingBasicFightRooms--;
 				}
 				break;
 			case 1:
@@ -56,18 +57,21 @@ public class Map {
 					index++;
 					rooms[index] = new RewardRoom("elite");
 					index++;
+					remainingEliteFightRooms--;
 				}
 				break;
 			case 2:
 				if (remainingFireCamps != 0) {
 					rooms[index] = new FireCamp();
 					index++;
+					remainingFireCamps--;
 				}
 				break;
 			case 3:
 				if (remainingMerchants != 0) {
 					rooms[index] = new Merchant();
 					index++;
+					remainingMerchants--;
 				}
 				break;
 			default:

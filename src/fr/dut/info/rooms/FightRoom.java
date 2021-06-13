@@ -119,7 +119,7 @@ public class FightRoom implements Room {
 			resetSelected();
 			statsUpdate();
 		}
-		if (discardMode > 0 && index != -1) {
+		if (discardMode > 0 && index != -1 && index <= avatar.getHand().size()-1) {
 			discardSelected();
 			resetSelected();
 			discardMode--;
