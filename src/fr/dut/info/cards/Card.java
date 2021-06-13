@@ -58,10 +58,6 @@ public class Card implements Comparable<Card> {
 		return exhaustable;
 	}
 	
-	public String getCardType() {
-		return cardType;
-	}
-	
 	public Card makeCopy() throws CloneNotSupportedException {
 		return (Card) this.clone();
 	}
