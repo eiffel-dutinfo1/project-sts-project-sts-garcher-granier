@@ -19,4 +19,9 @@ public class WeakAction implements MonsterAction {
 		opponent.getStats().addWeak(weak);
 		Log.getLog().addLog(opponent.getName() + " applies " + weak + " stack" + (weak > 1 ? "s" : "") + " of weak to you");
 	}
+	
+	@Override
+	public String actionPreview() {
+		return "weak";
+	}
 }

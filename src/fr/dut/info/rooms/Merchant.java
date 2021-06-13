@@ -28,21 +28,22 @@ public class Merchant implements Room{
 			shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
 			shop.add(CardBuilder.getCardBuilder().giveRandomUncommonCard());
 			shop.add(CardBuilder.getCardBuilder().giveRandomRareCard());
-		}
-		if(index >= 0 && index <= shop.size() - 1) {
-			Card card = shop.get(index);
-			if(getCardPrice(card) <= player.getGold()) {
-				selectedCard.add(card);
-				totalPrice += getCardPrice(card);
-				shop.remove(card);
+		} else {
+			if(index >= 0 && index <= shop.size() - 1) {
+				Card card = shop.get(index);
+				if(getCardPrice(card) <= player.getGold()) {
+					selectedCard.add(card);
+					totalPrice += getCardPrice(card);
+					shop.remove(card);
+				}
 			}
-		}
-		if(index == 8) {
-			for(Card card : selectedCard) {
-				player.getDeck().add(card);
+			if(index == 8) {
+				for(Card card : selectedCard) {
+					player.getDeck().add(card);
+				}
+				player.useGold(totalPrice);
+				return true;
 			}
-			player.useGold(totalPrice);
-			return true;
 		}
 		return false;
 	}

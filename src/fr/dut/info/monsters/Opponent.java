@@ -1,6 +1,7 @@
 package fr.dut.info.monsters;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import fr.dut.info.player.PlayerAvatar;
 import fr.dut.info.stats.Stats;
@@ -15,4 +16,6 @@ public interface Opponent {
 	Stats getStats();
 	String getName();
 	boolean isDead();
+	ArrayList<Move> getMoves();
+	Move nextMove();
 }

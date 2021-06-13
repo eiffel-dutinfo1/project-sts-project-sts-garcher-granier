@@ -19,4 +19,9 @@ public class RitualAction implements MonsterAction {
 		opponent.getStats().addRitual(ritual);
 		Log.getLog().addLog(opponent.getName() + " gains " + ritual + " stack" + (ritual > 1 ? "s" : "") + " of ritual");
 	}
+	
+	@Override
+	public String actionPreview() {
+		return "ritual";
+	}
 }

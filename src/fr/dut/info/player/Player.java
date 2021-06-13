@@ -98,6 +98,10 @@ public class Player {
 		gold -= value;
 	}
 	
+	public void giveGold(int value) {
+		gold += value;
+	}
+	
 	public void heal() {
 		hp = maxhp;
 	}

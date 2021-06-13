@@ -2,9 +2,12 @@ package fr.dut.info.monsters;
 
 import java.util.ArrayList;
 
+import fr.dut.info.monsters.actions.SplitAction;
 import fr.dut.info.monsters.actions.BlockAction;
 import fr.dut.info.monsters.actions.DamageAction;
+import fr.dut.info.monsters.actions.PreparingAction;
 import fr.dut.info.monsters.actions.RitualAction;
+import fr.dut.info.monsters.actions.SlimeAction;
 import fr.dut.info.monsters.actions.StrengthAction;
 import fr.dut.info.monsters.actions.WeakAction;
 
@@ -21,6 +24,12 @@ public class ActionBuilder {
 			return new BlockAction(value);
 		case "ritual":
 			return new RitualAction(value);
+		case "slime":
+			return new SlimeAction(value);
+		case "split":
+			return new SplitAction(value);
+		case "preparing":
+			return new PreparingAction();
 		default:
 			throw new IllegalArgumentException("Action name is not recognized");
 		}

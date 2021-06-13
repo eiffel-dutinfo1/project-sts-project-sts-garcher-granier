@@ -22,4 +22,9 @@ public class DamageAction implements MonsterAction {
 		avatar.takeDamage(modifiedDamage);
 		Log.getLog().addLog("You take " + modifiedDamage + " damage from " + opponent.getName());
 	}
+	
+	@Override
+	public String actionPreview() {
+		return "damage";
+	}
 }

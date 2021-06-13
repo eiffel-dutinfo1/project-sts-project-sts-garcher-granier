@@ -7,21 +7,18 @@ import fr.dut.info.monsters.MonsterAction;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
 
-public class StrengthAction implements MonsterAction {
-	private final int strength;
+public class PreparingAction implements MonsterAction {
 	
-	public StrengthAction(int value) {
-		strength = value;
+	public PreparingAction() {
 	}
 	
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
-		opponent.getStats().addStrength(strength);
-		Log.getLog().addLog(opponent.getName() + " gains " + strength + " stack" + (strength > 1 ? "s" : "") + " of strength");
+		Log.getLog().addLog("Slime Boss is preparing something");
 	}
 	
 	@Override
 	public String actionPreview() {
-		return "strength";
+		return "preparing";
 	}
 }
