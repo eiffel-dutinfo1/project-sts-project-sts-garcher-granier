@@ -21,7 +21,7 @@ public class CardHandIntoDrawStrat implements Strat{
 		if(playerAvatar.getHand().size()-nbCard > 0) {
 			for(int i = 0; i < nbCard; i++) {
 				Card card = playerAvatar.cardHandToDraw();
-				Log.getLog().addLog("You put " + card + " in your draw");
+				Log.getLog().addLog("You put " + card.getName() + " in your draw");
 			}
 		}
 	}
