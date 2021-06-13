@@ -1,7 +1,7 @@
 package fr.dut.info.cards.strategies;
 
 import fr.dut.info.cards.strategies.cardstrats.ApplyAllWeak;
-import fr.dut.info.cards.strategies.cardstrats.ApplyVulnerable;
+import fr.dut.info.cards.strategies.cardstrats.ApplyAllVulnerable;
 import fr.dut.info.cards.strategies.cardstrats.ApplyWeak;
 import fr.dut.info.cards.strategies.cardstrats.BlockStrat;
 import fr.dut.info.cards.strategies.cardstrats.DamageNbStrikeStrat;
@@ -43,8 +43,8 @@ public class StratBuilder {
 			return new DrawCardStrat(value);
 		case "damage_random_time":
 			return new DamageRandomTimeStrat(value);
-		case "apply_vulnerable":
-			return new ApplyVulnerable(value);
+		case "apply_all_vulnerable":
+			return new ApplyAllVulnerable(value);
 		case "lose_hp":
 			return new LoseHpStrat(value);
 		case "gain_energy":

@@ -9,10 +9,10 @@ import fr.dut.info.cards.strategies.Strat;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
 
-public class ApplyVulnerable implements Strat{
+public class ApplyAllVulnerable implements Strat{
 	private final int vulnerable;
 	
-	public ApplyVulnerable(int value) {
+	public ApplyAllVulnerable(int value) {
 		vulnerable = value;
 	}
 	

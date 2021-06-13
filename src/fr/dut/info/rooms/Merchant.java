@@ -11,37 +11,37 @@ public class Merchant implements Room{
 	
 	private ArrayList<Card> shop;
 	private ArrayList<Card> selectedCard;
-	private int totalPrice;
+	private boolean loaded;
 	
 	public Merchant() throws IOException {
 		this.shop = new ArrayList<Card>();
 		this.selectedCard = new ArrayList<Card>();
-		this.totalPrice = 0;
+		loaded = false;
 	}
 
 	@Override
 	public boolean roomEvent(int index, Player player) throws IOException {
-		if (shop.size() == 0) {
+		if (loaded == false) {
 			for(int i = 0; i < 4; i++) {
 				shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
 			}
 			shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
 			shop.add(CardBuilder.getCardBuilder().giveRandomUncommonCard());
 			shop.add(CardBuilder.getCardBuilder().giveRandomRareCard());
+			loaded = true;
 		} else {
 			if(index >= 0 && index <= shop.size() - 1) {
 				Card card = shop.get(index);
 				if(getCardPrice(card) <= player.getGold()) {
 					selectedCard.add(card);
-					totalPrice += getCardPrice(card);
+					player.useGold(getCardPrice(card));
 					shop.remove(card);
 				}
 			}
-			if(index == 8) {
+			if(index == 9) {
 				for(Card card : selectedCard) {
 					player.getDeck().add(card);
 				}
-				player.useGold(totalPrice);
 				return true;
 			}
 		}

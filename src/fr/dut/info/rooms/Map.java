@@ -26,6 +26,7 @@ public class Map {
 		rooms[0] = new StartRoom();
 		
 		rooms[1] = new FightRoom("basic");
+		rooms[1] = new FightRoom("boss");
 		
 		rooms[2] = new RewardRoom("basic");
 		
@@ -76,9 +77,9 @@ public class Map {
 		hero = heroType;
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder(heroType);
 		if (hero.equals("IronClad")) {
-			player = new Player(80, 100, "IronClad");
+			player = new Player(800, 100, "IronClad");
 		} else {
-			player = new Player(70, 100, "Silent");
+			player = new Player(700, 100, "Silent");
 		}
 	}
 	

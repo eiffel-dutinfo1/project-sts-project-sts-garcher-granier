@@ -75,8 +75,6 @@ public abstract class AbstractOpponent implements Opponent{
 		int maxProbability = 0;
 		ArrayList<Move> legalMoves = new ArrayList<Move>();
 		for (Move move : moves) {
-			System.out.println(move.getName());
-			System.out.println(move.getCurrentStreak());
 			if (move.isLegal()) {
 				legalMoves.add(move);
 				maxProbability += move.getProbability();

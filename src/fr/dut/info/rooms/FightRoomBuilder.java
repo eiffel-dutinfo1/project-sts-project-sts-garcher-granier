@@ -32,7 +32,7 @@ public class FightRoomBuilder {
 	
 	private static void addBasicMonsters(FightRoom room) {
 		// CHANGER LES VALEURS DU RANDOMIZER SI AJOUT D'UN MONSTRE
-		int number = Randomizer.randomInt(0, 1);
+		int number = Randomizer.randomInt(0, 6);
 		switch (number) {
 		case 0:
 			room.addOpponent(new Cultist());
