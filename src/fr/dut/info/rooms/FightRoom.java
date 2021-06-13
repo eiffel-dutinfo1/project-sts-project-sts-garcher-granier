@@ -120,7 +120,6 @@ public class FightRoom implements Room {
 			discardMode--;
 		} else {
 			if (cardSelected() && !(avatar.getHand().get(selectedCard).getNeedTarget())) {
-				System.out.println("hello");
 				if (avatar.getEnergy() >= avatar.getHand().get(selectedCard).energyCost()) {
 					playSelected();
 				}
