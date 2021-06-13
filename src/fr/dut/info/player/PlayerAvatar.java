@@ -40,8 +40,16 @@ public class PlayerAvatar {
 		return energy;
 	}
 	
+	public void gainEnergy(int x) {
+		energy += x;
+	}
+	
 	public ArrayList<Card> getHand() {
 		return hand;
+	}
+	
+	public ArrayList<Card> getDiscard() {
+		return discard;
 	}
 	
 	public int getCurrentHP() {
@@ -88,6 +96,15 @@ public class PlayerAvatar {
 			discard.add(card);
 		}
 		hand.remove(card);
+	}
+	
+	public void reverseRemoveCard(Card card) {
+		hand.add(card);
+		discard.remove(card);
+	}
+	
+	public void shuffleHand() {
+		Collections.shuffle(hand);
 	}
 	
 	public boolean takeDamage(int damage) {

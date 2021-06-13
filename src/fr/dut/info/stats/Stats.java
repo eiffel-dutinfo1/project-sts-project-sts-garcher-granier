@@ -7,6 +7,7 @@ public class Stats {
 	private int ritual;
 	private int weak;
 	private int vulnerability;
+	private int endTurnBlock;
 	
 	public Stats() {
 		block = 0;
@@ -15,6 +16,7 @@ public class Stats {
 		ritual = 0;
 		weak = 0;
 		vulnerability = 0 ;
+		endTurnBlock = 0;
 	}
 	
 	public int getBlock() {
@@ -65,6 +67,10 @@ public class Stats {
 		vulnerability += value;
 	}
 	
+	public void addEndTurnBlock(int value) {
+		endTurnBlock += value;
+	}
+	
 	public int applyAttackerModifiers(int damageDealt) {
 		damageDealt += strength;
 		if (weak > 0) {
@@ -89,7 +95,7 @@ public class Stats {
 	}
 	
 	public void turnUpdate() {
-		block = 0;
+		block = endTurnBlock;
 		strength += ritual;
 		ritual = 0;
 		if (weak > 0) {
@@ -97,6 +103,9 @@ public class Stats {
 		}
 		if (vulnerability > 0) {
 			vulnerability--;
+		}
+		if (endTurnBlock > 0) {
+			endTurnBlock = 0;
 		}
 	}
 }
