@@ -12,11 +12,20 @@ Shrug it Off#ShrugItOff.png#common#1#false#false#skill#block#8#draw_card#1
 Sword Boomerang#SwordBoomerang.png#common#1#false#false#attack#damage_random_time#3
 Thunderclap#Thunderclap.png#common#1#false#true#attack#multi_damage#4#apply_all_vulnerable#1
 Twin Strike#TwinStrike.png#common#1#false#true#attack#single_damage#5#single_damage#5
-Bloodletting#Bloodletting.png#uncommon#0#false#false#skill#lose_hp#3#gain_energy#2
+Bloodletting#Bloodletting.png#uncommon#0#false#false#skill#lose_hp#3#gain_energy#1
 Dropkick#Dropkick.png#uncommon#1#false#true#attack#single_damage#5#if_vunerable_gain_energy_draw#1
 Entrench#Entrench.png#uncommon#1#false#false#skill#double_block#0
-Hemokinesis#Hemokinesis.png#uncommon#1#false#true#attack#lose_hp#2#single_damage#15
-Inflame#Inflame.png#uncommon#1#false#false#power#gain_strength#2
-Metallicize#Metallicize.png#uncommon#1#false#false#power#end_turn_block#3
+Hemokinesis#Hemokinesis.png#uncommon#1#false#true#attack#lose_hp#3#single_damage#14
 Uppercut#Uppercut.png#uncommon#2#false#true#attack#single_damage#13#apply_weak#1#vulnerable#1
 Bludgeon#Bludgeon.png#rare#3#false#true#attack#single_damage#32
+Clash#Clash.png#common#0#false#true#attack#if_all_attack_single_damage#14
+Warcry#Warcry.png#common#0#true#false#skill#draw_card#1#card_hand_into_draw#1
+Disarm#Disarm.png#uncommon#1#true#true#skill#apply_strength#-2
+Intimidate#Intimidate.png#uncommon#0#true#true#skill#apply_all_weak#1
+Pummel#Pummel.png#uncommon#1#true#true#attack#single_damage#2#single_damage#2#single_damage#2#single_damage#2
+Seeing Red#SeeingRed.png#uncommon#1#true#false#skill#gain_energy#2
+Shockwave#Shockwave.png#uncommon#2#true#false#skill#apply_all_weak#3#apply_all_vulnerable#3
+Feed#Feed.png#rare#1#true#true#attack#single_damage_if_fatal_hpmax#10
+Impervious#Impervious.png#rare#2#true#false#skill#block#30
+Limit Break#LimitBreak.png#rare#1#true#false#skill#double_strength#0
+Offering#Offering.png#rare#0#true#false#skill#lose_hp#6#gain_energy#2#draw_card#3

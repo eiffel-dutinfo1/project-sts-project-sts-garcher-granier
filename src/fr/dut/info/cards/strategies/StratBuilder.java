@@ -1,21 +1,29 @@
 package fr.dut.info.cards.strategies;
 
 import fr.dut.info.cards.strategies.cardstrats.ApplyAllWeak;
+import fr.dut.info.cards.strategies.cardstrats.ApplyStrengthStrat;
 import fr.dut.info.cards.strategies.cardstrats.ApplyAllVulnerable;
 import fr.dut.info.cards.strategies.cardstrats.ApplyWeak;
 import fr.dut.info.cards.strategies.cardstrats.BlockStrat;
+import fr.dut.info.cards.strategies.cardstrats.CardHandIntoDrawStrat;
 import fr.dut.info.cards.strategies.cardstrats.DamageNbStrikeStrat;
 import fr.dut.info.cards.strategies.cardstrats.DamageRandomTimeStrat;
 import fr.dut.info.cards.strategies.cardstrats.DiscardAllDrawAllStrat;
+import fr.dut.info.cards.strategies.cardstrats.DoubleStrength;
 import fr.dut.info.cards.strategies.cardstrats.DiscardRandomStrat;
 import fr.dut.info.cards.strategies.cardstrats.DiscardStrat;
 import fr.dut.info.cards.strategies.cardstrats.DoubleBlockStrat;
 import fr.dut.info.cards.strategies.cardstrats.DrawCardStrat;
+import fr.dut.info.cards.strategies.cardstrats.HealStrat;
+import fr.dut.info.cards.strategies.cardstrats.IfAllAttackSingleDamageStrat;
+import fr.dut.info.cards.strategies.cardstrats.IfNoAttackCardDrawStrat;
 import fr.dut.info.cards.strategies.cardstrats.EndTurnBlock;
 import fr.dut.info.cards.strategies.cardstrats.GainEnergyStrat;
 import fr.dut.info.cards.strategies.cardstrats.GainStrength;
 import fr.dut.info.cards.strategies.cardstrats.IfVulnerableGainEnergyDrawStrat;
 import fr.dut.info.cards.strategies.cardstrats.LastCardDiscardToDrawStrat;
+import fr.dut.info.cards.strategies.cardstrats.SingleDamageIfFatalGainGoldStrat;
+import fr.dut.info.cards.strategies.cardstrats.SingleDamageIfFatalHpmax;
 import fr.dut.info.cards.strategies.cardstrats.LoseHpStrat;
 import fr.dut.info.cards.strategies.cardstrats.MultiAttackStrat;
 import fr.dut.info.cards.strategies.cardstrats.ShuffleDiscardIntoDraw;
@@ -70,6 +78,22 @@ public class StratBuilder {
 			return new DiscardRandomStrat(value);
 		case "discard_all_draw_all":
 			return new DiscardAllDrawAllStrat();
+		case "heal":
+			return new HealStrat(value);
+		case "apply_strength":
+			return new ApplyStrengthStrat(value);
+		case "if_noattack_draw":
+			return new IfNoAttackCardDrawStrat(value);
+		case "single_damage_if_fatal_gain_gold":
+			return new SingleDamageIfFatalGainGoldStrat(value);
+		case "card_hand_into_draw":
+			return new CardHandIntoDrawStrat(value);
+		case "if_all_attack_single_damage":
+			return new IfAllAttackSingleDamageStrat(value);
+		case "single_damage_if_fatal_hpmax":
+			return new SingleDamageIfFatalHpmax(value);
+		case "double_strength":
+			return new DoubleStrength(value);
 		default:
 			throw new IllegalArgumentException("Strat name is not recognized, please verify the .txt file. Input : " + name);
 		}

@@ -1,7 +1,13 @@
 Blind#Blind.png#uncommon#0#false#false#skill#apply_all_weak#2
-Deep Breath#DeepBreath.png#uncommon#0#false#false#skill#shuffle_discard_into_draw#0
 Finesse#Finesse.png#uncommon#0#false#false#skill#block#2#draw_card#1
 Flash of Steel#FlashofSteel.png#uncommon#0#false#true#attack#single_damage#3#draw_card#1
 Good Instincts#GoodInstincts.png#uncommon#0#false#false#skill#block#6
 Swift Strike#SwiftStrike.png#uncommon#0#false#true#attack#single_damage#7
 Trip#Trip.png#uncommon#0#false#false#skill#vulnerable#2
+Bandage Up#BandageUp.png#uncommon#0#true#false#skill#heal#4
+Dark Shackles#DarkShackles.png#uncommon#0#true#true#skill#apply_strength#-9
+Impatience#Impatience.png#uncommon#0#false#false#skill#if_noattack_draw#2
+Shiv#Shiv.png#special#0#true#true#attack#single_damage#4
+Hand of Greed#HandOfGreed.png#rare#2#false#true#attack#single_damage_if_fatal_gain_gold#20
+Master Of Strategy#MasterOfStrategy.png#rare#0#true#false#skill#draw_card#3
+Thinking Ahead#ThinkingAhead.png#rare#0#true#false#skill#draw_card#2#card_hand_into_draw#1

@@ -97,4 +97,8 @@ public class Card implements Comparable<Card> {
 	public String getRarity() {
 		return rarity;
 	}
+	
+	public String getCardType() {
+		return cardType;
+	}
 }

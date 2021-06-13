@@ -22,10 +22,9 @@ public class Merchant implements Room{
 	@Override
 	public boolean roomEvent(int index, Player player) throws IOException {
 		if (loaded == false) {
-			for(int i = 0; i < 4; i++) {
+			for(int i = 0; i <= 8; i++) {
 				shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
 			}
-			shop.add(CardBuilder.getCardBuilder().giveRandomCommonCard());
 			shop.add(CardBuilder.getCardBuilder().giveRandomUncommonCard());
 			shop.add(CardBuilder.getCardBuilder().giveRandomRareCard());
 			loaded = true;
@@ -38,7 +37,7 @@ public class Merchant implements Room{
 					shop.remove(card);
 				}
 			}
-			if(index == 9) {
+			if(index == 10) {
 				for(Card card : selectedCard) {
 					player.getDeck().add(card);
 				}
@@ -50,13 +49,13 @@ public class Merchant implements Room{
 	
 	public static int getCardPrice(Card card) {
 		int price = 0;
-		if(card.getRarity() == "common") {
+		if(card.getRarity().equals("common")) {
 			price = 45;
 		}
-		else if(card.getRarity() == "uncommon") {
+		else if(card.getRarity().equals("uncommon")) {
 			price = 68;
 		}
-		else if(card.getRarity() == "rare") {
+		else if(card.getRarity().equals("rare")) {
 			price = 135;
 		}
 		return price;

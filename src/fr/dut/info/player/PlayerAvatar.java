@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
 
+import fr.dut.info.Randomizer;
 import fr.dut.info.cards.Card;
 import fr.dut.info.cards.Deck;
 import fr.dut.info.stats.Stats;
@@ -108,6 +109,14 @@ public class PlayerAvatar {
 		discard.remove(card);
 	}
 	
+	public Card cardHandToDraw() {
+		int nb = Randomizer.randomInt(0, hand.size());
+		Card card = hand.get(nb);
+		draw.add(card);
+		hand.remove(nb);
+		return card;
+	}
+	
 	public void shuffleHand() {
 		Collections.shuffle(hand);
 	}
@@ -142,5 +151,17 @@ public class PlayerAvatar {
 	
 	public void useEnergy(int i) {
 		energy -= i;
+	}
+	
+	public void heal(int x) {
+		player.heal(x);
+	}
+	
+	public void gainGold(int x) {
+		player.giveGold(x);
+	}
+	
+	public void gainMaxHp(int x) {
+		player.gainMaxHp(x);
 	}
 }

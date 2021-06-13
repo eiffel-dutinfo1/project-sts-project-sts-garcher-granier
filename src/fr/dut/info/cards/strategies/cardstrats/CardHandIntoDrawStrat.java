@@ -9,20 +9,19 @@ import fr.dut.info.cards.strategies.Strat;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.player.PlayerAvatar;
 
-public class LastCardDiscardToDrawStrat implements Strat{
+public class CardHandIntoDrawStrat implements Strat{
 	private final int nbCard;
 	
-	public LastCardDiscardToDrawStrat(int value) {
+	public CardHandIntoDrawStrat(int value) {
 		nbCard = value;
 	}
 	
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
-		if(playerAvatar.getDiscard().size() > 0) {
+		if(playerAvatar.getHand().size()-nbCard > 0) {
 			for(int i = 0; i < nbCard; i++) {
-				Card card = playerAvatar.getDiscard().get(playerAvatar.getDiscard().size()-1);
-				playerAvatar.reverseRemoveCard(card);
-				Log.getLog().addLog("You recovered " + card.getName() + " from your discard pile ");
+				Card card = playerAvatar.cardHandToDraw();
+				Log.getLog().addLog("You put " + card + " in your draw");
 			}
 		}
 	}
