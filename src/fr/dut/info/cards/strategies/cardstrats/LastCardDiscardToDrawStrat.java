@@ -18,10 +18,12 @@ public class LastCardDiscardToDrawStrat implements Strat{
 	
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
-		for(int i = 0; i < nbCard; i++) {
-			Card card = playerAvatar.getDiscard().get(playerAvatar.getDiscard().size()-1);
-			playerAvatar.reverseRemoveCard(card);
-			Log.getLog().addLog("You recovered " + card.getName() + " from your discard pile ");
+		if(playerAvatar.getDiscard().size() > 0) {
+			for(int i = 0; i < nbCard; i++) {
+				Card card = playerAvatar.getDiscard().get(playerAvatar.getDiscard().size()-1);
+				playerAvatar.reverseRemoveCard(card);
+				Log.getLog().addLog("You recovered " + card.getName() + " from your discard pile ");
+			}
 		}
 	}
 }
