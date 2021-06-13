@@ -31,5 +31,6 @@ public class IfAllAttackSingleDamageStrat implements Strat{
 			opponents.get(target).takeDamage(modifiedDamage);
 			Log.getLog().addLog("You deal " + modifiedDamage + " damage to " + opponents.get(target).getName());
 		}
+		compteur = 0;
 	}
 }

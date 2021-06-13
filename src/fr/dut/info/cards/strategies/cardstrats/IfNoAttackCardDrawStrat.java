@@ -31,5 +31,6 @@ public class IfNoAttackCardDrawStrat implements Strat{
 			}
 			Log.getLog().addLog("You draw " + nbCard + "card");
 		}
+		nbAttack = 0;
 	}
 }
