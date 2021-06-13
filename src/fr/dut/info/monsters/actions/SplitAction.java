@@ -20,6 +20,7 @@ public class SplitAction implements MonsterAction {
 		slimeLife = value;
 	}
 	
+	//add two new slimes when the "parents" uses split
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
 		String slime = opponent.getName();

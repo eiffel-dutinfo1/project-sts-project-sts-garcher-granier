@@ -7,7 +7,6 @@ import fr.dut.info.player.PlayerAvatar;
 import fr.dut.info.stats.Stats;
 
 public interface Opponent {
-
 	boolean takeDamage(int value);
 	void executeMove(Opponent self, PlayerAvatar avatar) throws IOException ;
 	String getPicturePath();

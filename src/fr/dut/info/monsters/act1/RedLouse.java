@@ -21,6 +21,7 @@ public class RedLouse extends AbstractOpponent{
 		super.getNextMove();
 	}
 	
+	//modified takeDamage() method to give shield to the Louse once a turn after taking damage
 	@Override
 	public boolean takeDamage(int value) {
 		if (!curlUpUsed) {
@@ -34,6 +35,7 @@ public class RedLouse extends AbstractOpponent{
 		return super.takeDamage(value);
 	}
 	
+	//prevent curlUp to be used more than once per turn
 	@Override
 	public void executeMove(Opponent self, PlayerAvatar avatar) throws IOException {
 		curlUpUsed = false;

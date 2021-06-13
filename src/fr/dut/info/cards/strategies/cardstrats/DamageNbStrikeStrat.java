@@ -16,6 +16,7 @@ public class DamageNbStrikeStrat implements Strat{
 		nbStrike = value;
 	}
 	
+	//damages an enemy multiple times
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		nbStrike = 0;

@@ -15,6 +15,7 @@ public class GainEnergyStrat implements Strat{
 		energy = value;
 	}
 	
+	//gives energy to player
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		playerAvatar.gainEnergy(energy);

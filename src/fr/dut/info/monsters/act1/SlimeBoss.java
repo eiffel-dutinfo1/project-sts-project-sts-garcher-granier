@@ -23,6 +23,7 @@ public class SlimeBoss extends AbstractOpponent{
 		splitThreshold = 70;
 	}
 	
+	//force moves rotation according to the monster pattern of Spray - Preparing - Slam
 	@Override
 	public void getNextMove() {
 		String moveName = super.nextMove().getName();
@@ -41,6 +42,7 @@ public class SlimeBoss extends AbstractOpponent{
 		}
 	}
 	
+	//modified takeDamage() method to activate the split action as soon as the slime gets under 50% hp
 	@Override
 	public boolean takeDamage(int value) {
 		if (super.getCurrentHP()-value < splitThreshold) {

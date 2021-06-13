@@ -16,6 +16,7 @@ public class CardHandIntoDrawStrat implements Strat{
 		nbCard = value;
 	}
 	
+	//sends a card from hand into the draw
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		if(playerAvatar.getHand().size()-nbCard > 0) {

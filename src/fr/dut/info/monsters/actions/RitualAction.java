@@ -14,6 +14,7 @@ public class RitualAction implements MonsterAction {
 		ritual = value;
 	}
 	
+	//gives ritual to the monster
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
 		opponent.getStats().addRitual(ritual);

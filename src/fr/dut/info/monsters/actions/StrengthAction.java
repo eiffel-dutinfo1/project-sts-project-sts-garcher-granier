@@ -14,6 +14,7 @@ public class StrengthAction implements MonsterAction {
 		strength = value;
 	}
 	
+	//gives strength to the monster
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
 		opponent.getStats().addStrength(strength);

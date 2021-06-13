@@ -15,6 +15,7 @@ public class IfVulnerableGainEnergyDrawStrat implements Strat{
 		nb = value;
 	}
 	
+	//if the enemy is vulnerable, gains energy and draw
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		if(opponents.get(target).getStats().getVulnerability() > 0) {

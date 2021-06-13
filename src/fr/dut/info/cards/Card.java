@@ -58,10 +58,12 @@ public class Card implements Comparable<Card> {
 		return exhaustable;
 	}
 	
+	//unused
 	public Card makeCopy() throws CloneNotSupportedException {
 		return (Card) this.clone();
 	}
 	
+	//plays each strategy of the card subsequently
 	public void playCard(TreeMap<Integer, Opponent> opponents, PlayerAvatar avatar, int target) throws IOException {
 		for (Strat strat : strategies) {
 			strat.useStrat(opponents, avatar, target);

@@ -8,11 +8,13 @@ import fr.dut.info.player.PlayerAvatar;
 import fr.dut.info.stats.Stats;
 
 public abstract class AbstractOpponent implements Opponent{
+	//all useful and general information about a monster are here
 	private final String name;
 	private final String picturePath;
 	private final int maxhp;
 	private int hp;
 	private final Stats stats;
+	//a monsters has a list of moves, a move being what a monster does in a single turn
 	private final ArrayList<Move> moves;
 	private Move nextMove;
 	
@@ -61,6 +63,8 @@ public abstract class AbstractOpponent implements Opponent{
 		moves.add(move);
 	}
 	
+	//to execute the move, you execute each action the move is composed of
+	//for example, a monster can in a single move in a single turn, deal damage and weakness to the player
 	public void executeMove(Opponent self, PlayerAvatar avatar) throws IOException {
 		nextMove.executeActions(self, avatar);
 		for (Move move : moves) {
@@ -71,6 +75,10 @@ public abstract class AbstractOpponent implements Opponent{
 		getNextMove();
 	}
 	
+	//probabilistic method to select the next legal move from the list of moves
+	//each move has a set weight and a maximum amount of consecutive appearances
+	//from these factors, we determines the legal moves available, then from
+	//those legal moves we randomly select one
 	public void getNextMove() {
 		int maxProbability = 0;
 		ArrayList<Move> legalMoves = new ArrayList<Move>();
@@ -92,6 +100,7 @@ public abstract class AbstractOpponent implements Opponent{
 		}
 	}
 	
+	//forcibly set the next move to bypass getNextMove()
 	public void setNextMove(Move move) {
 		this.nextMove = move;
 	}

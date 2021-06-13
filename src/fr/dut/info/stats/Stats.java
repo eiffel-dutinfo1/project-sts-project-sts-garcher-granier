@@ -9,6 +9,7 @@ public class Stats {
 	private int vulnerability;
 	private int endTurnBlock;
 	
+	//all stats are gathered in one place to make it easier to modify
 	public Stats() {
 		block = 0;
 		strength = 0;
@@ -71,6 +72,7 @@ public class Stats {
 		endTurnBlock += value;
 	}
 	
+	//modifier to take into account damage augmentations/reductions before dealing damages
 	public int applyAttackerModifiers(int damageDealt) {
 		damageDealt += strength;
 		if (weak > 0) {
@@ -79,6 +81,7 @@ public class Stats {
 		return damageDealt;
 	}
 	
+	//modifier to take into account damage augmentations/reductions before receiving damages
 	public int applyDefenderModifiers(int damageTaken) {
 		if (block > 0) {
 			int temp = damageTaken;

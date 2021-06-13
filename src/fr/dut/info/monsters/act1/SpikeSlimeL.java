@@ -18,6 +18,7 @@ public class SpikeSlimeL extends AbstractOpponent{
 		super.getNextMove();
 	}
 	
+	//constructor to specify hp in case of split
 	public SpikeSlimeL(int hp) {
 		super("Spike Slime L", hp, "resources/pictures/SpikeSlimeL.png");
 		splitThreshold = (hp/2);
@@ -26,6 +27,7 @@ public class SpikeSlimeL extends AbstractOpponent{
 		super.getNextMove();
 	}
 	
+	//modified takeDamage() method to activate the split action as soon as the slime gets under 50% hp
 	@Override
 	public boolean takeDamage(int value) {
 		if (super.getCurrentHP()-value < splitThreshold) {

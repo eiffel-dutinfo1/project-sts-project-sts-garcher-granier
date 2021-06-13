@@ -15,6 +15,7 @@ public class DoubleBlockStrat implements Strat{
 		nb = value;
 	}
 	
+	//double player's block
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		playerAvatar.getStats().addBlock(playerAvatar.getStats().getBlock());

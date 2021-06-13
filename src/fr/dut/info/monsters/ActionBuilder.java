@@ -12,6 +12,8 @@ import fr.dut.info.monsters.actions.StrengthAction;
 import fr.dut.info.monsters.actions.WeakAction;
 
 public class ActionBuilder {
+	//similar to StratBuilder and other builders in this game
+	//depending on a keyword, will fetch the appropriate class accordingly
 	public static MonsterAction createAction(String name, int value) {
 		switch (name) {
 		case "damage":
@@ -35,6 +37,7 @@ public class ActionBuilder {
 		}
 	}
 	
+	//helper method to transform a string into multiple substrings
 	public static ArrayList<String> stringsToArray(String string) {
 		ArrayList<String> array = new ArrayList<String>();
 		for (String word : string.split("#")) {
@@ -43,6 +46,7 @@ public class ActionBuilder {
 		return array;
 	}
 	
+	//helper method to transform a string (comprised of integers) into multiple substrings
 	public static ArrayList<Integer> integersToArray(String string) {
 		ArrayList<Integer> array = new ArrayList<Integer>();
 		for (String str : string.split("#")) {

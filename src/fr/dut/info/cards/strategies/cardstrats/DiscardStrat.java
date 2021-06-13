@@ -17,6 +17,7 @@ public class DiscardStrat implements Strat{
 		this.value = value;
 	}
 	
+	//activate "discard mode" inside a FightRoom, allowing the player to choose cards to discard
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		((FightRoom) Map.getCurrentRoom()).activateDiscardMode(value);

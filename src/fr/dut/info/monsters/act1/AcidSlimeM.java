@@ -14,6 +14,7 @@ public class AcidSlimeM extends AbstractOpponent{
 		super.getNextMove();
 	}
 	
+	//constructor to specify hp in case of split
 	public AcidSlimeM(int hp) {
 		super("Acid Slime M", hp, "resources/pictures/AcidSlimeM.png");
 		super.addMove(new Move("Corrosive Spit", 30, 3, ActionBuilder.stringsToArray("damage#slime"), ActionBuilder.integersToArray("7#1")));

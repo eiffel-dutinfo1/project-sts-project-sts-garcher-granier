@@ -23,6 +23,7 @@ public class Log {
 		return logs;
 	}
 	
+	//Delivers a set number of logs to display in the view
 	public List<String> logDisplay(int numberOfLogs) {
 		int logSize = logs.size();
 		if (logSize <= numberOfLogs) {

@@ -16,6 +16,7 @@ public class DamageRandomTimeStrat implements Strat{
 		damage = value;
 	}
 	
+	//damages different enemies randomly
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		for(int i = 0; i < damage; i++) {

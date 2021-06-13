@@ -13,6 +13,7 @@ public class DiscardAllDrawAllStrat implements Strat {
 	public DiscardAllDrawAllStrat() {
 	}
 	
+	//discards all cards from hand and draws same number of cards
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		int handSize = playerAvatar.getHand().size();

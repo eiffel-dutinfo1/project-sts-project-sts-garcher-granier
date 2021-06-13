@@ -16,6 +16,7 @@ public class IfNoAttackCardDrawStrat implements Strat{
 		nbCard = value;
 	}
 	
+	//special attack only possible if no attack card is present in hand
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		int nbAttack = 0;

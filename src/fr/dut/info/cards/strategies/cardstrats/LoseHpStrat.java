@@ -15,6 +15,7 @@ public class LoseHpStrat implements Strat{
 		hp = value;
 	}
 	
+	//substracts hp from player healthpool
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		playerAvatar.takeDamage(hp);

@@ -14,6 +14,7 @@ public class WeakAction implements MonsterAction {
 		weak = value;
 	}
 	
+	//apply weak to the player
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
 		opponent.getStats().addWeak(weak);

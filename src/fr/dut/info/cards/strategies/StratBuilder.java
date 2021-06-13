@@ -32,6 +32,10 @@ import fr.dut.info.cards.strategies.cardstrats.SingleTargetAttackStrat;
 import fr.dut.info.cards.strategies.cardstrats.VulnerableStrat;
 
 public class StratBuilder {
+	//Depending on the keywords read in the CardBuilder, the StratBuilder
+	//will create the appropriate class
+	//this is based on the Strategy design pattern
+	//and maybe a bit of factory too but we're not sure
 	public static Strat createStrat(String name, int value) {
 		switch (name) {
 		case "single_damage":
@@ -97,5 +101,6 @@ public class StratBuilder {
 		default:
 			throw new IllegalArgumentException("Strat name is not recognized, please verify the .txt file. Input : " + name);
 		}
+		//it is long
 	}
 }

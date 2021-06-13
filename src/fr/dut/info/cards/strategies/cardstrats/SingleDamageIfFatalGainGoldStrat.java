@@ -15,9 +15,11 @@ public class SingleDamageIfFatalGainGoldStrat implements Strat{
 		damage = value;
 	}
 	
+	//deals damages, special effect if target dies
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		int modifiedDamage = damage;
+		//we modify the damage according to the monster's stats (block, vulnerability...) before applying damages
 		modifiedDamage = playerAvatar.getStats().applyAttackerModifiers(modifiedDamage);
 		modifiedDamage = opponents.get(target).getStats().applyDefenderModifiers(modifiedDamage);
 		if((opponents.get(target).getCurrentHP() - modifiedDamage) <= 0) {

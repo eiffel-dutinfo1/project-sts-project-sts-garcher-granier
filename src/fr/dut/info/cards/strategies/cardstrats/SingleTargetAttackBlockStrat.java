@@ -15,9 +15,11 @@ public class SingleTargetAttackBlockStrat implements Strat {
 		damage = value;
 	}
 	
+	//deals damages depending on player's block stat
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		int modifiedDamage = damage + playerAvatar.getStats().getBlock();
+		//we modify the damage according to the monster's stats (block, vulnerability...) before applying damages
 		modifiedDamage = playerAvatar.getStats().applyAttackerModifiers(modifiedDamage);
 		modifiedDamage = opponents.get(target).getStats().applyDefenderModifiers(modifiedDamage);
 		opponents.get(target).takeDamage(modifiedDamage);

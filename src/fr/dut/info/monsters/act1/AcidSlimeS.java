@@ -22,6 +22,7 @@ public class AcidSlimeS extends AbstractOpponent{
 		super.addMove(tackle);
 	}
 	
+	//force rotation
 	@Override
 	public void getNextMove() {
 		if (super.nextMove().getName().equals("Lick")) {

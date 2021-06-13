@@ -19,6 +19,7 @@ public class AcidSlimeL extends AbstractOpponent{
 		super.getNextMove();
 	}
 	
+	//constructor to specify hp in case of split
 	public AcidSlimeL(int hp) {
 		super("Acid Slime L", hp, "resources/pictures/AcidSlimeL.png");
 		splitThreshold = (hp/2);
@@ -28,6 +29,7 @@ public class AcidSlimeL extends AbstractOpponent{
 		super.getNextMove();
 	}
 	
+	//modified takeDamage() method to activate the split action as soon as the slime gets under 50% hp
 	@Override
 	public boolean takeDamage(int value) {
 		if (super.getCurrentHP()-value < splitThreshold) {

@@ -15,6 +15,7 @@ public class EndTurnBlock implements Strat{
 		block = value;
 	}
 	
+	//gives block to player at the end of the turn
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		playerAvatar.getStats().addEndTurnBlock(block);

@@ -14,6 +14,7 @@ private int vulnerable;
 		vulnerable = value;
 	}
 	
+	//apply vulnerable to a single enemy
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) {
 		opponents.get(target).getStats().addVulnerability(vulnerable);
 		Log.getLog().addLog("You apply " + vulnerable + " vulnerability to " + opponents.get(target).getName());

@@ -12,6 +12,7 @@ public class PreparingAction implements MonsterAction {
 	public PreparingAction() {
 	}
 	
+	//do literally nothing and yet
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
 		Log.getLog().addLog("Slime Boss is preparing something");

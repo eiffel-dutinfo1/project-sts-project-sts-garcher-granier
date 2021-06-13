@@ -15,6 +15,7 @@ public class ApplyStrengthStrat implements Strat{
 		strength = value;
 	}
 	
+	//gives strength to player
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		opponents.get(target).getStats().addStrength(strength);;

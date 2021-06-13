@@ -15,6 +15,7 @@ public class DoubleStrength implements Strat{
 		nb = value;
 	}
 	
+	//double player's strength
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		playerAvatar.getStats().addStrength(playerAvatar.getStats().getStrength());

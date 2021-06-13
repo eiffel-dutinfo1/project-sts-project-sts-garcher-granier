@@ -16,6 +16,7 @@ public class LastCardDiscardToDrawStrat implements Strat{
 		nbCard = value;
 	}
 	
+	//get last discard and place it into draw
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		if(playerAvatar.getDiscard().size() > 0) {

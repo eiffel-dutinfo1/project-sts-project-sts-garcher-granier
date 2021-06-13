@@ -7,10 +7,12 @@ import java.util.Objects;
 import fr.dut.info.player.PlayerAvatar;
 
 public class Move {
+	//a move is what a monster does in a single turn
 	private final String name;
 	private final int probability;
 	private final int maxStreak;
 	private int currentStreak;
+	//one or multiple actions can compose a move
 	private final ArrayList<MonsterAction> actions;
 	
 	public Move(String name, int probability, int maxStreak, ArrayList<String> actionNames, ArrayList<Integer> actionValues) {
@@ -36,7 +38,7 @@ public class Move {
 		return probability;
 	}
 	
-	//return true si le move est ill�gal
+	//returns true if the move is legal
 	public boolean isLegal() {
 		return currentStreak < maxStreak;
 	}
@@ -45,7 +47,7 @@ public class Move {
 		currentStreak = 0;
 	}
 	
-	// ici l'opponent correspond au monstre qui effectue le move
+	// here the opponent is the monster itself (hence the "self" argument)
 	public void executeActions(Opponent self, PlayerAvatar avatar) throws IOException {
 		for (MonsterAction action : actions) {
 			action.doAction(self, avatar);
@@ -55,6 +57,7 @@ public class Move {
 		}
 	}
 	
+	//gives a list of actions to display in the view as a preview to inform the player of the monster intentions
 	public ArrayList<String> actionsPreview() {
 		ArrayList<String> preview = new ArrayList<String>();
 		for (MonsterAction action : actions) {

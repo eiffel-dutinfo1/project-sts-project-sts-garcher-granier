@@ -21,25 +21,13 @@ import fr.umlv.zen5.Event.Action;
 
 public class GameMainController {
 
-	/**
-	 * Notre jeu initial va être totalement simplifié : le contrôleur surveille les clics de souris
-	 * et demande le rafraichissement de l'interface à chaque clic de souris.  
-	 * Le jeu de termine lorsquon appuie sur une touche du clavier.
-	 *  
-	 * @param context
-	 * @throws IOException 
-	 */
 	static void simpleGame(ApplicationContext context) throws IOException {
-		// Le contexte nous apporte la taille de l'écran. 
 		ScreenInfo screenInfo = context.getScreenInfo();
 		float width = screenInfo.getWidth();
 		float height = screenInfo.getHeight();
 	
 		System.out.println("size of the screen (" + width + " x " + height + ")");
 
-		// Pour des questions pratique on définit la taille du terrain de jeu.
-		// Ce n'est pas forcément portable ni souhaitable. 
-		// Vous pouvez modifier ces valeur selon la taille de votre écran.
 		float gameWidth = width;
 		float gameHeight = height;
 		
@@ -47,15 +35,10 @@ public class GameMainController {
 		
 		SimpleGameView view = SimpleGameView.initGameGraphics(height, width, data, gameWidth, gameHeight); 
 		view.draw(context);
-		
-		
-		// Pour simplifier la présentation du code on passe dans une fonction auxiliaire. 
+
 		GameMainController.mainLoop(context, data, view);
 	}
 	public static void main(String[] args) {
-		//Application.run(Color.LIGHT_GRAY, GameMainController::simpleGame); // attention, utilisation d'une
-																					// lambda.
-		
 		Application.run(Color.LIGHT_GRAY, t -> {
 			try {
 				simpleGame(t);
@@ -66,48 +49,42 @@ public class GameMainController {
 		System.out.println("ne doit pas s'afficher");
 	}
 	
-	
-	
-	
-	/**
-	 * Fonction utilisée pour clarifier la présentation.
-	 * @param context  Le contexte de l'application.
-	 * @param data Les données du modèle.
-	 * @param view La vue.
-	 * @throws IOException 
-	 */
 	private static void mainLoop(ApplicationContext context, Map data, SimpleGameView view) throws IOException {
 		while (true) {
-			Event event = context.pollOrWaitEvent(20); // modifier pour avoir un affichage fluide
-			if (event == null) { // Rien ne se passe. 
+			Event event = context.pollOrWaitEvent(20); // modify for better framerate
+			if (event == null) { // nothing happens 
 				continue;
 			}
 
 			Action action = event.getAction(); 
-			// Touche du clavier pour terminer le jeu. 
+			// press and keyboard key to end the game 
 			if (action == Action.KEY_PRESSED || action == Action.KEY_RELEASED) {
 				System.out.println("Fin du jeu");
 				context.exit(0);
 				throw new AssertionError("ne devrait pas arriver");
 			}
 
-			if (action != Action.POINTER_DOWN) { // si l'action n'est pas un clic de souris on attend l'événement suivant.
+			if (action != Action.POINTER_DOWN) { // if the action is not a click, go to next event
 				continue;
 			}else {
 				Point2D.Float location = event.getLocation();
+				//collect click coordinates information
 				int index = view.areaFromCoordinates(location.x, location.y);
+				//if roomEvent returns true, that mean the room is done and the player can go to the next room
 				if (data.getCurrentRoom().roomEvent(index, data.getPlayer())) {
 					data.nextRoom();
 					if (data.getCurrentRoom().getRoomType().equals("FightRoom")) {
+						//only really useful once in the program to set the hero type (IronClad or Silent)
 						((FightRoom) data.getCurrentRoom()).setAvatar(data.getPlayer());;
 					}
 				}
+				//if the players dies, displays the game over screen
 				if (data.getPlayer().getCurrentHP() <= 0) {
 					data.gameOver();
 				}
 			}
 
-			// à la fin on affiche à nouveau toute l'interface. 
+			// display UI
 			view.draw(context);
 		}
 	}

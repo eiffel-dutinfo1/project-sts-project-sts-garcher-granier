@@ -22,6 +22,7 @@ public class CardBuilder {
 	private static ArrayList<Card> rareCards;
 	private static ArrayList<Card> specialCards;
 	
+	//big constructor to fill each arraylist with its corresponding cards
 	private CardBuilder(String heroType) throws IOException {
 		Path colorlessPath = FileSystems.getDefault().getPath("resources", "colorless_cards.txt");
 		Path ironcladPath = FileSystems.getDefault().getPath("resources", "ironclad_cards.txt");
@@ -39,6 +40,8 @@ public class CardBuilder {
 		}
 	}
 	
+	//an extractor reader a single file a single time
+	//it is able to convert lines of .txt to usable Card objects stored in lists
 	public ArrayList<Card> cardExtractor(Path path) throws IOException {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
@@ -54,6 +57,9 @@ public class CardBuilder {
 				String cardType = data[6];
 				Card card = new Card(name, cost, rarity, picturePath, exhaustable, needTarget, cardType);
 				int numberOfStrats = (data.length-7);
+				//last elements of each lines are duos
+				//a strat name and its associated value
+				//there can be one or multiple
 				for (int i = 0; i < numberOfStrats; i = i + 2) {
 					Strat strat = StratBuilder.createStrat(data[i + 7], Integer.valueOf(data[i + 8]));
 					card.addStrat(strat);
@@ -88,6 +94,8 @@ public class CardBuilder {
 		}
 	}
 	
+	//following methods allow to get cards of specific rarities anywhere in the program
+	
 	public Card giveRandomCommonCard() {
 		return commonCards.get(Randomizer.randomInt(0, commonCards.size()));
 	}
@@ -104,6 +112,7 @@ public class CardBuilder {
 		return starterCards;
 	}
 	
+	//for testing purpose, allows to fetch and try specific cards without too much hassle
 	public Card fetchCard(String cardName) {
 		Card wantedCard = null;
 		for (Card card : commonCards) {
@@ -124,6 +133,7 @@ public class CardBuilder {
 		return wantedCard;
 	}
 	
+	//singleton
 	public static CardBuilder getCardBuilder() throws IOException {
 		if (instance == null) {
 			throw new IllegalArgumentException("CardBuilder should have been initialized by now.");

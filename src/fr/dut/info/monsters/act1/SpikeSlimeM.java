@@ -13,6 +13,7 @@ public class SpikeSlimeM extends AbstractOpponent{
 		super.getNextMove();
 	}
 	
+	//constructor to specify hp in case of split
 	public SpikeSlimeM(int hp) {
 		super("Spike Slime M", hp, "resources/pictures/SpikeSlimeM.png");
 		super.addMove(new Move("Lick", 70, 3, ActionBuilder.stringsToArray("weak"), ActionBuilder.integersToArray("1")));

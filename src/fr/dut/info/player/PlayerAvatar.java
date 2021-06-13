@@ -66,18 +66,17 @@ public class PlayerAvatar {
 	}
 	
 	public Card drawOneCard() {
-		//si la pioche est vide, on la remplit avec la defausse puis on vide la defausse
+		//if the draw is empty, we fill it with the discard then we empty the discard
 		if (draw.isEmpty()) {
 			draw.addAll(discard);
 			discard.removeAll(discard);
 		}
-		//implementer randomitude
 		return draw.remove(draw.size() - 1);
 	}
 	
 	public void drawFiveCards() {
 		Collections.shuffle(discard);
-		//remplit la main de 5 cartes
+		//fill the hand with 5 random cards from draw
 		for (int i = 0; i < 5; i++) {
 			hand.add(drawOneCard());
 		}
@@ -85,7 +84,7 @@ public class PlayerAvatar {
 	}
 	
 	public void emptyHand() {
-		//permet de vider la main dans la defausse a la fin d'un tour
+		//empties hand into discard at the end of a turn
 		for (Card card : hand) {
 			discard.add(card);
 		}
@@ -93,22 +92,27 @@ public class PlayerAvatar {
 	}
 	
 	public void removeCard(Card card) {
+		//remove a card from the hand and puts it in the discard
+		//if the card is exhaustable, card is sent into the nether instead, never to be seen again in this fightroom
 		if (!card.isExhaustable()) {
 			discard.add(card);
 		}
 		hand.remove(card);
 	}
 	
+	//specific card removal in case of player initiated discard (example : Silent several cards) to not send the card to the nether
 	public void removeCardNoExhaust(Card card) {
 		discard.add(card);
 		hand.remove(card);
 	}
 	
+	//remove from discard to give to hand
 	public void reverseRemoveCard(Card card) {
 		hand.add(card);
 		discard.remove(card);
 	}
 	
+	//removes a card from hand to give to draw
 	public Card cardHandToDraw() {
 		int nb = Randomizer.randomInt(0, hand.size());
 		Card card = hand.get(nb);
@@ -117,10 +121,12 @@ public class PlayerAvatar {
 		return card;
 	}
 	
+	//this shuffles the cards, surprisingly
 	public void shuffleHand() {
 		Collections.shuffle(hand);
 	}
 	
+	//ouch
 	public boolean takeDamage(int damage) {
 		return player.takeDamage(damage);
 	}
@@ -140,6 +146,7 @@ public class PlayerAvatar {
 		return display.toString();
 	}
 	
+	//returns true if the player is dead (hp < 0)
 	public boolean isDead() {
 		if (player.getCurrentHP() <= 0) {
 			return true;

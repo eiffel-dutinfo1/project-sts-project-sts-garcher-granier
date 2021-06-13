@@ -3,7 +3,7 @@ package fr.dut.info.cards;
 import java.util.ArrayList;
 import java.util.Objects;
 
-//classe qui sert a rien pour le moment
+//a deck is simply a list of cards possessed by the Player class
 public class Deck {
 	private final ArrayList<Card> deck;
 	
@@ -16,6 +16,7 @@ public class Deck {
 		deck.add(card);
 	}
 	
+	//unused
 	public ArrayList<Card> copyDeck() {
 		ArrayList<Card> copy = new ArrayList<>();
 		for (Card card : deck) {

@@ -16,6 +16,7 @@ public class ShuffleDiscardIntoDraw implements Strat{
 		nb = value;
 	}
 	
+	//shuffle a card from discard into draw
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		for(Card card : playerAvatar.getDiscard()) {

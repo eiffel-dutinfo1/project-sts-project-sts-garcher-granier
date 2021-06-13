@@ -17,6 +17,7 @@ public class DamageAction implements MonsterAction {
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
 		int modifiedDamage = damage;
+		//apply defensives/offensives modifiers before dishing out damages to the player
 		modifiedDamage = opponent.getStats().applyAttackerModifiers(modifiedDamage);
 		modifiedDamage = avatar.getStats().applyDefenderModifiers(modifiedDamage);
 		avatar.takeDamage(modifiedDamage);

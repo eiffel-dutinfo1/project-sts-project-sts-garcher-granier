@@ -16,6 +16,7 @@ public class DiscardRandomStrat implements Strat{
 		this.value = value;
 	}
 	
+	//discards a random card from hand
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		playerAvatar.removeCardNoExhaust(playerAvatar.getHand().get(Randomizer.randomInt(0, playerAvatar.getHand().size())));

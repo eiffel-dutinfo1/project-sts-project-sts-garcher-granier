@@ -15,6 +15,7 @@ public class SlimeAction implements MonsterAction {
 		slimeNumber = value;
 	}
 	
+	//add Slimed card(s) to the player discard that he will eventually draw
 	@Override
 	public void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException {
 		for (int i = 0; i < slimeNumber; i++) {

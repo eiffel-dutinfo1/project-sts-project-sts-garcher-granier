@@ -16,6 +16,7 @@ public class ApplyAllVulnerable implements Strat{
 		vulnerable = value;
 	}
 	
+	//apply vulnerable to all enemies
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		for(Entry<Integer, Opponent> entry : opponents.entrySet()) {

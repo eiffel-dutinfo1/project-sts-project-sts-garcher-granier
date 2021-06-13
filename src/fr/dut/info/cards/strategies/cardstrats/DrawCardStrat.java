@@ -15,6 +15,7 @@ public class DrawCardStrat implements Strat{
 		nbCard = value;
 	}
 	
+	//draw a number of cards
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		for(int i = 0; i < nbCard; i++ ) {

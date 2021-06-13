@@ -68,9 +68,6 @@ public class Player {
 				}
 			}
 		}
-		deck.add(CardBuilder.getCardBuilder().fetchCard("Offering"));
-		deck.add(CardBuilder.getCardBuilder().fetchCard("Offering"));
-		deck.add(CardBuilder.getCardBuilder().fetchCard("Offering"));
 	}
 	
 	public ArrayList<Card> copyDeck() {

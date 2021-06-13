@@ -14,6 +14,7 @@ private int block;
 		block = value;
 	}
 	
+	//gives block to player
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) {
 		playerAvatar.getStats().addBlock(block);
 		Log.getLog().addLog("You apply " + block + " block to yourself");

@@ -16,9 +16,11 @@ public class MultiAttackStrat implements Strat {
 		damage = value;
 	}
 	
+	//deals damages to all enemies
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		int modifiedDamage = damage;
+		//we modify the damage according to the monster's stats (block, vulnerability...) before applying damages
 		modifiedDamage = playerAvatar.getStats().applyAttackerModifiers(modifiedDamage);
 		for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
 			entry.getValue().getStats().applyDefenderModifiers(modifiedDamage);

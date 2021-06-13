@@ -31,29 +31,10 @@ import fr.dut.info.rooms.Merchant;
 import fr.dut.info.rooms.Room;
 
 
-/**
- * Cette classe est une adaptation de celle qui a été fourni avec le projet Slay The Spire. 
- * 
- * Elle contient les éléments de visualisation de l'interface. C'est une _vue_.
- * 
- * Vous aurez quelques modfications à faire dans le cadre de ce TD.
- * 
- * @author Christophe Morvan
- *
- */
+//where magic happens
+
 @SuppressWarnings("preview")
 public record SimpleGameView(float height, float width, float hMargin, float vMargin, Map data, float hSize, float vSize) implements GameView {
-	
-	/**
-	 * C'est une méthode qui fournit comme résultat une SimpleGameView et sert de point d'entrée au contrôleur. 
-	 *  
-	 * @param height Hauteur totale de l'écran.
-	 * @param width Largeur totale de l'écran.
-	 * @param data2  Point d'entrée au modèle.
-	 * @param hSize Taille horizontale utile.
-	 * @param vSize Taille verticale utile.
-	 * @return Une SimpleGameView correctement initialisée.
-	 */
 	public static SimpleGameView initGameGraphics(float height, float width, Map data2, float hSize, float vSize) {
 		float hMargin, vMargin;
 		hMargin = (width - hSize)/2;
@@ -62,16 +43,8 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	}
 	
 
-	/**
-	 * Construction de l'affichage, utilise un objet Graphics2D déjà initialisé.
-	 * 
-	 * @param graphics a Graphics2D object provided by the default method
-	 *                 {@code draw(ApplicationContext, GameData)}
-	 * @param data     the GameData containing the game data.
-	 */
 	@Override
 	public void draw(Graphics2D graphics) {
-		// Interface de base : rectangle de hSize x vSize centré.
 		graphics.setColor(Color.LIGHT_GRAY);
 		graphics.setColor(Color.WHITE);
 		graphics.fill(new Rectangle2D.Float(hMargin, vMargin, hSize, vSize));
@@ -79,8 +52,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		graphics.setColor(Color.WHITE);
 		graphics.setColor(Color.LIGHT_GRAY);
 		
-		// Fonction auxiliaire de l'affichage du contenu. 
-		
+		//if the game is over, displays game over screen, otherwise displays room layouts
 		if (data.isGameOver()) {
 			drawEndScreen(graphics);
 		} else {
@@ -88,7 +60,8 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		}
 	}
 
-
+	
+	//returns correct area input pattern depending on the room
 	@Override
 	public int areaFromCoordinates(float x, float y) {
 		switch (data.getCurrentRoom().getRoomType()) {
@@ -208,11 +181,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		return -1;
 	}
 	
-	/**
-	 * Fonction auxiliaire de la construction des éléments de l'interface.
-	 * 
-	 * @param graphics
-	 */
+	//returns the correct layout to display depending on the room
 	public void drawLayout(Graphics2D graphics) {
 		switch (data.getCurrentRoom().getRoomType()) {
 		case "FightRoom":
@@ -246,7 +215,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	
 	public void drawRewardLayout(Graphics2D graphics) {
 		ArrayList<Card> rewards = ((RewardRoom) data.getCurrentRoom()).getRewards();
+		//because of bad implementations, the user must click once to make the shop items appear
 		if (rewards.size()==0) {
+			//this is to make it a little bit more user-friendly
 			writeStringAtCoords("Découvrir les récompenses", graphics, hSize/2-200, vSize/2, 40);
 		} else {
 			graphics.draw(new Line2D.Float(hSize/3, 0, hSize/3, vSize));
@@ -267,7 +238,6 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		float yLow = vSize/2 + vMargin, ySpace =40; 
 		float [] steps = {0, ySpace};
 		graphics.setColor(Color.BLACK);
-		// 2 lignes horizontales
 		for (float step : steps) {
 			graphics.draw(new Line2D.Float(0+hMargin, yLow + step, hSize + hMargin, yLow + step));
 		}
@@ -278,13 +248,10 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		graphics.draw(new Line2D.Float(4*hSize/5, 0, 4*hSize/5, vSize));
 		writeStringAtCoords("END TURN", graphics, 87*hSize/100, vMargin + vSize/2 + 30, 24);
 		yLow += ySpace ;
-		// Les lignes verticales de la partie basse.
 		for (float xLimit : xLimits) {
 			graphics.draw(new Line2D.Float(xLimit+hMargin, yLow, xLimit + hMargin, vMargin + vSize));
 		}
 		
-		// Ensuite affichage des autres éléments : infos du joueur,
-		// cartes puis adversaires. 
 		drawPlayerInfo(graphics);
 		graphics.setColor(Color.LIGHT_GRAY);
 		drawCards(graphics);
@@ -320,7 +287,6 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		float yLow = vSize/2 + vMargin, ySpace =40; 
 		float [] steps = {0, ySpace};
 		graphics.setColor(Color.BLACK);
-		// 2 lignes horizontales
 		for (float step : steps) {
 			graphics.draw(new Line2D.Float(0+hMargin, yLow + step, hSize + hMargin, yLow + step));
 		}
@@ -362,11 +328,8 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			xUpL += hSize/5;
 			xLowR += hSize/5;
 		}
-		//writeStringAtCoords("Jouer cette carte", graphics, *hSize/3, vSize - 40);
 	}
 	private void drawOpponents(Graphics2D graphics) {
-		// Utiliser la fonction drawImageInArea et writeStringAtCoords
-		// Pour afficher les informations de l'adversaire.
 		TreeMap<Integer, Opponent> opponents = ((FightRoom) data.getCurrentRoom()).getOpponents();
 		float xUpL = hSize/50;
 		float xLowR = 9*hSize/50;
@@ -414,16 +377,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		graphics.setColor(Color.LIGHT_GRAY);				
 	}
 	
-	/**
-	 * Cette méthode permet d'afficher une image correctement mise à l'échelle 
-	 * entre les points (xUpL, yUpL) et (xLowR, yLowR).
-	 * @param graphics  Le support d'affichage.
-	 * @param imagePath  Le chemin de l'image.
-	 * @param xUpL  Coordonnée en x du coin supérieur gauche.
-	 * @param yUpL  Coordonnée en y du coin supérieur gauche.
-	 * @param xLowR  Coordonnée en x du coin inférieur droit.
-	 * @param yLowR  Coordonnée en y du coin inférieur droit.
-	 */
+	//draw an image using a path and specified coordinates
 	private void drawImageInArea(Graphics2D graphics, String imagePath, float xUpL, float yUpL, float xLowR, float yLowR) {
 		float width = xLowR - xUpL, height = yLowR - yUpL;
 		Path path = Path.of(imagePath);
@@ -437,5 +391,4 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			throw new RuntimeException("problème d'affichage : " + imagePath);
 		}
 	}
-	
 }
