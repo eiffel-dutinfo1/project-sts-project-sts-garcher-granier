@@ -162,7 +162,7 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 	
 	public int areaFromCoordinatesMerchant(float x, float y) {
 		if ((y > vSize/2) && (y < (vSize/2) + 40) && (x > 4*hSize/5)) {
-			return 9;
+			return 10;
 		}
 		if (y < (vSize/2)) {
 			if (x < hSize/5) {
@@ -178,8 +178,16 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			}
 		}
 		if (y > (vSize/2) + 40) {
-			if((x >= hSize/50) && (x <= 9*hSize/50) && (y >= vSize/2 + 80) && (y <= vSize - 60)) {
+			if (x < hSize/5) {
 				return 5;
+			} else if (x < 2*hSize/5) {
+				return 6;
+			} else if (x < 3*hSize/5) {
+				return 7;
+			} else if (x < 4*hSize/5) {
+				return 8;
+			} else {
+				return 9;
 			}
 		}
 		return -1;
@@ -285,8 +293,8 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		float yLowR = 500;
 		for (Card card : shop) {
 			drawImageInArea(graphics, card.getPicturePath(), xUpL, yUpL, xLowR, yLowR);
-			writeStringAtCoords("" + Merchant.getCardPrice(card), graphics, xLowR/2, vMargin + yLowR + 30, 24);
-			if(xUpL == 1728) {
+			writeStringAtCoords("" + Merchant.getCardPrice(card), graphics, xLowR-((hSize/5)/2), vMargin + yLowR + 30, 24);
+			if(xUpL >= 1728) {
 				xUpL = hSize/50;
 				xLowR = 9*hSize/50;
 				yUpL = vSize/2 + 80;
@@ -304,7 +312,6 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		for (float step : steps) {
 			graphics.draw(new Line2D.Float(0+hMargin, yLow + step, hSize + hMargin, yLow + step));
 		}
-		graphics.draw(new Line2D.Float(4*hSize/5, 0, 4*hSize/5, vSize));
 		writeStringAtCoords("LEAVE", graphics, 87*hSize/100, vMargin + vSize/2 + 30, 24);
 		writeStringAtCoords("Gold : " + gold, graphics, hMargin, vMargin + vSize/2 + 30, 24);
 	}

@@ -105,4 +105,12 @@ public class Player {
 	public void heal() {
 		hp = maxhp;
 	}
+	
+	public void heal(int x) {
+		hp += x;
+	}
+	
+	public void gainMaxHp(int x) {
+		maxhp += x;
+	}
 }
