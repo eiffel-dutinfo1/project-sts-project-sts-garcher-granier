@@ -97,6 +97,7 @@ public class Stats {
 		return damageTaken;
 	}
 	
+	//each turn this method is called to update stats (notably stats that decrease each turn, or get reseted)
 	public void turnUpdate() {
 		block = endTurnBlock;
 		strength += ritual;

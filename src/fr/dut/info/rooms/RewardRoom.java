@@ -13,6 +13,7 @@ public class RewardRoom implements Room{
 	private final int gold;
 	
 	public RewardRoom(String roomDifficulty) throws IOException {
+		//give specific gold amounts depeding on the room difficulty
 		if (roomDifficulty.equals("elite")) {
 			gold = Randomizer.randomInt(30, 46);
 		} else {
@@ -24,8 +25,10 @@ public class RewardRoom implements Room{
 	@Override
 	public boolean roomEvent(int index, Player player) throws IOException {
 		if (rewards.size()==0) {
+			//grant player his gold
 			player.giveGold(gold);
 			int random;
+			//give a choice of 3 random cards of random rarities, the rarest being... rare
 			for (int i = 0; i < 3; i++) {
 				random = Randomizer.randomInt(0, 101);
 				if (random<70) {
@@ -37,6 +40,7 @@ public class RewardRoom implements Room{
 				}
 			}
 		} else {
+			//give to the player the selected card and go on to the next room
 			if (index == 0) {
 				player.getDeck().add(rewards.get(0));
 				return true;

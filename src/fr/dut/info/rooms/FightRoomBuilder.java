@@ -30,8 +30,9 @@ public class FightRoomBuilder {
 		}
 	}
 	
+	//gives a room a randomized encounter with pre-determined monster groups
 	private static void addBasicMonsters(FightRoom room) {
-		// CHANGER LES VALEURS DU RANDOMIZER SI AJOUT D'UN MONSTRE
+		// DISCLAIMER : CHANGE RANDOMIZER VALUES WHEN ADDING A MONSTER
 		int number = Randomizer.randomInt(0, 6);
 		switch (number) {
 		case 0:
@@ -80,7 +81,7 @@ public class FightRoomBuilder {
 	}
 	
 	private static void addEliteMonsters(FightRoom room) {
-		// CHANGER LES VALEURS DU RANDOMIZER SI AJOUT D'UN MONSTRE
+		//useless because no elite monster implemented, returns a basic monster instead
 		int number = Randomizer.randomInt(0, 1);
 		switch (number) {
 		case 0:
