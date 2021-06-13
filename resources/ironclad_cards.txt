@@ -21,7 +21,7 @@ Bludgeon#Bludgeon.png#rare#3#false#true#attack#single_damage#32
 Clash#Clash.png#common#0#false#true#attack#if_all_attack_single_damage#14
 Warcry#Warcry.png#common#0#true#false#skill#draw_card#1#card_hand_into_draw#1
 Disarm#Disarm.png#uncommon#1#true#true#skill#apply_strength#-2
-Intimidate#Intimidate.png#uncommon#0#true#true#skill#apply_all_weak#1
+Intimidate#Intimidate.png#uncommon#0#true#false#skill#apply_all_weak#1
 Pummel#Pummel.png#uncommon#1#true#true#attack#single_damage#2#single_damage#2#single_damage#2#single_damage#2
 Seeing Red#SeeingRed.png#uncommon#1#true#false#skill#gain_energy#2
 Shockwave#Shockwave.png#uncommon#2#true#false#skill#apply_all_weak#3#apply_all_vulnerable#3

@@ -108,7 +108,7 @@ public class PlayerAvatar {
 	
 	//remove from discard to give to hand
 	public void reverseRemoveCard(Card card) {
-		hand.add(card);
+		draw.add(card);
 		discard.remove(card);
 	}
 	
