@@ -26,7 +26,6 @@ public class Map {
 		rooms[0] = new StartRoom();
 		
 		rooms[1] = new FightRoom("basic");
-		rooms[1] = new FightRoom("boss");
 		
 		rooms[2] = new RewardRoom("basic");
 		

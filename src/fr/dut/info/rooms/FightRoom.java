@@ -89,7 +89,6 @@ public class FightRoom implements Room {
 	}
 	
 	public boolean roomEvent(int index, Player player) throws IOException {
-		System.out.println(opponents);
 		if (index >= 0 && index <= avatar.getHand().size()-1) {
 			selectedCard = index;
 		}
