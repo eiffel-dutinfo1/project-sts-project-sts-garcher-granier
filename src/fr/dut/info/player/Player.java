@@ -94,7 +94,7 @@ public class Player {
 		return false;
 	}
 	
-	//pour tester
+	//for testing
 	public void printDeck() {
 		for (Card card : deck) {
 			System.out.println(card.toString());

@@ -81,13 +81,10 @@ public class FightRoomBuilder {
 	
 	private static void addEliteMonsters(FightRoom room) {
 		// CHANGER LES VALEURS DU RANDOMIZER SI AJOUT D'UN MONSTRE
-		int number = Randomizer.randomInt(0, 2);
+		int number = Randomizer.randomInt(0, 1);
 		switch (number) {
 		case 0:
-			room.addOpponent(new Cultist());
-			break;
-		case 1:
-			room.addOpponent(new JawWorm());
+			addBasicMonsters(room);
 			break;
 		default:
 			throw new IllegalArgumentException("Could not add elite monsters to the FightRoom");
