@@ -25,6 +25,7 @@ import fr.dut.info.Log;
 import fr.dut.info.cards.Card;
 import fr.dut.info.monsters.Opponent;
 import fr.dut.info.rooms.FightRoom;
+import fr.dut.info.rooms.RewardRoom;
 import fr.dut.info.rooms.Map;
 import fr.dut.info.rooms.Merchant;
 import fr.dut.info.rooms.Room;
@@ -99,6 +100,8 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			return areaFromCoordinatesMerchant(x, y);
 		case "FireCamp":
 			return areaFromCoordinatesFireCamp(x, y);
+		case "Reward":
+			return areaFromCoordinatesReward(x, y);
 		default:
 			return -1;
 		}
@@ -109,6 +112,17 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 			return 0;
 		} else if (x > hSize/2) {
 			return 1;
+		}
+		return -1;
+	}
+	
+	public int areaFromCoordinatesReward(float x, float y) {
+		if (x < hSize/3) {
+			return 0;
+		} else if (x < 2*hSize/3) {
+			return 1;
+		} else if (x < 3*hSize/3) {
+			return 2;
 		}
 		return -1;
 	}
@@ -199,6 +213,9 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		case "FireCamp":
 			drawFireCampLayout(graphics);
 			break;
+		case "Reward":
+			drawRewardLayout(graphics);
+			break;
 		default:
 			break;
 		}
@@ -208,6 +225,25 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		writeStringAtCoords("Heal", graphics, 2*hSize/8, vSize/2, 24);
 		writeStringAtCoords("Forgeron", graphics, 6*hSize/8, vSize/2, 24);
 		graphics.draw(new Line2D.Float(hSize/2, 0, hSize/2, vSize));
+	}
+	
+	public void drawRewardLayout(Graphics2D graphics) {
+		ArrayList<Card> rewards = ((RewardRoom) data.getCurrentRoom()).getRewards();
+		if (rewards.size()==0) {
+			writeStringAtCoords("Découvrir les récompenses", graphics, hSize/2-200, vSize/2, 40);
+		} else {
+			graphics.draw(new Line2D.Float(hSize/3, 0, hSize/3, vSize));
+			graphics.draw(new Line2D.Float(2*hSize/3, 0, 2*hSize/3, vSize));
+			float xUpL = 2*hSize/30;
+			float xLowR = 8*hSize/30;
+			float yUpL = 2*vSize/8;
+			float yLowR = 6*vSize/8;
+			for (Card card : rewards) {
+				drawImageInArea(graphics, card.getPicturePath(), xUpL, yUpL, xLowR, yLowR);
+				xUpL += hSize/3;
+				xLowR += hSize/3;
+			}
+		}
 	}
 	
 	public void drawFightRoomLayout(Graphics2D graphics) {
@@ -306,7 +342,6 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		//writeStringAtCoords("Jouer cette carte", graphics, *hSize/3, vSize - 40);
 	}
 	private void drawOpponents(Graphics2D graphics) {
-		// TODO : Question 4 
 		// Utiliser la fonction drawImageInArea et writeStringAtCoords
 		// Pour afficher les informations de l'adversaire.
 		TreeMap<Integer, Opponent> opponents = ((FightRoom) data.getCurrentRoom()).getOpponents();
@@ -317,6 +352,11 @@ public record SimpleGameView(float height, float width, float hMargin, float vMa
 		for (Entry<Integer, Opponent> opponent : opponents.entrySet()) {
 			drawImageInArea(graphics, opponent.getValue().getPicturePath(), xUpL, yUpL, xLowR, yLowR);
 			writeStringAtCoords("HP : " + opponent.getValue().getCurrentHP() + " / " + opponent.getValue().getMaxHP(), graphics, xUpL + hSize/20, yLowR+20, 24);
+			int lines = 1;
+			for (String preview : opponent.getValue().nextMove().actionsPreview()) {
+				writeStringAtCoords(preview, graphics, xUpL + hSize/20, yLowR+20+(lines*30), 24);
+				lines++;
+			}
 			xUpL += hSize/5;
 			xLowR += hSize/5;
 		}

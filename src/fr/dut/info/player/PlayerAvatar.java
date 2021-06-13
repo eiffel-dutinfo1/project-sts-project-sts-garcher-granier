@@ -29,6 +29,11 @@ public class PlayerAvatar {
 		draw = new ArrayList<Card>();
 		Objects.requireNonNull(player.getDeck());
 		draw.addAll(player.copyDeck());
+		Collections.shuffle(draw);
+	}
+	
+	public void addToDiscard(Card card) {
+		discard.add(card);
 	}
 	
 	public int getEnergy() {
@@ -70,6 +75,7 @@ public class PlayerAvatar {
 	}
 	
 	public void drawFiveCards() {
+		Collections.shuffle(discard);
 		//remplit la main de 5 cartes
 		for (int i = 0; i < 5; i++) {
 			hand.add(drawOneCard());
@@ -86,7 +92,9 @@ public class PlayerAvatar {
 	}
 	
 	public void removeCard(Card card) {
-		discard.add(card);
+		if (!card.isExhaustable()) {
+			discard.add(card);
+		}
 		hand.remove(card);
 	}
 	

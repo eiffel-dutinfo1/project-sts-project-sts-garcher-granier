@@ -19,4 +19,9 @@ public class BlockAction implements MonsterAction {
 		opponent.getStats().addBlock(block);
 		Log.getLog().addLog(opponent.getName() + " gains " + block + " stack" + (block > 1 ? "s" : "") + " of block");
 	}
+
+	@Override
+	public String actionPreview() {
+		return "block";
+	}
 }

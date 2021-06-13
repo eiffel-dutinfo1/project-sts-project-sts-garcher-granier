@@ -19,4 +19,9 @@ public class StrengthAction implements MonsterAction {
 		opponent.getStats().addStrength(strength);
 		Log.getLog().addLog(opponent.getName() + " gains " + strength + " stack" + (strength > 1 ? "s" : "") + " of strength");
 	}
+	
+	@Override
+	public String actionPreview() {
+		return "strength";
+	}
 }

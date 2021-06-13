@@ -20,10 +20,10 @@ public class DamageRandomTimeStrat implements Strat{
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		for(int i = 0; i < damage; i++) {
 			int nb = Randomizer.randomInt(0, opponents.size());
-			Opponent opponentTarget = opponents.get(Randomizer.randomInt(0, opponents.size()));
+			Opponent opponentTarget = opponents.get(nb);
 			int modifiedDamage = damage + playerAvatar.getStats().getBlock();
 			modifiedDamage = playerAvatar.getStats().applyAttackerModifiers(modifiedDamage);
-			modifiedDamage = opponents.get(target).getStats().applyDefenderModifiers(modifiedDamage);
+			modifiedDamage = opponents.get(nb).getStats().applyDefenderModifiers(modifiedDamage);
 			opponents.get(nb).takeDamage(modifiedDamage);
 			Log.getLog().addLog("You deal " + modifiedDamage + " damage to " + opponentTarget.getName());
 		}

@@ -11,7 +11,7 @@ import fr.dut.info.player.Player;
 import fr.dut.info.player.PlayerAvatar;
 
 public class FightRoom implements Room {
-	private final TreeMap<Integer, Opponent> opponents;
+	private TreeMap<Integer, Opponent> opponents;
 	private int numberOfOpponents;
 	private PlayerAvatar avatar = null;
 	private int selectedCard;
@@ -89,6 +89,7 @@ public class FightRoom implements Room {
 	}
 	
 	public boolean roomEvent(int index, Player player) throws IOException {
+		System.out.println(opponents);
 		if (index >= 0 && index <= avatar.getHand().size()-1) {
 			selectedCard = index;
 		}
@@ -129,10 +130,13 @@ public class FightRoom implements Room {
 		}
 		for(Integer integer : list) {
 			opponents.remove(integer);
-			for(int i = integer; i <= opponents.size(); i++) {
-				opponents.put(i, opponents.get(i + 1));
-				opponents.remove(i+1);
+			TreeMap<Integer, Opponent> newMap = new TreeMap<Integer, Opponent>();
+			int count = 1;
+			for(Entry<Integer, Opponent> entry : opponents.entrySet()) {
+				newMap.put(count, entry.getValue());
+				count++;
 			}
+			opponents = newMap;
 		}
 	}
 	

@@ -13,19 +13,21 @@ public class Card implements Comparable<Card> {
 	private final String name;
 	private final int energyCost;
 	private final String rarity;
+	private final String cardType;
 	private final String picturePath;
 	private final boolean exhaustable;
 	private boolean exhausted;
 	private final ArrayList<Strat> strategies;
 	private final boolean needTarget;
 	
-	public Card(String name, int energyCost, String rarity, String picturePath, boolean exhaustable, boolean needTarget) {
+	public Card(String name, int energyCost, String rarity, String picturePath, boolean exhaustable, boolean needTarget, String cardType) {
 		this.name = Objects.requireNonNull(name);
 		this.energyCost = energyCost;
 		this.rarity = Objects.requireNonNull(rarity);
 		this.picturePath = Objects.requireNonNull(picturePath);
 		this.exhaustable = exhaustable;
 		this.needTarget = needTarget;
+		this.cardType = cardType;
 		//par d�faut, une carte commence non exhausted car non jou�e
 		exhausted = false;
 		strategies = new ArrayList<Strat>();
@@ -50,6 +52,10 @@ public class Card implements Comparable<Card> {
 	
 	public boolean getNeedTarget() {
 		return needTarget;
+	}
+	
+	public boolean isExhaustable() {
+		return exhaustable;
 	}
 	
 	public Card makeCopy() throws CloneNotSupportedException {

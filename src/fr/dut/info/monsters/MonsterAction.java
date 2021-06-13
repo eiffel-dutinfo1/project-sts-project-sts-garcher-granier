@@ -6,4 +6,5 @@ import fr.dut.info.player.PlayerAvatar;
 
 public interface MonsterAction {
 	void doAction(Opponent opponent, PlayerAvatar avatar) throws IOException;
+	String actionPreview();
 }

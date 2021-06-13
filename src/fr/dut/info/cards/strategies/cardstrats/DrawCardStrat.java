@@ -18,7 +18,7 @@ public class DrawCardStrat implements Strat{
 	@Override
 	public void useStrat(TreeMap<Integer, Opponent> opponents, PlayerAvatar playerAvatar, int target) throws IOException {
 		for(int i = 0; i < nbCard; i++ ) {
-			playerAvatar.drawOneCard();
+			playerAvatar.getHand().add(playerAvatar.drawOneCard());
 		}
 		Log.getLog().addLog("You draw " + nbCard + "card");
 	}

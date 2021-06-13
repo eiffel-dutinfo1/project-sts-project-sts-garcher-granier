@@ -10,10 +10,10 @@ import fr.dut.info.monsters.act1.JawWorm;
 import fr.dut.info.player.Player;
 
 public class Map {
-	private Room[] rooms = new Room[9];
+	private static Room[] rooms = new Room[13];
 	private static Player player;
 	private static String hero;
-	private int currentRoom;
+	private static int currentRoom;
 	//passe a true si le jouer perd tous ses pv
 	private static boolean isGameOver;
 	
@@ -26,24 +26,31 @@ public class Map {
 		rooms[0] = new StartRoom();
 		
 		rooms[1] = new FightRoom("basic");
+		rooms[1] = new FightRoom("boss");
 		
-		int index = 2;
+		rooms[2] = new RewardRoom("basic");
+		
+		int index = 3;
 		int remainingBasicFightRooms = 2;
 		int remainingEliteFightRooms = 1;
 		int remainingFireCamps = 2;
 		int remainingMerchants = 1;
-		while (index < 8) {
+		while (index < 12) {
 			int number = Randomizer.randomInt(0, 4);
 			switch (number) {
 			case 0:
 				if (remainingBasicFightRooms != 0) {
 					rooms[index] = new FightRoom("basic");
 					index++;
+					rooms[index] = new RewardRoom("basic");
+					index++;
 				}
 				break;
 			case 1:
 				if (remainingEliteFightRooms != 0) {
 					rooms[index] = new FightRoom("elite");
+					index++;
+					rooms[index] = new RewardRoom("elite");
 					index++;
 				}
 				break;
@@ -63,16 +70,16 @@ public class Map {
 				throw new IllegalArgumentException("Error in map generation.");
 			}
 		}
-		rooms[8] = new FightRoom("boss");
+		rooms[12] = new FightRoom("boss");
 	}
 	
 	public static void setHero(String heroType) throws IOException {
 		hero = heroType;
 		CardBuilder cardBuilder = CardBuilder.getCardBuilder(heroType);
 		if (hero.equals("IronClad")) {
-			player = new Player(80, 100, "IronClad");
+			player = new Player(800, 100, "IronClad");
 		} else {
-			player = new Player(70, 100, "Silent");
+			player = new Player(700, 100, "Silent");
 		}
 	}
 	
@@ -88,7 +95,7 @@ public class Map {
 		return player;
 	}
 	
-	public Room getCurrentRoom() {
+	public static Room getCurrentRoom() {
 		return rooms[currentRoom];
 	}
 	

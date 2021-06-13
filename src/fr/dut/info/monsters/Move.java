@@ -55,6 +55,14 @@ public class Move {
 		}
 	}
 	
+	public ArrayList<String> actionsPreview() {
+		ArrayList<String> preview = new ArrayList<String>();
+		for (MonsterAction action : actions) {
+			preview.add(action.actionPreview());
+		}
+		return preview;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

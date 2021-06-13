@@ -25,8 +25,16 @@ public abstract class AbstractOpponent implements Opponent{
 		moves = new ArrayList<Move>();
 	}
 	
+	public Move nextMove() {
+		return nextMove;
+	}
+	
 	public String getName() {
 		return name;
+	}
+	
+	public ArrayList<Move> getMoves() {
+		return moves;
 	}
 	
 	public int getCurrentHP() {
@@ -67,8 +75,6 @@ public abstract class AbstractOpponent implements Opponent{
 		int maxProbability = 0;
 		ArrayList<Move> legalMoves = new ArrayList<Move>();
 		for (Move move : moves) {
-			System.out.println(move.getName());
-			System.out.println(move.getCurrentStreak());
 			if (move.isLegal()) {
 				legalMoves.add(move);
 				maxProbability += move.getProbability();
@@ -86,8 +92,8 @@ public abstract class AbstractOpponent implements Opponent{
 		}
 	}
 	
-	public ArrayList<Move> getMoves() {
-		return moves;
+	public void setNextMove(Move move) {
+		this.nextMove = move;
 	}
 	
 	@Override
